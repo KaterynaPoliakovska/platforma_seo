@@ -1,0 +1,1009 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>SEO з нуля</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: курс як "лабораторний журнал" — карта курсу зліва, урок справа: відеоплеєр-розбір → ілюстрація → теорія → кроки → чек-лист → тест */
+:root{
+  --bg:#F1F4EF; --surface:#FFFFFF; --sunk:#E7ECE5; --ink:#14201C; --muted:#56665F; --line:#D5DDD4;
+  --accent:#0A7350; --accent-ink:#FFFFFF; --accent-soft:#DCEFE5;
+  --warn:#A35F00; --warn-soft:#FAEBCF; --bad:#B3261E; --bad-soft:#F8DEDA; --info:#2457A6; --info-soft:#DEE8F7;
+  --code-bg:#10201A; --code-fg:#D6E9DE; --code-key:#7FE0B0; --code-str:#F2C46D; --code-com:#7C978B;
+  --f-display:"Unbounded", "Golos Text", system-ui, sans-serif;
+  --f-body:"Golos Text", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0D1412; --surface:#15201C; --sunk:#1B2824; --ink:#E3ECE7; --muted:#93A59C; --line:#27362F;
+  --accent:#43C690; --accent-ink:#06140E; --accent-soft:#12352A;
+  --warn:#E6A640; --warn-soft:#3A2B10; --bad:#F2766B; --bad-soft:#3D1B18; --info:#7EA8F0; --info-soft:#17284A;
+  --code-bg:#08110E; --code-fg:#D6E9DE; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0D1412; --surface:#15201C; --sunk:#1B2824; --ink:#E3ECE7; --muted:#93A59C; --line:#27362F;
+  --accent:#43C690; --accent-ink:#06140E; --accent-soft:#12352A;
+  --warn:#E6A640; --warn-soft:#3A2B10; --bad:#F2766B; --bad-soft:#3D1B18; --info:#7EA8F0; --info-soft:#17284A;
+  --code-bg:#08110E; --code-fg:#D6E9DE; color-scheme:dark }
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
+a{color:var(--accent)}
+code{font-family:var(--f-mono);font-size:.86em;background:var(--sunk);padding:.1em .35em;border-radius:4px;overflow-wrap:anywhere}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.app{display:grid;grid-template-columns:320px minmax(0,1fr);min-height:100%}
+.side{position:sticky;top:env(safe-area-inset-top,0px);height:calc(100vh - env(safe-area-inset-top,0px));overflow:auto;background:var(--surface);border-right:1px solid var(--line);padding:20px 16px 40px max(16px,env(safe-area-inset-left,0px))}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);margin-bottom:6px}
+.brand-mark{width:34px;height:34px;border-radius:8px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-family:var(--f-mono);font-weight:600;font-size:13px}
+.brand b{font-family:var(--f-display);font-weight:700;font-size:17px;letter-spacing:-.01em}
+.prog{margin:14px 0 18px;font-size:13px;color:var(--muted)}
+.bar{height:6px;background:var(--sunk);border-radius:99px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .4s}
+.blk{margin-top:18px}
+.blk-h{font-family:var(--f-display);font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:0 6px 6px}
+.blk-h span{display:block;font-family:var(--f-body);text-transform:none;letter-spacing:0;font-size:15px;font-weight:700;color:var(--ink);margin-top:2px}
+details.mod{border-top:1px solid var(--line)}
+details.mod summary{list-style:none;cursor:pointer;padding:10px 6px;font-weight:600;font-size:14.5px;display:flex;gap:8px;align-items:baseline}
+details.mod summary::-webkit-details-marker{display:none}
+details.mod summary .n{font-family:var(--f-mono);font-size:12px;color:var(--accent);min-width:28px}
+details.mod summary .c{margin-left:auto;font-size:12px;color:var(--muted);font-weight:500;font-variant-numeric:tabular-nums}
+.les{display:flex;gap:8px;align-items:flex-start;padding:7px 8px 7px 40px;font-size:14px;color:var(--ink);text-decoration:none;border-radius:6px;line-height:1.4}
+.les:hover{background:var(--sunk)}
+.les.on{background:var(--accent-soft);font-weight:600}
+.les .dot{flex:none;width:14px;height:14px;margin-top:2px;border-radius:50%;border:1.5px solid var(--line)}
+.les.done .dot{background:var(--accent);border-color:var(--accent);box-shadow:inset 0 0 0 3px var(--surface)}
+
+.main{min-width:0;padding-block:28px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:860px;margin:0 auto}
+.topbar{display:none}
+.crumbs{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.crumbs b{color:var(--accent);font-weight:600}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,3.6vw,38px);line-height:1.15;letter-spacing:-.02em;margin:0 0 12px;text-wrap:balance}
+h2{font-family:var(--f-display);font-weight:500;font-size:21px;line-height:1.25;margin:40px 0 12px;letter-spacing:-.01em;text-wrap:balance}
+h3{font-size:17px;margin:24px 0 8px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.chip{font-size:12.5px;padding:3px 10px;border-radius:99px;background:var(--sunk);color:var(--muted);font-weight:500}
+.chip.t{background:var(--info-soft);color:var(--info)}
+.lead{font-size:18px;line-height:1.55;max-width:66ch;color:var(--ink)}
+.prose p,.prose li{max-width:68ch}
+.prose ul{padding-left:20px}
+.prose li{margin:4px 0}
+
+/* Відеоплеєр-розбір */
+.player{background:var(--code-bg);color:var(--code-fg);border-radius:14px;overflow:hidden;margin:22px 0 8px}
+.pl-head{display:flex;align-items:center;gap:10px;padding:10px 14px;font-size:12.5px;font-family:var(--f-mono);color:#9DB8AB;border-bottom:1px solid #22362D}
+.pl-head .rec{width:8px;height:8px;border-radius:50%;background:#F2766B}
+.pl-stage{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:0;min-height:300px}
+.pl-ill{background:var(--surface);display:grid;place-items:center;padding:14px;min-width:0}
+.pl-ill svg{width:100%;height:auto;max-height:300px}
+.pl-txt{padding:22px 22px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.pl-scene{font-family:var(--f-mono);font-size:12px;color:var(--code-key)}
+.pl-title{font-family:var(--f-display);font-size:19px;line-height:1.3;color:#fff}
+.pl-desc{font-size:15px;line-height:1.55;color:#C7DBD0}
+.pl-ctrl{display:flex;align-items:center;gap:12px;padding:10px 14px;border-top:1px solid #22362D}
+.pl-btn{width:38px;height:38px;border-radius:50%;border:0;background:var(--code-key);color:#06140E;display:grid;place-items:center;flex:none}
+.pl-btn svg{width:16px;height:16px}
+.pl-track{flex:1;display:flex;gap:4px;min-width:0}
+.pl-track button{flex:1;height:6px;border:0;border-radius:3px;background:#2A4237;padding:0;position:relative;overflow:hidden}
+.pl-track button i{position:absolute;inset:0;width:0;background:var(--code-key)}
+.pl-time{font-family:var(--f-mono);font-size:12px;color:#9DB8AB;font-variant-numeric:tabular-nums;flex:none}
+.pl-yt{font-size:13px;color:var(--muted);margin:0 0 6px}
+
+/* Ілюстрації */
+figure.ill{margin:24px 0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;overflow-x:auto}
+figure.ill svg{display:block;width:100%;min-width:520px;height:auto}
+figure.ill figcaption{font-size:13.5px;color:var(--muted);margin-top:10px}
+.svg-t{font-family:var(--f-body)}
+
+/* Блоки */
+.steps{counter-reset:s;list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.steps li{counter-increment:s;display:grid;grid-template-columns:36px minmax(0,1fr);gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.steps li::before{content:counter(s);width:30px;height:30px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-family:var(--f-mono);font-weight:600;font-size:14px;display:grid;place-items:center}
+.steps b{display:block;margin-bottom:2px}
+.steps p{margin:0;color:var(--ink)}
+.note{border-radius:var(--r);padding:14px 16px;margin:18px 0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start;font-size:15px}
+.note .ic{font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:4px;margin-top:3px}
+.note.tip{background:var(--accent-soft)} .note.tip .ic{background:var(--accent);color:var(--accent-ink)}
+.note.warn{background:var(--warn-soft)} .note.warn .ic{background:var(--warn);color:var(--surface)}
+.note.bad{background:var(--bad-soft)} .note.bad .ic{background:var(--bad);color:var(--surface)}
+.note p{margin:0}
+.tbl{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:560px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:var(--sunk);font-weight:600}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:600}
+pre.code{background:var(--code-bg);color:var(--code-fg);border-radius:var(--r);padding:16px;overflow-x:auto;font-family:var(--f-mono);font-size:13.5px;line-height:1.6;margin:16px 0}
+pre.code .k{color:var(--code-key)} pre.code .s{color:var(--code-str)} pre.code .c{color:var(--code-com)}
+.code-cap{font-family:var(--f-mono);font-size:12px;color:var(--muted);margin:16px 0 -10px}
+.checklist{list-style:none;padding:0;margin:0;display:grid;gap:6px}
+.checklist label{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border-radius:8px;background:var(--surface);border:1px solid var(--line);cursor:pointer}
+.checklist input{margin-top:5px;accent-color:var(--accent);width:16px;height:16px;flex:none}
+.checklist input:checked + span{color:var(--muted);text-decoration:line-through}
+.tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:14px 0}
+.tool{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+.tool b{display:block;font-size:15px}
+.tool small{display:block;color:var(--muted);font-size:13px;margin-top:2px;line-height:1.45}
+.tool .price{font-family:var(--f-mono);font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:.05em}
+
+.quiz{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:14px}
+.quiz .q{font-weight:600;margin-bottom:12px}
+.quiz .opts{display:grid;gap:8px}
+.quiz .opt{text-align:left;padding:10px 14px;border-radius:8px;border:1.5px solid var(--line);background:var(--bg)}
+.quiz .opt:hover{border-color:var(--accent)}
+.quiz .opt.ok{border-color:var(--accent);background:var(--accent-soft)}
+.quiz .opt.no{border-color:var(--bad);background:var(--bad-soft)}
+.quiz .ex{margin-top:12px;font-size:15px}
+
+.foot{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;margin-top:48px;padding-top:20px;border-top:1px solid var(--line)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:99px;border:1.5px solid var(--line);background:var(--surface);text-decoration:none;color:var(--ink);font-weight:600;font-size:14.5px}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.done{background:var(--accent-soft);border-color:var(--accent);color:var(--ink)}
+
+/* Головна */
+.hero{padding:10px 0 8px}
+.hero h1{font-size:clamp(30px,5vw,52px)}
+.hero .kicker{font-family:var(--f-mono);font-size:13px;color:var(--accent);margin-bottom:12px}
+.blocks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:28px 0}
+.bcard{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.bcard .no{font-family:var(--f-display);font-size:13px;color:var(--accent)}
+.bcard h3{font-family:var(--f-display);font-weight:500;font-size:20px;margin:0;line-height:1.3}
+.bcard p{margin:0;color:var(--muted);font-size:15px}
+.bcard ol{margin:4px 0 0;padding-left:20px;font-size:14.5px}
+.bcard .btn{align-self:flex-start;margin-top:auto}
+.how{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.how div{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;font-size:14px;min-width:0}
+.how b{display:block;font-family:var(--f-mono);font-size:12px;color:var(--accent);margin-bottom:4px}
+.gloss{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px}
+.gloss div{padding:10px 0;border-bottom:1px solid var(--line);font-size:14.5px;min-width:0}
+.gloss b{font-family:var(--f-mono);font-size:13.5px;color:var(--accent)}
+
+@media (max-width:900px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .side{position:fixed;inset:0 auto 0 0;width:min(340px,88vw);height:100%;z-index:40;transform:translateX(-102%);transition:transform .25s;padding-top:calc(20px + env(safe-area-inset-top,0px));box-shadow:0 0 40px rgba(0,0,0,.25)}
+  .side.open{transform:none}
+  .scrim{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:35}
+  .topbar{display:flex;align-items:center;gap:10px;position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line);padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px))}
+  .topbar button{border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:6px 12px;font-weight:600;font-size:14px}
+  .topbar b{font-family:var(--f-display);font-size:15px}
+  .main{padding-top:18px}
+  .pl-stage{grid-template-columns:minmax(0,1fr)}
+  .blocks,.gloss{grid-template-columns:minmax(0,1fr)}
+  .how{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="topbar"><button id="menuBtn" aria-label="Відкрити зміст курсу">☰ Зміст</button><b>SEO з нуля</b></div>
+<div class="app">
+  <nav class="side" id="side" aria-label="Зміст курсу"></nav>
+  <main class="main"><div class="wrap" id="view"></div></main>
+</div>
+<div class="scrim" id="scrim" hidden></div>
+<script>
+/* ===== Ілюстрації (SVG-схеми, кольори з токенів теми) ===== */
+const K={n:['--surface','--line','--ink'],a:['--accent-soft','--accent','--ink'],d:['--accent','--accent','--accent-ink'],w:['--warn-soft','--warn','--ink'],b:['--bad-soft','--bad','--ink'],i:['--info-soft','--info','--ink'],s:['--sunk','--line','--ink']};
+const v=n=>`var(${n})`;
+function svg(w,h,inner,label){return `<svg viewBox="0 0 ${w} ${h}" class="svg-t" role="img" aria-label="${label||''}" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`}
+function T(x,y,s,o={}){const size=o.size||13,wt=o.w||400,c=o.c||'--ink',a=o.a||'start',f=o.mono?'font-family:var(--f-mono);':'';return `<text x="${x}" y="${y}" text-anchor="${a}" style="${f}font-size:${size}px;font-weight:${wt};fill:${v(c)}">${s}</text>`}
+function R(x,y,w,h,k='n',r=8,extra=''){const c=K[k];return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" style="fill:${v(c[0])};stroke:${v(c[1])};stroke-width:1.5${extra}"/>`}
+function B(x,y,w,h,label,sub,k='n',size=14){const c=K[k];let s=R(x,y,w,h,k);const cy=sub?y+h/2-3:y+h/2+5;s+=T(x+w/2,cy,label,{size,w:600,c:c[2],a:'middle'});if(sub)s+=T(x+w/2,y+h/2+15,sub,{size:11.5,c:k==='d'?'--accent-ink':'--muted',a:'middle'});return s}
+function A(x1,y1,x2,y2,c='--muted',dash){const ang=Math.atan2(y2-y1,x2-x1),L=9;const p1=[x2-L*Math.cos(ang-0.45),y2-L*Math.sin(ang-0.45)],p2=[x2-L*Math.cos(ang+0.45),y2-L*Math.sin(ang+0.45)];return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" style="stroke:${v(c)};stroke-width:1.8${dash?';stroke-dasharray:5 4':''}"/><polygon points="${x2},${y2} ${p1[0].toFixed(1)},${p1[1].toFixed(1)} ${p2[0].toFixed(1)},${p2[1].toFixed(1)}" style="fill:${v(c)}"/>`}
+function L(x1,y1,x2,y2,c='--line',w=1.5,dash){return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" style="stroke:${v(c)};stroke-width:${w}${dash?';stroke-dasharray:4 4':''}"/>`}
+function C(cx,cy,r,k='n'){const c=K[k];return `<circle cx="${cx}" cy="${cy}" r="${r}" style="fill:${v(c[0])};stroke:${v(c[1])};stroke-width:1.5"/>`}
+
+const ILL={
+pipeline(){let s='';const st=[['Виявлення','посилання, sitemap','i'],['Сканування','Googlebot читає HTML','n'],['Рендеринг','виконує JS, CSS','n'],['Індекс','база сторінок Google','a'],['Ранжування','позиції у видачі','d']];
+ st.forEach((q,i)=>{const x=10+i*126;s+=B(x,70,112,64,q[0],q[1],q[2],13.5);if(i<4)s+=A(x+112,102,x+126,102)});
+ s+=T(10,40,'Шлях URL від появи до видачі',{size:15,w:700});
+ s+=T(10,175,'Зупинка на будь-якому етапі = сторінки немає в пошуку.',{size:12.5,c:'--muted'});
+ s+=R(10,190,616,64,'w',8);s+=T(24,214,'Де ламається:',{size:12.5,w:700,c:'--warn'});
+ s+=T(24,236,'немає посилань → не виявлено · robots.txt → не скановано · noindex / дубль / слабкий текст → не в індексі',{size:12});
+ return svg(636,264,s,'Етапи: виявлення, сканування, рендеринг, індекс, ранжування')},
+url(){let s='';const parts=[['https://','Протокол','i',70],['www.mosty.com.ua','Домен','a',150],['/uslugy/pereklad-dokumentiv/','Шлях (path)','n',236],['?utm_source=fb','Параметр','w',120],['#ціна','Фрагмент','s',62]];
+ s+=R(10,30,620,56,'s',28);let x=28;
+ parts.forEach(p=>{s+=T(x,64,p[0],{size:13,mono:1,c:K[p[2]][1]==='--line'?'--muted':K[p[2]][1]});s+=L(x,92,x,118,K[p[2]][1]);s+=T(x,134,p[1],{size:12,w:600});x+=p[3]*0.83});
+ s+=T(10,175,'Правила хорошого URL',{size:14,w:700});
+ const r=['латиниця, нижній регістр, дефіси замість пробілів','коротко й зрозуміло: /pereklad-dokumentiv/','одна версія: https + з www або без — інші 301-редирект','параметри (?utm, ?sort) не мають створювати дублі в індексі'];
+ r.forEach((t,i)=>{s+=C(18,197+i*22,4,'d');s+=T(30,201+i*22,t,{size:12.5})});
+ return svg(640,282,s,'Анатомія URL')},
+status(){let s='';const c=[['2xx','Успіх','200 OK — сторінка є','a'],['3xx','Редирект','301 назавжди, 302 тимчасово','i'],['4xx','Помилка клієнта','404 нема, 410 видалено','w'],['5xx','Помилка сервера','500, 502, 503 — сайт падає','b']];
+ c.forEach((q,i)=>{const x=10+i*157;s+=R(x,20,145,170,q[3],10);s+=T(x+16,62,q[0],{size:30,w:700,c:K[q[3]][1]});s+=T(x+16,92,q[1],{size:13.5,w:700});s+=T(x+16,116,q[2].split(' — ')[0],{size:12});if(q[2].split(' — ')[1])s+=T(x+16,134,q[2].split(' — ')[1],{size:12,c:'--muted'})});
+ s+=T(10,218,'Googlebot бачить код раніше, ніж текст сторінки. Код вирішує, що буде з URL в індексі.',{size:12.5,c:'--muted'});
+ return svg(640,230,s,'Групи кодів відповіді сервера')},
+tree(){let s='';s+=B(250,14,140,44,'Головна','/','d');
+ const l1=[['Послуги','/uslugy/',40],['Мови','/movy/',190],['Блог','/blog/',340],['Контакти','/kontakty/',490]];
+ l1.forEach(q=>{s+=L(320,58,q[2]+55,92,'--muted');s+=B(q[2],92,110,44,q[0],q[1],'a')});
+ const l2=[['Нотаріальний','/uslugy/notarialnyi/',0],['Присяжний','/uslugy/prysiazhnyi/',118],['Англійська','/movy/angliiska/',236],['Стаття','/blog/apostyl/',354]];
+ const par=[95,95,245,395];l2.forEach((q,i)=>{s+=L(par[i],136,q[2]+64,172,'--muted');s+=B(q[2]+10,172,108,44,q[0],q[1].split('/').slice(-2,-1)[0],'n',12.5)});
+ s+=B(500,172,120,44,'Політика','noindex? ні','s',12.5);s+=L(545,136,560,172,'--muted',1.5,1);
+ [['1 клік',36],['2 кліки',114],['3 кліки',194]].forEach(q=>s+=T(632,q[1],q[0],{size:11,c:'--muted',a:'end',mono:1}));
+ s+=T(10,248,'Кожна важлива сторінка — не глибше 3 кліків від головної, URL повторює ієрархію.',{size:12.5,c:'--muted'});
+ return svg(640,260,s,'Дерево структури сайту')},
+gsc(sel){sel=sel||'Сторінки';let s='';s+=R(0,0,640,300,'n',10);s+=R(0,0,640,40,'s',10);s+=T(16,25,'Google Search Console',{size:13,w:700});s+=R(200,10,260,22,'n',11);s+=T(212,25,'Перевірити будь-яку URL-адресу',{size:11,c:'--muted'});
+ const nav=['Огляд','Ефективність','Перевірка URL','Сторінки','Відео-сторінки','Файли Sitemap','Вилучення','Основні веб-показники','Посилання','Налаштування'];
+ nav.forEach((n,i)=>{const y=56+i*23;if(n===sel)s+=R(8,y-15,160,22,'a',11);s+=T(22,y,n,{size:12,w:n===sel?700:400})});
+ s+=T(190,70,sel,{size:16,w:700});
+ if(sel==='Сторінки'){s+=R(190,84,200,60,'a',8);s+=T(204,106,'Проіндексовано',{size:12});s+=T(204,132,'126',{size:22,w:700,c:'--accent'});s+=R(400,84,220,60,'s',8);s+=T(414,106,'Не проіндексовано',{size:12});s+=T(414,132,'48',{size:22,w:700,c:'--muted'});
+  const rows=[['Сторінка з переадресацією','17'],['Виключено тегом noindex','12'],['Дублікат: Google вибрав іншу канонічну','9'],['Проскановано, наразі не проіндексовано','6'],['Не знайдено (404)','4']];
+  rows.forEach((r,i)=>{const y=172+i*24;s+=L(190,y+8,620,y+8);s+=T(196,y,r[0],{size:12});s+=T(612,y,r[1],{size:12,w:600,a:'end',mono:1})})}
+ else if(sel==='Файли Sitemap'){s+=R(190,84,430,44,'s',8);s+=T(204,111,'https://site.com/ sitemap.xml',{size:12,mono:1});s+=R(540,92,70,28,'d',14);s+=T(575,111,'Надіслати',{size:11,w:600,c:'--accent-ink',a:'middle'});
+  s+=T(190,160,'Надіслані файли Sitemap',{size:13,w:700});[['sitemap.xml','Успішно','128'],['post-sitemap.xml','Успішно','42']].forEach((r,i)=>{const y=186+i*26;s+=T(196,y,r[0],{size:12,mono:1});s+=T(420,y,r[1],{size:12,c:'--accent',w:600});s+=T(612,y,r[2],{size:12,a:'end',mono:1});s+=L(190,y+9,620,y+9)})}
+ else if(sel==='Перевірка URL'){s+=R(190,84,430,80,'a',8);s+=T(206,108,'URL-адреса є в Google',{size:14,w:700,c:'--accent'});s+=T(206,130,'Сторінка проіндексована. Канонічна вказана користувачем ✓',{size:12});s+=R(470,138,140,20,'d',10);s+=T(540,152,'ПЕРЕВІРИТИ АКТИВНУ URL',{size:9.5,w:700,c:'--accent-ink',a:'middle'});
+  [['Виявлення','Файли Sitemap: sitemap.xml'],['Сканування','Сканування дозволено? Так'],['Індексування','Індексування дозволено? Так'],['Канонічна','user: …/uslugy/ · Google: та сама']].forEach((r,i)=>{const y=192+i*24;s+=T(196,y,r[0],{size:12,w:600});s+=T(320,y,r[1],{size:12,c:'--muted'});s+=L(190,y+8,620,y+8)});
+  s+=R(470,276,140,18,'s',9);s+=T(540,289,'Надіслати запит на індекс.',{size:9.5,a:'middle'})}
+ else if(sel==='Вилучення'){s+=R(190,90,160,32,'d',16);s+=T(270,111,'+ НОВИЙ ЗАПИТ',{size:11,w:700,c:'--accent-ink',a:'middle'});s+=T(190,152,'Тимчасове вилучення ≈ 6 місяців. Це не замінює noindex!',{size:12,c:'--warn',w:600});[['…/test-page/','Вилучено'],['…/old-price/','Обробляється']].forEach((r,i)=>{const y=186+i*26;s+=T(196,y,r[0],{size:12,mono:1});s+=T(612,y,r[1],{size:12,a:'end'});s+=L(190,y+9,620,y+9)})}
+ else if(sel==='Ефективність'){s+=T(190,96,'Кліки 1,2 тис.   Покази 48 тис.   CTR 2,5%   Позиція 18,4',{size:12,w:600});let p='';for(let i=0;i<20;i++){const x=190+i*22,y=230-(40+30*Math.sin(i/3)+i*3);p+=(i?'L':'M')+x+','+y.toFixed(0)}s+=`<path d="${p}" style="fill:none;stroke:var(--info);stroke-width:2"/>`;s+=L(190,240,620,240);s+=T(190,270,'Вкладки: Запити · Сторінки · Країни · Пристрої',{size:12,c:'--muted'})}
+ else if(sel==='Основні веб-показники'){[['Мобільні','34 погані','b'],['Комп’ютер','0 поганих','a']].forEach((r,i)=>{const y=92+i*80;s+=R(190,y,430,64,r[2],8);s+=T(206,y+26,r[0],{size:13,w:700});s+=T(206,y+48,r[1]+' URL · причина: LCP понад 4 с',{size:12})})}
+ else if(sel==='Посилання'){[['Зовнішні посилання','Сайти, що посилаються'],['Внутрішні посилання','Сторінки з найбільшою кількістю']].forEach((r,i)=>{const y=92+i*90;s+=R(190,y,430,72,'s',8);s+=T(206,y+28,r[0],{size:13,w:700});s+=T(206,y+50,r[1],{size:12,c:'--muted'})})}
+ return svg(640,300,s,'Схема інтерфейсу Search Console: '+sel)},
+crawler(tab,title){tab=tab||'Internal';let s='';s+=R(0,0,640,300,'n',10);s+=R(0,0,640,36,'s',10);s+=T(14,23,title||'Краулер (Screaming Frog / Netpeak Spider)',{size:12.5,w:700});s+=R(390,8,180,20,'n',10);s+=T(400,22,'https://site.com/',{size:11,mono:1,c:'--muted'});s+=R(576,8,54,20,'d',10);s+=T(603,22,'Start',{size:11,w:700,c:'--accent-ink',a:'middle'});
+ const tabs=['Internal','Response Codes','Page Titles','H1','Canonicals','Directives','Hreflang','Sitemaps'];let x=8;tabs.forEach(t=>{const w=t.length*6.6+16;if(t===tab)s+=R(x,44,w,24,'a',6);s+=T(x+8,60,t,{size:11,w:t===tab?700:400});x+=w+4});
+ const data={
+  'Internal':[['Address','Code','Indexability','Title'],['/','200','Indexable','Бюро перекладів…'],['/uslugy/','200','Indexable','Послуги перекладу'],['/blog/?page=2','200','Non-Indexable','Блог – стор. 2'],['/old-page/','301','Non-Indexable','—'],['/cart/','200','Non-Indexable','Кошик']],
+  'Response Codes':[['Address','Code','Status','Redirect URL'],['/uslugy/','200','OK',''],['/old-page/','301','Moved Permanently','/uslugy/'],['/akcia-2023/','404','Not Found',''],['http://site.com/','301','Moved Permanently','https://…'],['/api/form','500','Server Error','']],
+  'Page Titles':[['Address','Title 1','Length','Issue'],['/','Бюро перекладів Мости','22','Short'],['/uslugy/','Послуги','7','Duplicate'],['/kontakty/','Послуги','7','Duplicate'],['/blog/apostyl/','','0','Missing'],['/movy/','Переклад з 40 мов за 1 день — ціни, термін…','74','Over 60 chars']],
+  'H1':[['Address','H1-1','H1-2','Issue'],['/','Бюро перекладів','','OK'],['/uslugy/','','','Missing'],['/blog/','Блог','Новини','Multiple'],['/movy/','Мови','','OK'],['/movy/pl/','Мови','','Duplicate']],
+  'Canonicals':[['Address','Canonical Link','Indexability','Issue'],['/uslugy/','/uslugy/','Indexable','Self'],['/uslugy/?sort=a','/uslugy/','Canonicalised','OK'],['/blog/a/','/blog/b/','Canonicalised','Check'],['/movy/','—','Indexable','Missing'],['/kontakty/','http://…','Indexable','Wrong']],
+  'Directives':[['Address','Meta Robots','X-Robots-Tag','Result'],['/','index, follow','','OK'],['/search/?q=','noindex, follow','','noindex'],['/dyakuiemo/','noindex','','noindex'],['/uslugy/','noindex','','ПОМИЛКА!'],['/file.pdf','','noindex','noindex']],
+  'Hreflang':[['Address','uk','en','Issue'],['/','/','/en/','OK'],['/en/','/','/en/','OK'],['/pl/','—','/en/','Missing Self'],['/ru/','/','','No Return'],['/de/','/ua/','','Bad Code']],
+  'Sitemaps':[['Address','In Sitemap','Indexability','Issue'],['/uslugy/','Yes','Indexable','OK'],['/old-page/','Yes','Non-Indexable','301 у sitemap'],['/novyi-zapys/','No','Indexable','Not in sitemap'],['/sirota/','Yes','Indexable','Orphan'],['/cart/','Yes','Non-Indexable','noindex у sitemap']]};
+ const rows=data[tab]||data.Internal;const cx=[14,250,370,490];
+ rows.forEach((r,i)=>{const y=96+i*30;if(i===0){s+=R(8,78,624,26,'s',4)}r.forEach((c,j)=>{let col='--ink';if(i>0&&/^(4|5)\d\d$/.test(c)||/ПОМИЛКА|Missing|Duplicate|Wrong|No Return|Bad Code|Orphan|404|Multiple/.test(c))col='--bad';else if(i>0&&(/^3\d\d$/.test(c)||/Non-Indexable|Canonicalised|Check|Over|Short|noindex|Not in/.test(c)))col='--warn';else if(i>0&&(/^200$/.test(c)||/^Indexable$|^OK$|Self/.test(c)))col='--accent';s+=T(cx[j],y,c,{size:i?11.5:10.5,w:i?400:700,mono:j===0||j===1&&/\d/.test(c),c:i?col:'--muted'})});if(i>0)s+=L(8,y+10,632,y+10)});
+ return svg(640,300,s,'Схема краулера, вкладка '+tab)},
+directives(){let s='';const c=[['robots.txt','«Не заходь»','Google не читає сторінку. Але URL може потрапити в індекс за посиланнями.','w'],['noindex','«Не показуй»','Google читає сторінку і викидає її з індексу. Сканування має бути дозволене!','b'],['canonical','«Головна — ось ця»','Підказка: з кількох схожих сторінок у пошуку показати одну.','i'],['301','«Переїхала назавжди»','Користувач і Google автоматично йдуть на нову адресу.','a']];
+ c.forEach((q,i)=>{const x=10+(i%2)*312,y=10+Math.floor(i/2)*124;s+=R(x,y,300,112,q[3],10);s+=T(x+16,y+30,q[0],{size:16,w:700,mono:1,c:K[q[3]][1]});s+=T(x+16,y+52,q[1],{size:13,w:700});const words=q[2].split(' ');let line='',ly=y+74;words.forEach(w=>{if((line+w).length>44){s+=T(x+16,ly,line,{size:12});ly+=17;line=''}line+=w+' '});s+=T(x+16,ly,line,{size:12})});
+ return svg(632,260,s,'Різниця між robots.txt, noindex, canonical і 301')},
+canonical(){let s='';s+=B(400,95,220,70,'/uslugy/pereklad/','ОРИГІНАЛ · canonical на себе','a',13);
+ const d=['/uslugy/pereklad/?utm_source=fb','/uslugy/pereklad/?sort=price','/USLUGY/Pereklad/','http://site.com/uslugy/pereklad/'];
+ d.forEach((u,i)=>{const y=14+i*62;s+=R(10,y,270,46,'w',8);s+=T(22,y+21,u,{size:11.5,mono:1});s+=T(22,y+37,i<2?'дубль → rel=canonical':'дубль → 301 редирект',{size:11,c:'--warn',w:600});s+=A(280,y+23,398,130,i<2?'--info':'--accent',i<2)});
+ s+=T(10,276,'Пунктир — canonical (підказка). Суцільна — 301 (жорстко). Посилання на сайті ведуть тільки на оригінал.',{size:12,c:'--muted'});
+ return svg(632,288,s,'Дублікати й оригінал')},
+sitemap(){let s='';s+=R(10,10,360,250,'s',8);const lines=['<?xml version="1.0" encoding="UTF-8"?>','<urlset xmlns="http://www.sitemaps.org/…">','  <url>','    <loc>https://site.com/uslugy/</loc>','    <lastmod>2026-10-20</lastmod>','  </url>','  <url>','    <loc>https://site.com/movy/en/</loc>','    <lastmod>2026-09-02</lastmod>','  </url>','</urlset>'];lines.forEach((l,i)=>s+=T(22,34+i*20,l.replace(/</g,'&lt;').replace(/>/g,'&gt;'),{size:11,mono:1,c:/loc|lastmod/.test(l)?'--accent':'--ink'}));
+ s+=A(372,130,410,130);s+=T(420,40,'У sitemap ТІЛЬКИ:',{size:13,w:700,c:'--accent'});['код 200','indexable (без noindex)','канонічні URL','https, фінальні адреси'].forEach((t,i)=>{s+=C(428,62+i*22,4,'d');s+=T(440,66+i*22,t,{size:12})});
+ s+=T(420,170,'НЕ має бути:',{size:13,w:700,c:'--bad'});['301/404, дублі, ?параметри','noindex, кошик, пошук'].forEach((t,i)=>{s+=C(428,192+i*22,4,'b');s+=T(440,196+i*22,t,{size:12})});
+ return svg(632,270,s,'Як виглядає sitemap.xml')},
+hreflang(){let s='';const p=[['uk','/','Українська',260,20],['en','/en/','English',60,170],['pl','/pl/','Polski',460,170]];
+ p.forEach(q=>{s+=R(q[3],q[4],120,64,'a',10);s+=T(q[3]+60,q[4]+28,q[0],{size:20,w:700,mono:1,c:'--accent',a:'middle'});s+=T(q[3]+60,q[4]+48,q[1],{size:11.5,mono:1,a:'middle'})});
+ s+=A(270,84,140,168,'--info');s+=A(150,168,280,84,'--info');s+=A(370,84,490,168,'--info');s+=A(480,168,360,84,'--info');s+=A(180,210,458,210,'--info');s+=A(458,196,180,196,'--info');
+ s+=R(260,250,120,30,'s',8);s+=T(320,270,'x-default → /',{size:11.5,mono:1,a:'middle'});
+ s+=T(10,310,'Кожна версія посилається на всі інші ТА на себе. Код мови uk (не ua), en, pl.',{size:12.5,c:'--muted'});
+ return svg(640,320,s,'Взаємні посилання hreflang')},
+cluster(){let s='';const cl=[['Кластер 1 → /uslugy/notarialnyi-pereklad/',['нотаріальний переклад','нотаріальний переклад ціна','переклад з нотаріальним засвідченням','засвідчений переклад київ'],'a'],['Кластер 2 → /uslugy/prysiazhnyi-tlumach/',['присяжний перекладач польща','tłumacz przysięgły','присяжний переклад документів'],'i'],['Кластер 3 → /blog/shcho-take-apostyl/',['що таке апостиль','апостиль навіщо потрібен','апостиль чи легалізація'],'w']];
+ cl.forEach((c,i)=>{const y=10+i*98;s+=R(10,y,620,86,c[2],10);s+=T(24,y+24,c[0],{size:12.5,w:700,mono:1});let x=24;c[1].forEach(k=>{const w=k.length*6.4+18;if(x+w>620){return}s+=R(x,y+38,w,28,'n',14);s+=T(x+w/2,y+57,k,{size:11.5,a:'middle'});x+=w+8})});
+ return svg(640,306,s,'Кластеризація ключових слів')},
+serp(){let s='';s+=R(10,10,620,250,'n',10);s+=R(26,24,380,30,'s',15);s+=T(42,44,'нотаріальний переклад київ',{size:13});
+ const r=[['mosty.com.ua › uslugy','Нотаріальний переклад у Києві — від 1 дня | Мости','Переклад документів з нотаріальним засвідченням з 40 мов. Ціна від …'],['example.ua › notarialnyi','Нотаріальний переклад документів — ціни 2026','Засвідчення перекладу нотаріусом, апостиль, легалізація…']];
+ r.forEach((q,i)=>{const y=86+i*84;s+=T(26,y,q[0],{size:11.5,c:'--muted'});s+=T(26,y+22,q[1],{size:15,c:'--info',w:600});s+=T(26,y+44,q[2],{size:12.5})});
+ s+=A(560,108,470,108,'--accent');s+=T(566,112,'title',{size:12,w:700,c:'--accent',mono:1});s+=A(560,130,440,130,'--accent');s+=T(566,134,'description',{size:12,w:700,c:'--accent',mono:1});s+=A(560,86,180,82,'--accent');s+=T(566,90,'URL',{size:12,w:700,c:'--accent',mono:1});
+ return svg(640,270,s,'Сніпет у видачі Google')},
+links(){let s='';s+=B(250,110,140,60,'Хаб: /uslugy/','категорія','d');const sp=[['Нотаріальний',40,20],['Присяжний',460,20],['Апостиль',20,200],['Легалізація',470,200],['Стаття-гайд',250,240]];
+ sp.forEach(q=>{s+=B(q[1],q[2],130,48,q[0],null,'a',12.5);s+=A(q[1]+65,q[2]+(q[2]<100?48:0),320,q[2]<100?110:170,'--accent');});
+ s+=A(380,264,470,232,'--info',1);s+=T(392,282,'контекстне посилання',{size:11,c:'--info'});
+ s+=B(500,120,120,40,'Сирота','0 вхідних','b',12);
+ return svg(640,300,s,'Внутрішня перелінковка: хаб і сателіти')},
+wp(sel){sel=sel||'Налаштування';let s='';s+=R(0,0,640,300,'n',10);s+=`<rect x="0" y="0" width="170" height="300" rx="10" style="fill:var(--code-bg)"/>`;s+=T(16,26,'WordPress /wp-admin',{size:12,w:700,c:'--code-fg'});
+ const nav=['Консоль','Записи','Медіафайли','Сторінки','Коментарі','Зовнішній вигляд','Плагіни','Користувачі','Інструменти','Налаштування','Rank Math SEO'];
+ nav.forEach((n,i)=>{const y=58+i*22;if(n===sel)s+=`<rect x="0" y="${y-15}" width="170" height="22" style="fill:var(--accent)"/>`;s+=T(16,y,n,{size:12,c:n===sel?'--accent-ink':'--code-fg',w:n===sel?700:400})});
+ if(sel==='Налаштування'){s+=T(196,40,'Налаштування › Читання',{size:15,w:700});s+=R(196,58,420,60,'b',8);s+=`<rect x="212" y="74" width="14" height="14" rx="3" style="fill:var(--surface);stroke:var(--bad);stroke-width:2"/>`;s+=T(236,86,'Не дозволяти пошуковим системам індексувати',{size:12,w:600});s+=T(236,106,'На робочому сайті — ЗНЯТИ галочку!',{size:11.5,c:'--bad',w:600});
+  s+=T(196,152,'Налаштування › Постійні посилання',{size:15,w:700});['Простий  ?p=123','Назва запису  /%postname%/  ← обрати'].forEach((t,i)=>{const y=180+i*28;s+=C(210,y-4,6,i?'d':'n');s+=T(224,y,t,{size:12,mono:1,w:i?700:400})});s+=T(196,250,'Міняти структуру посилань на живому сайті — тільки з 301!',{size:11.5,c:'--warn',w:600})}
+ if(sel==='Rank Math SEO'){s+=T(196,40,'SEO-плагін (Rank Math / Yoast)',{size:15,w:700});[['Заголовки й мета','шаблони title, noindex для тегів/архівів'],['Файли Sitemap','/sitemap_index.xml — що включати'],['Редагування robots.txt','в «Загальні налаштування»'],['Перенаправлення','301 зі старих URL'],['Схема (Schema)','Organization, LocalBusiness, Article']].forEach((r,i)=>{const y=64+i*44;s+=R(196,y,420,36,'s',6);s+=T(208,y+16,r[0],{size:12.5,w:700});s+=T(208,y+30,r[1],{size:11,c:'--muted'})})}
+ if(sel==='Плагіни'){s+=T(196,40,'Плагіни › Встановлені',{size:15,w:700});[['Rank Math SEO','залишити (1 SEO-плагін)','a'],['Yoast SEO','видалити — конфлікт двох SEO','b'],['LiteSpeed Cache','залишити (1 кеш-плагін)','a'],['ShortPixel','стиснення зображень','a'],['Hello Dolly','не потрібен — видалити','w']].forEach((r,i)=>{const y=60+i*44;s+=R(196,y,420,36,r[2],6);s+=T(208,y+16,r[0],{size:12.5,w:700});s+=T(208,y+30,r[1],{size:11})})}
+ return svg(640,300,s,'Схема адмінки WordPress: '+sel)},
+cwv(){let s='';const g=[['LCP','Завантаження головного елемента','≤ 2,5 с','2,5–4 с','> 4 с'],['INP','Реакція на клік / дотик','≤ 200 мс','200–500 мс','> 500 мс'],['CLS','Стрибки макета','≤ 0,1','0,1–0,25','> 0,25']];
+ g.forEach((q,i)=>{const y=14+i*82;s+=T(10,y+20,q[0],{size:20,w:700,mono:1});s+=T(10,y+40,q[1],{size:11.5,c:'--muted'});['a','w','b'].forEach((k,j)=>{s+=R(250+j*126,y+4,120,44,k,6);s+=T(310+j*126,y+31,q[2+j],{size:12.5,w:600,a:'middle'})})});
+ ['Добре','Покращити','Погано'].forEach((t,j)=>s+=T(310+j*126,262,t,{size:11.5,c:'--muted',a:'middle'}));
+ return svg(640,272,s,'Пороги Core Web Vitals')},
+github(){let s='';const st=[['1. Репозиторій','New → site','n'],['2. Файли','index.html, robots.txt, sitemap.xml','n'],['3. Settings → Pages','Branch: main / root','i'],['4. Сайт живий','user.github.io/site','d']];
+ st.forEach((q,i)=>{const x=10+i*158;s+=B(x,40,146,74,q[0],q[1],q[3],13);if(i<3)s+=A(x+146,77,x+158,77)});
+ s+=R(10,146,620,84,'s',8);s+=T(24,170,'Власний домен:',{size:12.5,w:700});s+=T(24,192,'Pages → Custom domain → mosty.com.ua · у DNS: CNAME www → user.github.io',{size:12,mono:1});s+=T(24,214,'Потім увімкнути «Enforce HTTPS».',{size:12});
+ return svg(640,240,s,'Публікація сайту через GitHub Pages')},
+source(){let s='';s+=`<rect x="10" y="10" width="620" height="270" rx="10" style="fill:var(--code-bg)"/>`;const l=[['<head>',0],['  <title>Нотаріальний переклад у Києві | Мости</title>','t'],['  <meta name="description" content="…">','t'],['  <meta name="robots" content="index, follow">','r'],['  <link rel="canonical" href="https://mosty.com.ua/uslugy/">','c'],['  <link rel="alternate" hreflang="en" href="…/en/uslugy/">','h'],['  <script>…googletagmanager.com/gtm.js…<\/script>','g'],['</head>',0],['<body> <h1>Нотаріальний переклад</h1> …','t']];
+ const lab={t:'зміст',r:'індексація',c:'дублі',h:'мови',g:'аналітика'};
+ l.forEach((q,i)=>{const y=40+i*27;s+=T(24,y,q[0].replace(/</g,'&lt;').replace(/>/g,'&gt;'),{size:11.5,mono:1,c:'--code-fg'});if(q[1])s+=T(616,y,lab[q[1]],{size:11,a:'end',w:700,c:'--code-fg'})});
+ s+=T(24,272,'Ctrl+U — код від сервера · F12 — код після JavaScript',{size:11.5,c:'--code-fg',w:700});
+ return svg(640,290,s,'Що шукати в коді сторінки')},
+why(){let s='';const q=[['URL у Search Console → Перевірка URL','s'],['«Невідома Google»?','w','Додати в sitemap + внутрішні посилання'],['«Заблоковано robots.txt»?','w','Прибрати Disallow для цієї сторінки'],['«Виключено noindex»?','w','Прибрати noindex, якщо сторінка потрібна'],['«Google вибрав іншу канонічну»?','w','Перевірити дубль: об’єднати або посилити оригінал'],['«Проскановано, не проіндексовано»?','w','Покращити контент, додати посилання, зачекати']];
+ q.forEach((r,i)=>{const y=10+i*48;s+=R(10,y,300,38,r[1],8);s+=T(22,y+24,r[0],{size:12,w:600});if(r[2]){s+=A(310,y+19,340,y+19,'--accent');s+=R(342,y,288,38,'a',8);s+=T(354,y+24,r[2],{size:11.5})}if(i<5)s+=L(160,y+38,160,y+48,'--muted')});
+ return svg(640,300,s,'Дерево діагностики: чому сторінка не в індексі')},
+image(){let s='';s+=T(10,26,'Одне й те саме фото героя сторінки',{size:14,w:700});
+ const b=[['JPG з телефона 4000×3000','4,2 МБ',600,'b'],['JPG 1600×1200, якість 80','420 КБ',140,'w'],['WebP 1600×1200, якість 75','160 КБ',60,'a'],['AVIF 1600×1200','110 КБ',42,'a']];
+ b.forEach((r,i)=>{const y=50+i*50;s+=T(10,y+18,r[0],{size:12});s+=R(230,y,r[2]*0.6+10,28,r[3],6);s+=T(230+r[2]*0.6+20,y+19,r[1],{size:12.5,w:700,mono:1})});
+ s+=T(10,268,'Розмір у пікселях = як на екрані (×2 для Retina). Якість 70–80 — оку не видно різниці.',{size:12,c:'--muted'});
+ return svg(640,280,s,'Вага зображення до і після оптимізації')},
+backlinks(){let s='';s+=B(250,110,140,60,'Ваш сайт','отримує вагу','d');const src=[['Профільний портал','dofollow ✓','a',10,10],['Каталог / мапи','локальне SEO ✓','a',460,10],['Коментар у блозі','nofollow / ugc','s',10,220],['Купівля на біржі','ризик санкцій','b',460,220],['PR-стаття в ЗМІ','dofollow ✓','a',250,10]];
+ src.forEach(q=>{s+=B(q[3],q[4],170,52,q[0],q[1],q[2],12.5);s+=A(q[3]+85,q[4]+(q[4]<100?52:0),320,q[4]<100?108:172,q[2]==='b'?'--bad':q[2]==='s'?'--muted':'--accent',q[2]!=='a')});
+ return svg(640,282,s,'Зовнішні посилання')},
+competitors(){let s='';s+=B(10,30,150,64,'1. Видача','топ-10 за запитом','i');s+=A(160,62,186,62);s+=B(188,30,150,64,'2. Краулінг','Screaming Frog','n');s+=A(338,62,364,62);s+=B(366,30,150,64,'3. Таблиця','порівняння','n');s+=A(516,62,540,62);s+=B(542,30,90,64,'4. Висновки','','d');
+ s+=R(10,124,622,150,'s',8);const h=['Що порівнюємо','Конкурент А','Конкурент Б','Ми'];const r=[['Сторінок в індексі','≈ 340','≈ 90','12'],['Окремі сторінки під мови','так','ні','так'],['Ціна на посадковій','так','так','ні'],['Хлібні крихти, FAQ','так','частково','ні']];
+ h.forEach((t,j)=>s+=T(24+j*150,150,t,{size:11.5,w:700,c:'--muted'}));r.forEach((q,i)=>q.forEach((t,j)=>s+=T(24+j*150,176+i*26,t,{size:12,w:j?400:600,c:j===3&&/ні|12/.test(t)?'--bad':'--ink'})));
+ return svg(640,282,s,'Процес аналізу конкурентів')},
+priority(){let s='';const c=[['Критично — сьогодні','noindex/robots на всьому сайті · 5xx · сайт без HTTPS · вірус','b'],['Високий — цей тиждень','важливі сторінки не в індексі · 404 у меню · дублі title/H1 на послугах','w'],['Середній — цей місяць','ланцюжки редиректів · повільний LCP · вага фото · alt','i'],['Низький — у плані','довгі description · дрібні попередження краулера','s']];
+ c.forEach((q,i)=>{const y=10+i*66;s+=R(10,y,620,56,q[2],8);s+=T(24,y+24,q[0],{size:13.5,w:700,c:K[q[2]][1]==='--line'?'--ink':K[q[2]][1]});s+=T(24,y+44,q[1],{size:12})});
+ return svg(640,276,s,'Пріоритети виправлень')},
+tools(){let s='';const g=[['Google',['Search Console','Analytics 4','Tag Manager','Ads → Keyword Planner','PageSpeed Insights'],'a'],['Краулери',['Screaming Frog','Netpeak Spider','Sitebulb (опц.)'],'i'],['Семантика й конкуренти',['Ahrefs / Semrush','Serpstat','SEO PowerSuite','Google Trends'],'w'],['У браузері',['GS Location Changer','Detailed SEO / SEO Meta in 1 Click','DevTools (F12)'],'s']];
+ g.forEach((q,i)=>{const x=10+i*157;s+=R(x,10,147,250,q[2],10);s+=T(x+12,36,q[0],{size:13,w:700});q[1].forEach((t,j)=>{s+=R(x+10,52+j*40,127,32,'n',6);s+=T(x+18,72+j*40,t,{size:11})})});
+ return svg(640,270,s,'Набір інструментів SEO-спеціаліста')},
+gtm(){let s='';const st=[['GTM-контейнер','код у &lt;head&gt; і &lt;body&gt;','n'],['Тег Google','ID: G-XXXXXXX','i'],['Тригер','All Pages / клік / форма','n'],['Опублікувати','Preview → Submit','d']];
+ st.forEach((q,i)=>{const x=10+i*158;s+=B(x,30,146,70,q[0],q[1],q[2],13);if(i<3)s+=A(x+146,65,x+158,65)});
+ s+=R(10,130,620,110,'s',8);s+=T(24,156,'Як зв’язано:',{size:13,w:700});s+=T(24,180,'Сайт → GTM (один код на сайті) → теги всередині GTM: GA4, Google Ads, пікселі.',{size:12});s+=T(24,202,'GA4 рахує відвідувачів і конверсії. Search Console — те, що відбувається ДО кліку, у Google.',{size:12});s+=T(24,224,'Перевірка: GTM Preview (Tag Assistant) + GA4 → Адміністратор → DebugView.',{size:12,c:'--muted'});
+ return svg(640,250,s,'Як зв’язані Tag Manager і Analytics')},
+intent(){let s='';const c=[['Інформаційний','«що таке апостиль»','стаття, гайд','i'],['Навігаційний','«мости бюро перекладів»','головна, контакти','s'],['Комерційний','«найкраще бюро перекладів відгуки»','порівняння, огляд','w'],['Транзакційний','«замовити переклад диплома»','посадкова послуги','a']];
+ c.forEach((q,i)=>{const x=10+(i%2)*312,y=10+Math.floor(i/2)*112;s+=R(x,y,300,100,q[3],10);s+=T(x+16,y+28,q[0],{size:14.5,w:700});s+=T(x+16,y+54,q[1],{size:12,mono:1});s+=T(x+16,y+80,'→ '+q[2],{size:12,w:600,c:'--muted'})});
+ return svg(632,236,s,'Типи пошукового наміру')},
+audit(){let s='';const st=[['Доступи','GSC, GA4, хостинг, WP','n'],['Бекап','копія до змін','w'],['Знімок','краул + експорт GSC','i'],['Аудит','список помилок','n'],['Виправлення','за пріоритетом','a'],['Контроль','перекраул, GSC','d']];
+ st.forEach((q,i)=>{const x=10+(i%3)*210,y=20+Math.floor(i/3)*100;s+=B(x,y,190,70,q[0],q[1],q[2],13.5);if(i%3<2)s+=A(x+190,y+35,x+210,y+35);});s+=A(515,90,115,120,'--muted',1);
+ return svg(640,200,s,'Порядок роботи з існуючим сайтом')},
+redirect(){let s='';s+=T(10,22,'Ланцюжок — погано',{size:13,w:700,c:'--bad'});[['http://site.com/a','w'],['https://site.com/a','w'],['https://site.com/a/','w'],['https://site.com/b/','a']].forEach((q,i)=>{const x=10+i*158;s+=R(x,36,146,40,q[1],8);s+=T(x+73,61,q[0],{size:10.5,mono:1,a:'middle'});if(i<3){s+=A(x+146,56,x+158,56,'--bad');s+=T(x+152,96,'301',{size:10.5,mono:1,c:'--bad',a:'middle'})}});
+ s+=T(10,140,'Один крок — добре',{size:13,w:700,c:'--accent'});s+=R(10,154,220,40,'w',8);s+=T(120,179,'http://site.com/a',{size:11,mono:1,a:'middle'});s+=A(230,174,400,174,'--accent');s+=T(315,166,'301',{size:11,mono:1,c:'--accent',a:'middle'});s+=R(400,154,220,40,'a',8);s+=T(510,179,'https://site.com/b/',{size:11,mono:1,a:'middle'});
+ s+=T(10,232,'І виправити внутрішні посилання: вони мають вести одразу на фінальну адресу (200).',{size:12,c:'--muted'});
+ return svg(640,244,s,'Редиректи: ланцюжок і один крок')}
+};
+</script>
+<script>
+/* ===== БЛОК 1: Сайт з нуля ===== */
+const B1={id:'b1',no:'Блок 1',title:'Новий сайт з нуля',sub:'Від порожньої папки до сайту, який Google знаходить, сканує й індексує правильно.',mods:[
+{id:'m1',t:'Як працює Google',les:[
+{id:'b1-m1-l1',t:'Як Google знаходить і індексує сторінки',dur:'8 хв',tools:['Search Console'],ill:['pipeline'],cap:'Пʼять етапів, які проходить кожна URL-адреса.',yt:'як google індексує сайт пояснення',
+lead:`SEO починається з одного питання: чи може Google <b>знайти</b>, <b>прочитати</b> і <b>зберегти</b> вашу сторінку. Якщо ні — тексти, ключові слова й дизайн не мають значення.`,
+body:[['h','Пʼять етапів'],['ul',[`<b>Виявлення (discovery).</b> Google дізнається, що URL існує: з посилань на інших сторінках, з файлу sitemap.xml або коли ви надсилаєте URL у Search Console.`,`<b>Сканування (crawling).</b> Робот Googlebot завантажує HTML. Перед цим він читає robots.txt: якщо там заборона, сторінку він не відкриває.`,`<b>Рендеринг.</b> Google виконує JavaScript і CSS, щоб побачити сторінку як людина. Якщо текст зʼявляється лише після JS, він може проіндексуватися пізніше.`,`<b>Індексування.</b> Google вирішує, чи зберегти сторінку в базі: перевіряє noindex, canonical, дублі та якість.`,`<b>Ранжування.</b> Серед проіндексованих сторінок Google вибирає, що показати за запитом і на якій позиції.`]],
+['note','tip',`<b>Просте правило:</b> сторінка потрапляє в пошук, коли на неї є посилання, вона віддає код 200, не заблокована, не має noindex і не є дублем іншої.`],
+['h','Як Google знаходить нові URL'],['table',['Джерело','Що робити'],[['Внутрішні посилання','Посилатися на нову сторінку з меню, категорії або статті'],['Sitemap.xml','Додати URL у карту сайту і надіслати її в Search Console'],['Зовнішні посилання','Отримати посилання з інших сайтів'],['Перевірка URL у GSC','«Надіслати запит на індексування» для важливих нових сторінок']]]],
+steps:[[`Google дізнається про URL`,`З посилання, sitemap або запиту в Search Console.`],[`Googlebot читає robots.txt`,`Якщо шлях дозволено — завантажує HTML сторінки.`],[`Рендеринг`,`Виконує JavaScript, бачить остаточний вигляд.`],[`Рішення про індекс`,`Перевіряє noindex, canonical, дублі та користь контенту.`],[`Видача`,`Сторінка змагається з іншими за позиції.`]],
+check:['Розумію різницю між скануванням та індексуванням','Знаю 4 способи, як Google знаходить URL','Можу назвати 3 причини, чому сторінка не потрапить в індекс'],
+quiz:['Сторінка заблокована в robots.txt. Що це означає?',['Google її не сканує, але URL усе одно може потрапити в індекс за посиланнями','Сторінка гарантовано видалена з пошуку','Google сканує, але не індексує'],0,'robots.txt керує скануванням, а не індексом. Щоб прибрати сторінку з пошуку, потрібен noindex.']},
+
+{id:'b1-m1-l2',t:'URL, HTTP і HTTPS',dur:'6 хв',tools:['Браузер'],ill:['url'],cap:'Частини URL-адреси і правила, за якими їх будують.',yt:'seo friendly url structure',
+lead:`URL — адреса сторінки. Для Google <code>/uslugy</code>, <code>/uslugy/</code> і <code>/USLUGY/</code> — три різні адреси. Через це виникають дублі.`,
+body:[['h','Як формується URL'],['p',`Адреса складається з протоколу, домену, шляху, параметрів і фрагмента. Google індексує все до знака <code>#</code>. Фрагмент після <code>#</code> ігнорує.`],
+['table',['Правило','Добре','Погано'],[['Латиниця, нижній регістр','/pereklad-dyplomu/','/Переклад_Диплому/'],['Дефіси між словами','/notarialnyi-pereklad/','/notarialnyi_pereklad/'],['Коротко, з ключовим словом','/uslugy/apostyl/','/page.php?id=532&cat=7'],['Ієрархія як у меню','/movy/polska/','/polska-mova-pereklad-123/'],['Одна версія слеша','завжди /uslugy/','і /uslugy, і /uslugy/']]],
+['h','HTTP і HTTPS'],['p',`HTTPS — шифроване зʼєднання (SSL-сертифікат). Це обовʼязково: браузери позначають HTTP як «Не захищено», Google вважає HTTPS сигналом. Сайт має працювати тільки на HTTPS, а всі адреси <code>http://</code> — вести на <code>https://</code> через 301 редирект.`],
+['h','Дзеркала сайту'],['p',`Один сайт може відкриватися за чотирма адресами: <code>http://site.com</code>, <code>http://www.site.com</code>, <code>https://site.com</code>, <code>https://www.site.com</code>. Обирають одну головну, інші три — 301 на неї.`],
+['note','warn',`Перевірка за 1 хвилину: введіть у браузер кожну з чотирьох версій. Усі мають перекинути на одну й ту саму адресу.`]],
+steps:[[`Оберіть головне дзеркало`,`https + з www або без. Запишіть рішення.`],[`Налаштуйте 301`,`Три інші версії ведуть на головну одним кроком.`],[`Визначте формат URL`,`Латиниця, дефіси, нижній регістр, слеш у кінці або без — однаково всюди.`],[`Транслітеруйте назви`,`«Переклад диплома» → /pereklad-dyploma/ (офіційна українська транслітерація).`]],
+check:['Головне дзеркало обрано','4 версії домену ведуть в одну','URL без кирилиці, великих літер і підкреслень'],
+quiz:['Який URL кращий для сторінки послуги?',['/uslugy/pereklad-dyploma/','/Uslugy/Pereklad_Dyploma.html?id=4','/p?id=4'],0,'Коротко, латиниця, дефіси, ієрархія.']},
+
+{id:'b1-m1-l3',t:'Коди відповіді сервера',dur:'7 хв',tools:['Screaming Frog','httpstatus.io','DevTools'],ill:['status'],cap:'Чотири групи кодів, які бачить Googlebot.',yt:'http status codes seo 301 404',
+lead:`Коли браузер або Googlebot відкриває URL, сервер спершу відповідає тризначним кодом. Код вирішує, що станеться зі сторінкою в індексі.`,
+body:[['table',['Код','Що означає','Що робити SEO-спеціалісту'],[['200 OK','Сторінка доступна','Нормальний стан для всіх сторінок, які мають бути в пошуку'],['301','Переїхала назавжди','Вага передається на нову адресу. Використовуємо при зміні URL, склеюванні дублів, http→https'],['302 / 307','Тимчасовий редирект','Тільки для справді тимчасових ситуацій (акція, техроботи). Якщо назавжди — міняти на 301'],['304','Не змінилася','Нормально, економить ресурси сервера'],['404','Не знайдено','Якщо сторінка мала трафік або посилання — 301 на найближчу за змістом. Якщо ні — залишити 404, але прибрати внутрішні посилання на неї'],['410','Видалено назавжди','Коли сторінка видалена свідомо і заміни немає. Google швидше прибере її з індексу'],['500','Помилка сервера','Терміново до розробника або хостингу'],['503','Сервіс недоступний','Нормально на час техробіт (години). Якщо довго — Google почне викидати сторінки'],['Soft 404','Сторінка «порожня», але віддає 200','Додати контент або віддавати справжній 404']]],
+['h','Де перевірити код'],['ul',[`<b>Screaming Frog / Netpeak Spider</b> — коди всіх сторінок сайту одразу (вкладка Response Codes).`,`<b>httpstatus.io</b> — вставити список URL, побачити код і ланцюжок редиректів.`,`<b>DevTools (F12) → Network</b> — оновити сторінку, перший рядок, колонка Status.`,`<b>Search Console → Перевірка URL</b> — як бачить Google.`]],
+['ill','crawler','Response Codes','Вкладка Response Codes у краулері: зелене — гаразд, жовте — перевірити, червоне — виправити.']],
+steps:[[`Запустіть краулер`,`Вставте домен, натисніть Start.`,'crawler','Response Codes'],[`Відкрийте Response Codes`,`Фільтр: Client Error (4xx), Server Error (5xx), Redirection (3xx).`,'crawler','Response Codes'],[`Знайдіть, звідки посилання`,`Внизу вкладка Inlinks: які сторінки посилаються на 404.`],[`Виправте`,`Змініть посилання на робочу адресу або налаштуйте 301.`]],
+check:['Знаю різницю 301 і 302','Знаю, коли 404, а коли 410','Вмію знайти всі 4xx на сайті'],
+quiz:['Ви змінили URL сторінки назавжди. Який редирект?',['301','302','Ніякий, Google сам знайде'],0,'301 — постійний переїзд, вага посилань передається.']}]},
+
+{id:'m2',t:'Інструменти SEO-спеціаліста',les:[
+{id:'b1-m2-l1',t:'Карта інструментів: що і для чого',dur:'7 хв',tools:['усі'],ill:['tools'],cap:'Чотири групи інструментів, з якими ви працюватимете щодня.',yt:'seo tools for beginners',
+lead:`Новачки губляться в десятках сервісів. На старті потрібні 6–8 інструментів, кожен відповідає на своє питання.`,
+body:[['tools',[['Google Search Console','безкоштовно','Що Google бачить на сайті: індексація, запити, помилки, sitemap.'],['Google Analytics 4','безкоштовно','Що роблять відвідувачі на сайті: джерела, сторінки, заявки.'],['Google Tag Manager','безкоштовно','Контейнер для кодів аналітики та пікселів без правки сайту.'],['Google Ads → Keyword Planner','потрібен акаунт Ads','Частотність запитів, ідеї ключових слів.'],['PageSpeed Insights','безкоштовно','Швидкість і Core Web Vitals.'],['Screaming Frog SEO Spider','безкоштовно до 500 URL','Сканує сайт як Google: коди, title, H1, дублі, canonical.'],['Netpeak Spider','платно, є пробний період','Те саме, що Screaming Frog, з українським інтерфейсом і звітом помилок.'],['Ahrefs / Semrush / Serpstat','платно','Ключові слова, конкуренти, зовнішні посилання.'],['SEO PowerSuite','є безкоштовна версія','Rank Tracker (позиції), WebSite Auditor (аудит), SEO SpyGlass (посилання).'],['GS Location Changer','розширення Chrome','Перевірити видачу Google з іншого міста чи країни.'],['Detailed SEO / SEO Meta in 1 Click','розширення Chrome','Title, description, canonical, robots і структура H1–H6 на будь-якій сторінці.'],['Google Rich Results Test','безкоштовно','Перевірка мікророзмітки Schema.']]],
+['table',['Питання','Інструмент'],[['Чи сторінка в індексі?','Search Console → Перевірка URL'],['Які помилки на всьому сайті?','Screaming Frog / Netpeak Spider'],['Що шукають люди?','Keyword Planner, Serpstat, Ahrefs'],['Хто конкуренти і що в них?','Ahrefs, Serpstat + краулер'],['Скільки заявок з SEO?','GA4'],['Чому сайт повільний?','PageSpeed Insights'],['Яка видача в Польщі?','GS Location Changer']]]],
+steps:[[`Створіть Google-акаунт для роботи`,`Один робочий акаунт для GSC, GA4, GTM, Ads.`],[`Встановіть Screaming Frog`,`Безкоштовної версії до 500 URL вистачає на старті.`],[`Додайте розширення Chrome`,`Detailed SEO або SEO Meta in 1 Click, GS Location Changer.`],[`Заведіть таблицю аудиту`,`Google Sheets: дата, URL, проблема, рішення, статус.`]],
+check:['Є робочий Google-акаунт','Встановлено краулер','Встановлено 2 розширення Chrome'],
+quiz:['Де подивитися, за якими запитами сайт уже показується в Google?',['Search Console → Ефективність','Screaming Frog','PageSpeed Insights'],0,'Тільки Search Console показує реальні запити з Google.']},
+
+{id:'b1-m2-l2',t:'Google Search Console: підключення і звіти',dur:'10 хв',tools:['Search Console'],ill:['gsc','Сторінки'],cap:'Головні розділи Search Console. Звіт «Сторінки» показує, що в індексі і чому решти там немає.',yt:'google search console tutorial українською',
+lead:`Search Console — головний інструмент SEO. Тільки тут Google сам каже, що він бачить на вашому сайті.`,
+body:[['h','Як підключити'],['table',['Тип ресурсу','Що охоплює','Як підтвердити'],[['Домен (рекомендовано)','Усі версії: http, https, www, піддомени','Запис TXT у DNS у реєстратора домену'],['Префікс URL','Тільки одну версію, наприклад https://site.com/','HTML-файл, мета-тег, GA4 або GTM']]],
+['h','Звіти, які дивимося щотижня'],['table',['Розділ','Що там'],[['Ефективність','Кліки, покази, CTR, середня позиція. Вкладки: Запити, Сторінки, Країни, Пристрої'],['Перевірка URL','Статус однієї сторінки: в індексі чи ні, чому, яку canonical вибрав Google. Кнопка «Перевірити активну URL» і «Надіслати запит на індексування»'],['Сторінки','Скільки проіндексовано і причини, чому інші не проіндексовані'],['Файли Sitemap','Надсилання sitemap.xml і статус обробки'],['Вилучення','Тимчасово сховати URL з пошуку (≈6 місяців)'],['Основні веб-показники','Швидкість за реальними даними користувачів'],['Посилання','Зовнішні й внутрішні посилання'],['Налаштування → Статистика сканування','Як часто Googlebot ходить, які коди отримує']]],
+['note','tip',`Дані в Search Console зʼявляються не одразу: після підключення чекайте кілька днів.`]],
+steps:[[`Відкрийте search.google.com/search-console`,`Натисніть «Додати ресурс».`,'gsc','Огляд'],[`Оберіть «Домен»`,`Введіть mosty.com.ua без https і www.`],[`Скопіюйте TXT-запис`,`Додайте його в DNS у реєстратора (Hostinger, Cloudflare, imena.ua тощо). Тип TXT, імʼя @.`],[`Натисніть «Підтвердити»`,`Якщо не вийшло — DNS оновлюється до 24 годин, спробуйте пізніше.`],[`Надішліть sitemap`,`Файли Sitemap → вставте sitemap.xml → Надіслати.`,'gsc','Файли Sitemap'],[`Перевірте головну`,`Перевірка URL → вставте адресу головної.`,'gsc','Перевірка URL']],
+check:['Ресурс «Домен» підтверджено','Sitemap надіслано, статус «Успішно»','Вмію перевірити будь-яку URL'],
+quiz:['Який тип ресурсу охоплює і www, і без www, і http?',['Домен','Префікс URL','Обидва однаково'],0,'Ресурс «Домен» охоплює всі протоколи та піддомени.']},
+
+{id:'b1-m2-l3',t:'Google Analytics 4 і Tag Manager',dur:'9 хв',tools:['GA4','GTM'],ill:['gtm'],cap:'Сайт містить лише код GTM. Усі інші теги живуть усередині GTM.',yt:'google tag manager ga4 setup tutorial',
+lead:`Search Console показує, що відбувається в Google до кліку. Analytics показує, що відвідувач робить на сайті після кліку. Tag Manager — спосіб поставити аналітику без програміста.`,
+body:[['h','Що навіщо'],['ul',[`<b>GTM (Google Tag Manager)</b> — «коробка» для кодів. Ставиться на сайт один раз, далі ви додаєте GA4, Google Ads, Meta Pixel всередині GTM.`,`<b>GA4</b> — відвідувачі, джерела трафіку, події (клік по телефону, відправка форми), конверсії.`,`<b>Google Ads</b> — реклама, а для SEO — Keyword Planner (планувальник ключових слів).`]],
+['code','Куди вставляти GTM (замініть GTM-XXXXXXX на свій ID)',`<!-- 1. Якомога вище в <head> -->
+<script>(function(w,d,s,l,i){…})(window,document,'script','dataLayer','GTM-XXXXXXX');<\/script>
+
+<!-- 2. Одразу після відкриття <body> -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>`],
+['note','warn',`Не ставте GA4 одночасно і напряму, і через GTM — дані подвояться.`],
+['h','Що відстежувати на сайті послуг'],['ul',[`Відправка форми заявки`,`Клік по телефону і email`,`Клік по месенджерах`,`Ключові події позначте як «Ключові події» (конверсії) в GA4`]]],
+steps:[[`Створіть акаунт GA4`,`analytics.google.com → Адміністратор → Створити ресурс → потік даних «Веб». Скопіюйте ID G-XXXXXXX.`],[`Створіть контейнер GTM`,`tagmanager.google.com → Створити обліковий запис → Веб.`],[`Вставте код GTM на сайт`,`Дві частини: у &lt;head&gt; і після &lt;body&gt;. На WordPress — через плагін Site Kit або вставку в тему.`],[`Додайте тег Google`,`У GTM: Теги → Створити → Тег Google → ID G-XXXXXXX → тригер All Pages.`,'gtm'],[`Перевірте`,`Кнопка «Попередній перегляд» в GTM, потім GA4 → DebugView.`],[`Опублікуйте`,`«Надіслати» → «Опублікувати». Без публікації нічого не працює.`]],
+check:['GTM стоїть на всіх сторінках','GA4 отримує дані (звіт «У реальному часі»)','Налаштовано подію відправки форми'],
+quiz:['Ви додали тег у GTM, але даних немає. Найчастіша причина?',['Контейнер не опубліковано','Немає sitemap','Сайт на HTTP'],0,'Зміни в GTM діють тільки після «Надіслати → Опублікувати».']},
+
+{id:'b1-m2-l4',t:'Screaming Frog: сканування сайту',dur:'12 хв',tools:['Screaming Frog'],ill:['crawler','Internal','Screaming Frog SEO Spider'],cap:'Головне вікно: вкладки зверху, таблиця URL, внизу деталі вибраного рядка.',yt:'screaming frog seo spider tutorial for beginners',
+lead:`Screaming Frog ходить по сайту так само, як Googlebot: відкриває сторінку, збирає всі посилання, переходить далі. Результат — таблиця всіх URL з помилками.`,
+body:[['h','Що дивитися у вкладках'],['table',['Вкладка','Що шукаємо'],[['Internal','Усі сторінки сайту. Колонки: Status Code, Indexability, Title, H1, Word Count, Crawl Depth'],['Response Codes','3xx, 4xx, 5xx — редиректи й биті посилання'],['Page Titles','Missing (немає), Duplicate (однакові), Over 60 Characters, Below 30'],['Meta Description','Відсутні та дублікати'],['H1','Missing, Duplicate, Multiple (кілька H1 на сторінці)'],['H2','Структура підзаголовків'],['Images','Over 100 KB (важкі), Missing Alt Text'],['Canonicals','Missing, Canonicalised (вказує на іншу), Non-Indexable Canonical'],['Directives','noindex, nofollow у мета-тегах і заголовках'],['Hreflang','Помилки мовних версій (потрібен режим Crawl Analysis)'],['Sitemaps','Сторінки не в sitemap, зайві в sitemap, сироти'],['Content','Exact Duplicates і Near Duplicates — дублі тексту']]],
+['h','Нижня панель'],['p',`Клікніть по рядку — унизу зʼявиться деталь: <b>Inlinks</b> (хто посилається на цю сторінку), <b>Outlinks</b> (куди посилається вона), <b>SERP Snippet</b> (як виглядає у видачі).`],
+['note','tip',`Після сканування натисніть <b>Crawl Analysis → Start</b> (меню зверху). Тоді заповняться звіти Sitemaps, Hreflang, Orphan Pages і Near Duplicates.`],
+['note','warn',`Для сайтів на JavaScript увімкніть Configuration → Spider → Rendering → <b>JavaScript</b>. Інакше краулер не побачить контент.`]],
+steps:[[`Вставте адресу і натисніть Start`,`Поле зверху «Enter URL to spider».`,'crawler','Internal'],[`Перевірте коди`,`Response Codes → фільтр Client Error (4xx).`,'crawler','Response Codes'],[`Перевірте title`,`Page Titles → Missing і Duplicate.`,'crawler','Page Titles'],[`Перевірте H1`,`H1 → Missing, Duplicate, Multiple.`,'crawler','H1'],[`Перевірте директиви`,`Directives → noindex. Чи немає тут важливих сторінок?`,'crawler','Directives'],[`Експортуйте`,`Кнопка Export над таблицею → Google Sheets або Excel. Або Reports → Crawl Overview.`]],
+check:['Просканував сайт','Знайшов усі 4xx','Знайшов дублі title та H1','Експортував звіт'],
+quiz:['Де дізнатися, які сторінки посилаються на биту 404?',['Нижня панель → Inlinks','Вкладка Images','Вкладка Hreflang'],0,'Inlinks показує всі сторінки-джерела посилання.']},
+
+{id:'b1-m2-l5',t:'Netpeak Spider: те саме з іншого боку',dur:'8 хв',tools:['Netpeak Spider'],ill:['crawler','Internal','Netpeak Spider'],cap:'Netpeak показує ті самі дані, але групує помилки за критичністю.',yt:'netpeak spider огляд навчання',
+lead:`Netpeak Spider — краулер з українським інтерфейсом. Зручний тим, що сам сортує помилки на критичні, середні й незначні.`,
+body:[['h','Чим відрізняється від Screaming Frog'],['table',['','Screaming Frog','Netpeak Spider'],[['Мова','англійська','українська, англійська, інші'],['Безкоштовно','до 500 URL','пробний період'],['Звіт помилок','по вкладках','панель «Помилки» з рівнями: критичні, середні, низькі'],['Сегменти','через фільтри','зручні сегменти (наприклад, тільки /blog/)'],['Перевірка дублікатів','Content → Duplicates','Помилки → Дублікати сторінок, title, description, H1']]],
+['h','Як читати звіт'],['ul',[`Праворуч панель <b>«Помилки»</b>: клік на помилку фільтрує таблицю.`,`Червоні (критичні): биті посилання, 5xx, дублі сторінок, заблоковані robots.txt важливі сторінки.`,`Жовті (середні): відсутні title/description, ланцюжки редиректів, кілька H1.`,`Сині (низькі): довгі title, мало тексту.`,`Вкладка <b>«Звіти» → «Дублікати»</b> групує однакові сторінки.`]],
+['note','tip',`Сценарій для новачка: краульте одним інструментом, перевіряйте сумнівні місця другим. Якщо обидва показують ту саму помилку — вона справжня.`]],
+steps:[[`Вставте домен, натисніть «Старт»`,`Зачекайте до кінця сканування.`],[`Панель «Помилки»`,`Почніть з критичних. Клік → таблиця відфільтрується.`,'crawler','Response Codes','Netpeak Spider'],[`Подивіться джерела`,`Правою кнопкою на URL → «Вхідні посилання».`],[`Експорт`,`«Експорт» → «Поточна таблиця» або «Всі помилки».`]],
+check:['Просканував сайт у Netpeak','Розібрав критичні помилки','Звірив результат зі Screaming Frog'],
+quiz:['Що робити, якщо краулер показує помилку, а ви не впевнені?',['Перевірити іншим інструментом і вручну в браузері / GSC','Ігнорувати','Видалити сторінку'],0,'Перепровірка двома джерелами — базова навичка SEO.']}]},
+
+{id:'m3',t:'Аналіз конкурентів',les:[
+{id:'b1-m3-l1',t:'Як знайти справжніх конкурентів',dur:'7 хв',tools:['Google','GS Location Changer','Serpstat / Ahrefs'],ill:['serp'],cap:'Конкуренти в SEO — ті, хто стоїть у видачі за вашими запитами, а не ті, кого ви знаєте з ринку.',yt:'how to find seo competitors',
+lead:`SEO-конкурент — сайт, який займає топ-10 за вашими ключовими запитами. Це може бути не схожа компанія, а каталог чи інформаційний портал.`,
+body:[['h','Як дивитися чисту видачу'],['ul',[`Відкрийте вікно інкогніто (Ctrl+Shift+N) — так видача менш персоналізована.`,`Увімкніть <b>GS Location Changer</b>, оберіть місто (Київ, Варшава). Для Польщі — google.pl і мова pl.`,`Введіть 10–20 головних запитів. Випишіть домени з топ-10.`,`Ті домени, що зустрічаються найчастіше, — ваші головні конкуренти.`]],
+['h','Через сервіси'],['p',`У Serpstat, Ahrefs, Semrush введіть свій домен або домен лідера ніші → розділ «Конкуренти» (Competitors / Organic competitors). Сервіс покаже сайти з найбільшою кількістю спільних ключових слів.`],
+['note','warn',`Агрегатори (каталоги, OLX, Wikipedia) записуйте окремо: з ними не конкурують структурою, а вчаться в них, які розділи і фільтри потрібні.`]],
+steps:[[`Інкогніто + GS Location Changer`,`Обрати місто і мову.`,'serp'],[`20 запитів → таблиця`,`Рядки — запити, колонки — топ-10 доменів.`],[`Порахуйте частоту`,`Кожен домен: скільки разів у топ-10.`],[`Відберіть 3–5`,`Прямі конкуренти з подібним бізнесом.`]],
+check:['Є список з 3–5 конкурентів','Видачу перевірено з потрібної локації'],
+quiz:['Навіщо GS Location Changer?',['Побачити видачу з потрібного міста чи країни','Прискорити сайт','Перевірити sitemap'],0,'Видача Google залежить від локації користувача.']},
+
+{id:'b1-m3-l2',t:'Що саме аналізувати у конкурента',dur:'12 хв',tools:['Screaming Frog','Serpstat / Ahrefs','Detailed SEO'],ill:['competitors'],cap:'Процес: видача → краулінг конкурента → порівняльна таблиця → висновки для свого сайту.',yt:'competitor seo analysis step by step',
+lead:`Мета аналізу — не скопіювати, а побачити, які розділи, сторінки й елементи Google вже вважає потрібними в цій ніші.`,
+body:[['h','Чек-лист аналізу'],['table',['Що оцінюємо','Де дивимося','Що записуємо'],[['Структура: розділи, категорії','Меню, футер, Screaming Frog → Site Structure','Які розділи є у всіх, а у нас немає'],['Посадкові сторінки','URL з топу за запитами','Окрема сторінка під кожну послугу / мову / місто?'],['Навігація','Меню, хлібні крихти, футер','Глибина: скільки кліків до послуги'],['Формування URL','Адресний рядок, краулер','Ієрархія, мова, транслітерація'],['Сторінок в індексі','site:домен у Google (приблизно), Serpstat','Масштаб сайту'],['Контент','Сторінка з топу','Обсяг, ціни, FAQ, таблиці, відгуки, фото'],['Title і H1','Detailed SEO, краулер','Шаблон заголовків, ключові слова'],['Мікророзмітка','Rich Results Test','FAQ, Organization, Review'],['Швидкість','PageSpeed Insights','LCP, INP, CLS'],['Посилання','Ahrefs / Serpstat → Backlinks','Кількість доменів-донорів, звідки'],['Ключові слова','Serpstat / Ahrefs → Organic keywords','Запити, яких у нас немає']]],
+['h','Як перепровіряти'],['ul',[`Кількість сторінок: <code>site:</code> у Google дає лише приблизну цифру. Звірте з краулом і даними Serpstat.`,`Ключові слова з сервісів — оцінка. Перевірте 5–10 вручну у видачі.`,`Краулте конкурента зі швидкістю 1–2 URL/с (Configuration → Speed), щоб не перевантажити його сервер.`,`Дивіться мобільну версію: Google індексує в першу чергу її.`]]],
+steps:[[`Краул конкурента`,`Screaming Frog → домен конкурента → Start (обмежте швидкість).`,'crawler','Internal'],[`Знайдіть посадкові`,`Фільтр Internal → HTML, сортуйте за Crawl Depth.`],[`Звірте ключові слова`,`Serpstat → «Аналіз домену» → «Органічні ключові слова».`],[`Заповніть таблицю`,`Рядки — пункти чек-листа, колонки — конкуренти і ми.`,'competitors'],[`Висновки`,`3–7 конкретних задач: «створити сторінку /uslugy/apostyl/», «додати ціни на посадкові».`]],
+check:['Таблиця порівняння заповнена','Є список розділів, яких нам бракує','Є список задач'],
+quiz:['Оператор site:домен у Google показує…',['Приблизну кількість сторінок в індексі','Точну кількість сторінок','Позиції сайту'],0,'Цифра приблизна. Точні дані про свій сайт — лише в Search Console.']}]},
+
+{id:'m4',t:'Семантичне ядро',les:[
+{id:'b1-m4-l1',t:'Збір ключових слів',dur:'12 хв',tools:['Keyword Planner','Serpstat / Ahrefs','Google Trends'],ill:['serp'],cap:'Ключові слова — те, що люди вводять у пошук. Їх ми розподілимо по сторінках.',yt:'keyword research tutorial beginners',
+lead:`Семантичне ядро — список усіх запитів, за якими сайт має знаходитися. З нього народжується структура сайту.`,
+body:[['h','Звідки брати запити'],['ul',[`<b>Маркерні слова (seed).</b> Почніть з 10–20 очевидних: «переклад документів», «нотаріальний переклад», «присяжний перекладач».`,`<b>Google Ads → Інструменти → Планувальник ключових слів.</b> «Знайти нові ключові слова» → вставити маркери → обрати країну і мову. Показує діапазон частотності.`,`<b>Serpstat / Ahrefs / Semrush</b> — точніша частотність, складність (KD), ключі конкурентів.`,`<b>Підказки Google</b> — почніть вводити запит і перепишіть варіанти. Блок «Люди також запитують».`,`<b>Search Console → Ефективність</b> — для сайту, що вже працює.`,`<b>Google Trends</b> — сезонність.`]],
+['h','Метрики'],['table',['Метрика','Що означає'],[['Частотність (volume)','Скільки разів на місяць шукають'],['KD (складність)','Наскільки важко потрапити в топ'],['Інтент','Що людина хоче: дізнатися, купити, знайти конкретний сайт'],['CPC','Ціна кліку в рекламі — показує комерційну цінність']]],
+['h','Чистка'],['p',`Видаліть: запити не про ваш бізнес, бренди конкурентів, «безкоштовно / самостійно / реферат», якщо ви продаєте послугу; дублікати. Позначте міста і мови окремою колонкою.`],
+['note','tip',`Для двомовного ринку збирайте ядро на кожну мову окремо: польські користувачі шукають «tłumacz przysięgły», а не «присяжний перекладач».`]],
+steps:[[`Випишіть маркери`,`10–20 базових фраз по кожній послузі.`],[`Розширте в Keyword Planner`,`Країна + мова, експорт у таблицю.`],[`Додайте ключі конкурентів`,`Serpstat / Ahrefs → органічні ключові слова 3 конкурентів.`],[`Обʼєднайте і почистіть`,`Одна таблиця, без дублів і нерелевантного.`],[`Позначте інтент`,`Колонка: інфо / комерційний / транзакційний.`]],
+check:['Є таблиця від 200 запитів','Почищено від сміття','Є колонки частотності та інтенту'],
+quiz:['Що найкраще показує реальні запити, за якими вже приходять на сайт?',['Search Console → Ефективність','Keyword Planner','Google Trends'],0,'Search Console показує фактичні запити вашого сайту.']},
+
+{id:'b1-m4-l2',t:'Search intent: намір користувача',dur:'7 хв',tools:['Google'],ill:['intent'],cap:'Чотири типи наміру і тип сторінки, яка під нього підходить.',yt:'search intent explained seo',
+lead:`Google показує те, що задовольняє намір. Якщо за запитом у топі статті, сторінка послуги туди не потрапить, і навпаки.`,
+body:[['table',['Інтент','Приклад','Яка сторінка потрібна'],[['Інформаційний','що таке апостиль','Стаття, інструкція в блозі'],['Навігаційний','мости бюро перекладів','Головна, контакти'],['Комерційний','найкраще бюро перекладів київ','Огляд, порівняння, відгуки, сторінка послуги з перевагами'],['Транзакційний','замовити переклад диплома','Посадкова послуги: ціна, термін, форма замовлення']]],
+['h','Як визначити інтент'],['p',`Не вгадуйте — відкрийте видачу. Подивіться, що в топ-10: статті, сторінки послуг, каталоги, карти, відео. Більшість результатів одного типу = такий інтент.`],
+['note','warn',`Змішаний інтент (у топі і статті, і послуги) — можна зробити посадкову з корисним блоком FAQ, або дві сторінки під різні частини запитів.`]],
+steps:[[`Відкрийте видачу`,`Інкогніто, потрібна локація.`,'serp'],[`Порахуйте типи`,`Статті / послуги / каталоги в топ-10.`],[`Запишіть інтент`,`Колонка в таблиці семантики.`],[`Оберіть тип сторінки`,`Під інтент, а не за бажанням.`,'intent']],
+check:['Кожен кластер має інтент','Тип сторінки відповідає видачі'],
+quiz:['У топі за «як завірити диплом» самі статті. Що робити?',['Статтю в блозі з посиланням на послугу','Сторінку послуги з ціною','Нічого'],0,'Інформаційний інтент = статті. Стаття веде на послугу посиланням.']},
+
+{id:'b1-m4-l3',t:'Кластеризація: одна група — одна сторінка',dur:'10 хв',tools:['Serpstat','KeyAssort / Keyword Insights','Google Sheets'],ill:['cluster'],cap:'Запити групуються, якщо Google показує за ними одні й ті самі сторінки.',yt:'keyword clustering by serp',
+lead:`Кластеризація — розподіл запитів на групи. Кожна група = одна сторінка сайту. Так ви уникаєте канібалізації (коли дві ваші сторінки борються за один запит).`,
+body:[['h','Принцип кластеризації за видачею'],['p',`Беремо два запити і порівнюємо їхній топ-10. Якщо збігаються 3–4 і більше URL — Google вважає їх одним наміром, їх ставимо на одну сторінку. Якщо збігів немає — різні сторінки.`],
+['table',['Запити','Спільних URL у топ-10','Рішення'],[['нотаріальний переклад / засвідчений переклад','7','Одна сторінка'],['нотаріальний переклад / присяжний перекладач польща','0','Різні сторінки'],['апостиль / що таке апостиль','2','Різні: послуга і стаття']]],
+['h','Інструменти'],['ul',[`Serpstat → «Кластеризація» — автоматично за видачею.`,`KeyAssort, Keyword Insights, SE Ranking — аналоги.`,`Вручну для малого ядра: таблиця, топ-10 у колонках.`]],
+['h','Від кластерів до SEO-структури'],['p',`Кожен кластер отримує: URL, тип сторінки, головний запит (для title і H1), допоміжні запити (для тексту і H2). Це і є SEO-структура сайту.`],
+['code','Приклад рядка SEO-структури',`URL:          /uslugy/notarialnyi-pereklad/
+Тип:          посадкова послуги
+Головний:     нотаріальний переклад (1 900/міс)
+Допоміжні:    нотаріальний переклад ціна, засвідчений переклад,
+              переклад з нотаріальним засвідченням київ
+Title:        Нотаріальний переклад у Києві — ціна від 1 дня | Мости
+H1:           Нотаріальний переклад документів`]],
+steps:[[`Завантажте ядро в кластеризатор`,`Регіон і мова як у вашої аудиторії.`],[`Поріг 3–4 спільних URL`,`Нижче — забагато дрібних груп, вище — надто злиті.`,'cluster'],[`Перевірте вручну`,`Кожен кластер — один намір?`],[`Призначте URL`,`Кожному кластеру — одна сторінка.`],[`Заповніть SEO-структуру`,`URL, тип, головний запит, title, H1.`]],
+check:['Ядро кластеризоване','Кожен кластер має URL','Немає двох сторінок під один кластер'],
+quiz:['Що таке канібалізація?',['Дві сторінки сайту конкурують за один запит','Конкурент копіює ваш текст','Сайт без sitemap'],0,'Канібалізацію запобігає правило «один кластер — одна сторінка».']}]},
+
+{id:'m5',t:'Структура сайту',les:[
+{id:'b1-m5-l1',t:'Розділи, категорії, посадкові сторінки',dur:'9 хв',tools:['Google Sheets','Whimsical / Miro'],ill:['tree'],cap:'Ієрархія сайту: головна → розділи → сторінки. URL повторює ієрархію.',yt:'website structure seo silo',
+lead:`Структура — карта сайту, з якою працює і людина, і Google. Її будують з кластерів семантики, а не з фантазії дизайнера.`,
+body:[['h','Рівні структури'],['table',['Рівень','Приклад','Роль'],[['Головна','/','Бренд, головні послуги, довіра'],['Розділ / категорія','/uslugy/, /movy/, /blog/','Збирає сторінки одного типу, ранжується за загальними запитами'],['Посадкова (landing page)','/uslugy/notarialnyi-pereklad/','Сторінка під конкретний кластер з метою: заявка, дзвінок'],['Стаття','/blog/shcho-take-apostyl/','Інформаційний трафік, веде на послуги'],['Службові','/kontakty/, /polityka/, /dyakuiemo/','Довіра, юридичне, технічне']]],
+['h','Що таке посадкова сторінка'],['p',`Посадкова — сторінка, на яку людина «приземляється» з пошуку під конкретний запит. Вона повністю відповідає на запит: що за послуга, ціна, терміни, як замовити, відгуки, FAQ, форма. Одна послуга × одна мова × одне місто можуть мати окремі посадкові, якщо під них є окремі запити.`],
+['h','Правила'],['ul',[`Будь-яка важлива сторінка — не глибше 3 кліків від головної.`,`Кожна сторінка належить одному розділу.`,`Немає сторінок-сиріт (без внутрішніх посилань).`,`Розділ не створюємо «про запас»: тільки якщо є запити.`]]],
+steps:[[`Візьміть кластери`,`Згрупуйте за типом: послуги, мови, статті.`],[`Намалюйте дерево`,`Miro, Whimsical або на папері.`,'tree'],[`Призначте URL`,`За правилами з уроку про URL.`,'url'],[`Перевірте глибину`,`Від головної до будь-якої послуги ≤ 3 кліки.`]],
+check:['Є схема структури','Кожна сторінка має URL і кластер','Глибина ≤ 3'],
+quiz:['Головна мета посадкової сторінки?',['Повністю відповісти на конкретний запит і привести до дії','Зібрати всі послуги в одному місці','Розмістити новини'],0,'Посадкова — під один запит і одну дію.']},
+
+{id:'b1-m5-l2',t:'Навігація і хлібні крихти',dur:'6 хв',tools:['Браузер'],ill:['links'],cap:'Навігація розподіляє вагу: важливі сторінки отримують посилання з меню та хабів.',yt:'website navigation seo breadcrumbs',
+lead:`Навігація — це внутрішні посилання, які є на кожній сторінці. Google по них ходить, людина по них орієнтується.`,
+body:[['table',['Елемент','Правило'],[['Головне меню','Розділи і найважливіші послуги. Звичайні посилання &lt;a href&gt;, не JavaScript-кнопки'],['Хлібні крихти','Головна › Послуги › Нотаріальний переклад. Додати розмітку BreadcrumbList'],['Футер','Контакти, політика, ключові розділи. Не сотні посилань'],['Перелінковка в тексті','Зі статей — на послуги, між повʼязаними послугами'],['Пагінація','/blog/page/2/ — звичайні посилання, кожна сторінка має canonical на себе']]],
+['note','bad',`Меню, яке відкривається тільки JS-кліком без &lt;a href&gt;, Googlebot може не пройти. Перевірте: Ctrl+U і пошук href у коді меню.`]],
+steps:[[`Складіть меню з розділів`,`Не більше 7±2 пунктів верхнього рівня.`],[`Додайте хлібні крихти`,`На всіх сторінках, крім головної.`],[`Перевірте код`,`Посилання меню — це &lt;a href="…"&gt;.`,'source']],
+check:['Меню з &lt;a href&gt;','Є хлібні крихти','Футер без спаму посилань'],
+quiz:['Чому меню має бути на &lt;a href&gt;?',['Googlebot переходить по href','Так красивіше','Це прискорює сайт'],0,'Без href Googlebot не бачить посилання.']},
+
+{id:'b1-m5-l3',t:'Що індексувати, а що закрити',dur:'9 хв',tools:['Search Console','Screaming Frog'],ill:['directives'],cap:'Чотири способи керувати тим, що потрапляє в пошук.',yt:'what pages to noindex seo',
+lead:`В індексі мають бути лише сторінки, корисні людині з пошуку. Решта засмічує індекс і витрачає ресурси Googlebot.`,
+body:[['table',['Тип сторінки','В індекс?','Як керуємо'],[['Головна, розділи, послуги, статті','Так','index, canonical на себе, у sitemap'],['Пагінація /page/2/','Так (за замовчуванням)','canonical на себе, не на першу сторінку'],['Результати пошуку по сайту /?s=','Ні','noindex'],['Кошик, оформлення, кабінет, вхід','Ні','noindex (або Disallow, якщо їх тисячі)'],['Сторінка «Дякуємо»','Ні','noindex'],['Фільтри й сортування ?sort=, ?price=','Ні, якщо немає попиту','canonical на категорію або noindex'],['Фільтр з попитом («переклад з польської»)','Так','окрема сторінка з чистим URL'],['Теги, архіви авторів і дат (WordPress)','Зазвичай ні','noindex'],['Тестова версія, staging','Ні','пароль на сервері + noindex'],['Політика конфіденційності','Можна залишити','index, не важлива для SEO']]],
+['h','Чи є сторінки, які генеруються автоматично?'],['p',`Так, особливо в CMS: теги, архіви, сторінки вкладень, параметри фільтрів, версії для друку, сторінки з ?replytocom. Знайти їх: краул Screaming Frog → Internal → сортувати за Address і шукати повторювані шаблони; Search Console → Сторінки → приклади URL у кожній причині.`]],
+steps:[[`Випишіть типи сторінок`,`З краулу: що генерує CMS.`,'crawler','Internal'],[`Для кожного типу — рішення`,`index / noindex / canonical / 301.`,'directives'],[`Задокументуйте`,`Таблиця «Правила індексації» для розробника.`],[`Перевірте після впровадження`,`Screaming Frog → Directives і Canonicals.`,'crawler','Directives']],
+check:['Є таблиця правил індексації','Службові сторінки закриті','Важливі сторінки відкриті'],
+quiz:['Сторінка «Дякуємо за заявку». Що з нею?',['noindex','У sitemap','canonical на головну'],0,'Користі з пошуку немає, тому noindex.']}]},
+
+{id:'m6',t:'Розробка і публікація на GitHub',les:[
+{id:'b1-m6-l1',t:'Публікуємо сайт через GitHub Pages',dur:'12 хв',tools:['GitHub','GitHub Pages'],ill:['github'],cap:'Чотири кроки від репозиторію до живого сайту.',yt:'github pages tutorial deploy website',
+lead:`GitHub Pages безкоштовно публікує статичний сайт (HTML, CSS, JS) з репозиторію. Ідеально для лендінгу чи сайту-візитки.`,
+body:[['h','Структура репозиторію'],['code','Мінімальний набір файлів',`site/
+├── index.html          ← головна
+├── uslugy/
+│   └── index.html      ← /uslugy/
+├── 404.html            ← своя сторінка помилки
+├── robots.txt
+├── sitemap.xml
+├── favicon.ico
+└── CNAME               ← ваш домен (створюється автоматично)`],
+['p',`Папка з <code>index.html</code> дає гарний URL: <code>uslugy/index.html</code> → <code>/uslugy/</code>.`],
+['h','Обмеження GitHub Pages'],['ul',[`Немає серверних 301 редиректів і заголовків. Тому одразу продумайте URL, щоб не міняти їх.`,`HTTPS вмикається галочкою «Enforce HTTPS».`,`Тільки статичні файли: форми через сторонні сервіси (Formspree, Google Forms).`,`Для сайту з базою даних і адмінкою потрібен хостинг (WordPress).`]],
+['note','tip',`Альтернативи з редиректами і заголовками: Netlify, Cloudflare Pages (файл _redirects).`]],
+steps:[[`Створіть акаунт і репозиторій`,`github.com → New repository → Public → назва site.`,'github'],[`Завантажте файли`,`Add file → Upload files → перетягніть усі файли → Commit changes.`],[`Увімкніть Pages`,`Settings → Pages → Source: Deploy from a branch → main / (root) → Save.`],[`Відкрийте сайт`,`За 1–2 хвилини: username.github.io/site/.`],[`Підключіть домен`,`Pages → Custom domain → mosty.com.ua. У DNS: 4 записи A на IP GitHub (є в документації) і CNAME www → username.github.io.`],[`Увімкніть HTTPS`,`Галочка Enforce HTTPS (зʼявиться після перевірки DNS).`]],
+check:['Сайт відкривається за адресою GitHub','Підключено свій домен','HTTPS увімкнено','Є robots.txt, sitemap.xml, 404.html'],
+quiz:['Чого немає в GitHub Pages?',['Серверних 301 редиректів','HTTPS','Свого домену'],0,'Тому URL плануємо до запуску.']},
+
+{id:'b1-m6-l2',t:'Шаблон &lt;head&gt;: усі SEO-теги',dur:'10 хв',tools:['Редактор коду'],ill:['source'],cap:'Що має бути в коді кожної сторінки.',yt:'seo meta tags html head',
+lead:`Більшість технічних SEO-сигналів живе в блоці &lt;head&gt;. Ось шаблон, який копіюєте на кожну сторінку і змінюєте значення.`,
+body:[['code','Шаблон сторінки послуги',`<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Нотаріальний переклад у Києві — від 1 дня | Мости</title>
+  <meta name="description" content="Переклад документів з нотаріальним засвідченням з 40 мов. Ціна від 350 грн, термін від 1 дня.">
+
+  <!-- Індексація: index за замовчуванням, тег можна не ставити -->
+  <meta name="robots" content="index, follow">
+
+  <!-- Канонічна адреса: абсолютна, https, фінальна -->
+  <link rel="canonical" href="https://mosty.com.ua/uslugy/notarialnyi-pereklad/">
+
+  <!-- Мовні версії -->
+  <link rel="alternate" hreflang="uk" href="https://mosty.com.ua/uslugy/notarialnyi-pereklad/">
+  <link rel="alternate" hreflang="en" href="https://mosty.com.ua/en/services/notarized-translation/">
+  <link rel="alternate" hreflang="x-default" href="https://mosty.com.ua/uslugy/notarialnyi-pereklad/">
+
+  <!-- Соцмережі -->
+  <meta property="og:title" content="Нотаріальний переклад | Мости">
+  <meta property="og:image" content="https://mosty.com.ua/img/og-notarialnyi.jpg">
+</head>
+<body>
+  <h1>Нотаріальний переклад документів</h1>
+  …
+</body>
+</html>`],
+['table',['Тег','Навіщо','Правило'],[['&lt;html lang&gt;','Мова сторінки','uk, en, pl, ru'],['viewport','Мобільна версія','Обовʼязково'],['title','Заголовок у видачі','Унікальний, ~50–60 символів, ключ на початку'],['description','Опис у видачі','Унікальний, ~140–160 символів, з вигодою'],['robots','index/noindex','Тільки на сторінках, які закриваємо'],['canonical','Головна версія','Абсолютний URL, на себе на оригіналі'],['hreflang','Мовні версії','Взаємні посилання + на себе'],['H1','Головний заголовок','Один на сторінці']]]],
+steps:[[`Скопіюйте шаблон`,`На кожну сторінку.`,'source'],[`Заповніть title і description`,`З SEO-структури.`,'serp'],[`Вкажіть canonical`,`Адреса цієї ж сторінки.`],[`Перевірте розширенням`,`Detailed SEO показує все одним кліком.`]],
+check:['На кожній сторінці унікальний title','Є canonical','Є lang і viewport','Один H1'],
+quiz:['Скільки H1 має бути на сторінці?',['Один','Скільки завгодно','Жодного'],0,'Один H1 = головна тема сторінки.']}]},
+
+{id:'m7',t:'Індексація під контролем',les:[
+{id:'b1-m7-l1',t:'robots.txt',dur:'9 хв',tools:['Search Console','Screaming Frog'],ill:['directives'],cap:'robots.txt керує скануванням, не індексом.',yt:'robots.txt tutorial seo',
+lead:`robots.txt — текстовий файл у корені сайту (<code>site.com/robots.txt</code>). Каже роботам, куди не ходити.`,
+body:[['code','robots.txt для невеликого сайту',`User-agent: *
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /*?s=
+Disallow: /*?sort=
+
+Sitemap: https://mosty.com.ua/sitemap.xml`],
+['code','robots.txt для WordPress',`User-agent: *
+Disallow: /wp-admin/
+Allow: /wp-admin/admin-ajax.php
+Disallow: /?s=
+Disallow: /search/
+
+Sitemap: https://mosty.com.ua/sitemap_index.xml`],
+['table',['Директива','Що робить'],[['User-agent: *','Правила для всіх роботів'],['Disallow: /papka/','Заборонити сканувати все, що починається з /papka/'],['Allow:','Дозволити виняток всередині заборони'],['*','Будь-які символи'],['$','Кінець адреси: Disallow: /*.pdf$'],['Sitemap:','Повна адреса карти сайту']]],
+['note','bad',`<b>Disallow: /</b> закриває весь сайт. Це найчастіша катастрофа після запуску: розробник забув прибрати заборону зі staging.`],
+['note','warn',`Не блокуйте CSS і JS — Google не зможе відрендерити сторінку. Не блокуйте сторінки, з яких хочете прибрати noindex: робот не побачить тег.`]],
+steps:[[`Відкрийте site.com/robots.txt`,`Файл має віддавати код 200.`],[`Перевірте, чи немає Disallow: /`,`На робочому сайті — ніколи.`],[`Перевірте в Search Console`,`Налаштування → robots.txt: статус і помилки.`,'gsc','Огляд'],[`Перевірте краулером`,`Screaming Frog → Response Codes → Blocked by Robots.txt.`,'crawler','Response Codes']],
+check:['robots.txt є і віддає 200','Немає Disallow: /','Вказано Sitemap','CSS/JS не заблоковано'],
+quiz:['Хочете прибрати сторінку з індексу. robots.txt допоможе?',['Ні: потрібен noindex, а robots має дозволяти сканування','Так, Disallow видаляє з індексу','Так, але тільки на 30 днів'],0,'Google не побачить noindex, якщо сторінка заблокована в robots.txt.']},
+
+{id:'b1-m7-l2',t:'noindex: як закрити і як відкрити сторінку',dur:'10 хв',tools:['Search Console','Screaming Frog'],ill:['gsc','Перевірка URL'],cap:'Перевірка URL показує, чи дозволено індексування.',yt:'noindex tag how to remove page from google',
+lead:`noindex — команда «не показуй сторінку в пошуку». Google її виконує, але тільки після того, як просканує сторінку.`,
+body:[['code','Два способи поставити noindex',`<!-- 1. Мета-тег у <head> HTML-сторінки -->
+<meta name="robots" content="noindex, follow">
+
+# 2. HTTP-заголовок (для PDF, зображень, файлів)
+X-Robots-Tag: noindex`],
+['h','Коли закривати'],['ul',[`Службові: кошик, кабінет, «Дякуємо», пошук по сайту.`,`Тонкі автоматичні: теги, архіви дат, фільтри без попиту.`,`Застарілі сторінки без трафіку і посилань, які не можна видалити.`,`Тестові сторінки.`]],
+['h','Коли відкривати'],['ul',[`Сторінка стала корисною: зʼявився контент, ціни, попит.`,`noindex стоїть помилково (часто після запуску або оновлення плагіна).`,`Фільтр отримав окремий попит («переклад з польської»).`]],
+['note','tip',`<b>Термінове приховування</b> (витік даних, помилкова ціна): Search Console → Вилучення → Новий запит. Діє ≈6 місяців. Паралельно ставте noindex або видаляйте сторінку (404/410).`]],
+steps:[[`ЗАКРИТИ: поставте noindex`,`Мета-тег або налаштування SEO-плагіна для цієї сторінки.`,'source'],[`Перевірте robots.txt`,`Сторінка НЕ має бути в Disallow, інакше Google не побачить noindex.`,'directives'],[`Приберіть із sitemap і меню`,`Сторінка з noindex не має бути в sitemap.`,'sitemap'],[`Перевірте в GSC`,`Перевірка URL → Перевірити активну URL → «Індексування дозволено? Ні: тег noindex».`,'gsc','Перевірка URL'],[`ВІДКРИТИ: приберіть noindex`,`Перевірте, що canonical вказує на саму сторінку.`],[`Додайте в sitemap і посилання`,`Посилання з меню або розділу.`],[`Надішліть на індексування`,`Перевірка URL → «Надіслати запит на індексування».`,'gsc','Перевірка URL']],
+check:['Знаю 2 способи noindex','Розумію, чому не можна noindex + Disallow','Вмію перевірити статус у GSC'],
+quiz:['Сторінка має noindex і є в sitemap. Що не так?',['Суперечливі сигнали: прибрати з sitemap','Все гаразд','Треба додати Disallow'],0,'Sitemap = «індексуй», noindex = «не індексуй». Сигнали мають збігатися.']},
+
+{id:'b1-m7-l3',t:'Canonical: головна версія сторінки',dur:'9 хв',tools:['Screaming Frog','Search Console'],ill:['canonical'],cap:'Дублі вказують на оригінал. Оригінал вказує сам на себе.',yt:'canonical tag explained seo',
+lead:`rel="canonical" каже Google: «Цих схожих сторінок кілька, показуй ось цю». Це підказка, а не наказ: Google може обрати іншу.`,
+body:[['code','Canonical на дублі з параметром',`<!-- На сторінці https://mosty.com.ua/uslugy/?utm_source=fb -->
+<link rel="canonical" href="https://mosty.com.ua/uslugy/">`],
+['table',['Правило','Чому'],[['Абсолютна адреса з https','Відносні адреси часто ламаються'],['Одна canonical на сторінку','Дві — Google ігнорує обидві'],['Оригінал має canonical на себе','Захист від дублів з параметрами'],['Canonical веде на сторінку з кодом 200','Не на 301, 404 чи noindex'],['Ті самі адреси в canonical, sitemap і посиланнях','Інакше Google обирає сам'],['Не ставити canonical пагінації на першу сторінку','/page/2/ — окремий контент']]],
+['h','Canonical чи 301?'],['table',['Ситуація','Рішення'],[['Користувач не має бачити стару адресу','301'],['Обидві адреси потрібні людям (UTM, сортування, версія для друку)','canonical'],['http → https, www → без www','301'],['Схожий товар у двох категоріях','canonical на основну']]]],
+steps:[[`Краул: вкладка Canonicals`,`Фільтри Missing, Canonicalised, Non-Indexable Canonical.`,'crawler','Canonicals'],[`Перевірте в GSC`,`Сторінки → «Дублікат: Google вибрав іншу канонічну, ніж користувач».`,'gsc','Сторінки'],[`Виправте`,`Canonical на себе на оригіналах, на оригінал — на дублях.`,'canonical']],
+check:['На кожній сторінці є canonical','Canonical веде на 200','Адреси збігаються з sitemap'],
+quiz:['Canonical вказує на сторінку з кодом 301. Що буде?',['Google, ймовірно, проігнорує canonical','Все гаразд','Сторінка видалиться'],0,'Canonical має вести на кінцеву сторінку з кодом 200.']},
+
+{id:'b1-m7-l4',t:'Дублікати: як знайти й прибрати',dur:'12 хв',tools:['Screaming Frog','Netpeak Spider','Search Console','Google'],ill:['canonical'],cap:'Чотири дублі однієї сторінки. Два виправляються canonical, два — редиректом.',yt:'how to find duplicate content screaming frog',
+lead:`Дублікат — дві або більше URL з однаковим чи майже однаковим вмістом. Оригінал — та адреса, яку ви хочете бачити в пошуку і на яку ведуть посилання.`,
+body:[['h','Звідки беруться дублі'],['table',['Тип','Приклад','Як лікувати'],[['Протокол і www','http:// і https://www.','301 на головне дзеркало'],['Слеш у кінці','/uslugy і /uslugy/','301 на один формат'],['Регістр','/Uslugy/','301 на нижній регістр'],['index.html / index.php','/uslugy/index.html','301 на /uslugy/'],['Параметри','?utm_source, ?sort, ?page=1','canonical на чистий URL'],['Автоматичні сторінки CMS','теги, архіви, вкладення','noindex або 301'],['Однаковий текст на різних сторінках','послуга в двох категоріях','canonical або унікальний текст'],['Майже дублі','сторінки міст з однаковим текстом','унікалізувати або обʼєднати']]],
+['h','Як знайти'],['table',['Інструмент','Де дивитися'],[['Screaming Frog','Content → Exact Duplicates / Near Duplicates (після Crawl Analysis); Page Titles → Duplicate; H1 → Duplicate'],['Netpeak Spider','Помилки → «Дублікати сторінок», «Дублікати Title», «Дублікати H1»'],['Search Console','Сторінки → «Дублікат без канонічної сторінки, вибраної користувачем», «Google вибрав іншу канонічну»'],['Google','Пошук шматка тексту в лапках: "унікальна фраза з вашої сторінки"'],['Siteliner, Copyscape','Дублі всередині сайту / копії на інших сайтах']]],
+['h','Хто оригінал?'],['p',`Оригінал — сторінка з чистим URL, у меню та sitemap, з більшою кількістю посилань і трафіку (дивіться GSC → Ефективність → Сторінки). Решта — дублі.`]],
+steps:[[`Краул + Crawl Analysis`,`Screaming Frog → Content → Near Duplicates.`,'crawler','Internal'],[`Дублі title і H1`,`Часто показують дублі сторінок.`,'crawler','Page Titles'],[`Звірте з GSC`,`Сторінки → причини з «Дублікат».`,'gsc','Сторінки'],[`Оберіть оригінал`,`Чистий URL з трафіком.`],[`Виправте`,`301 / canonical / noindex / унікальний текст.`,'canonical'],[`Перекраульте`,`Дублі зникли?`]],
+check:['Знайдено всі групи дублів','Для кожної обрано оригінал','Внутрішні посилання ведуть на оригінали'],
+quiz:['/uslugy і /uslugy/ відкриваються обидві з кодом 200. Найкраще рішення?',['301 з однієї на іншу','canonical','noindex на обидві'],0,'Технічні дублі адреси лікуємо 301.']},
+
+{id:'b1-m7-l5',t:'Sitemap.xml: карта сайту',dur:'10 хв',tools:['Search Console','Screaming Frog'],ill:['sitemap'],cap:'Sitemap — список адрес, які ви просите проіндексувати.',yt:'xml sitemap tutorial seo',
+lead:`Sitemap.xml — файл зі списком URL, які мають бути в індексі. Це запрошення для Google, а не гарантія.`,
+body:[['h','Правила'],['ul',[`Тільки URL з кодом 200, без noindex, канонічні, з https.`,`До 50 000 URL і 50 МБ в одному файлі. Більше — кілька файлів і sitemap_index.xml.`,`<code>lastmod</code> — справжня дата зміни контенту, не «сьогодні» для всіх.`,`Адреса sitemap — у robots.txt і в Search Console.`,`Для мовних версій можна вказати hreflang прямо в sitemap.`]],
+['h','Як перевірити, чи є сторінка в sitemap'],['ul',[`Відкрийте <code>site.com/sitemap.xml</code> → Ctrl+F → частина URL.`,`Search Console → Перевірка URL → блок «Виявлення» → «Файли Sitemap».`,`Screaming Frog → Configuration → Spider → Crawl → Crawl Linked XML Sitemaps → після Crawl Analysis вкладка Sitemaps: <b>URLs not in Sitemap</b>, <b>Non-Indexable URLs in Sitemap</b>, <b>Orphan URLs</b>.`]],
+['h','Чого бракує / що зайве'],['table',['Фільтр у Screaming Frog','Що робити'],[['URLs not in Sitemap','Додати, якщо сторінка має бути в пошуку'],['Non-Indexable URLs in Sitemap','Прибрати: 301, 404, noindex, canonicalised'],['Orphan URLs','Є в sitemap, але без внутрішніх посилань → додати посилання'],['URLs in Multiple Sitemaps','Залишити в одному']]]],
+steps:[[`Відкрийте sitemap`,`site.com/sitemap.xml або /sitemap_index.xml (WordPress).`,'sitemap'],[`Додайте нову сторінку`,`CMS: зазвичай автоматично (плагін). Статичний сайт: новий блок &lt;url&gt; з &lt;loc&gt; і &lt;lastmod&gt;.`],[`Перевірте XML`,`Файл відкривається без помилок.`],[`Надішліть у GSC`,`Файли Sitemap → адреса → Надіслати. Статус «Успішно».`,'gsc','Файли Sitemap'],[`Звірте з краулом`,`Вкладка Sitemaps у Screaming Frog.`,'crawler','Sitemaps']],
+check:['Sitemap надіслано, «Успішно»','У sitemap немає 3xx/4xx/noindex','Усі важливі сторінки в sitemap'],
+quiz:['Сторінка є в sitemap, але має 301. Що робити?',['Замінити на кінцеву адресу','Залишити','Додати noindex'],0,'У sitemap лише фінальні URL з кодом 200.']},
+
+{id:'b1-m7-l6',t:'Hreflang: мовні версії',dur:'11 хв',tools:['Screaming Frog','Search Console'],ill:['hreflang'],cap:'Кожна мовна версія посилається на всі інші та на себе.',yt:'hreflang tutorial',
+lead:`Hreflang каже Google: «Ця сторінка має переклади. Українцю показуй українську, поляку — польську».`,
+body:[['code','Блок hreflang — однаковий на всіх трьох версіях',`<link rel="alternate" hreflang="uk" href="https://mosty.com.ua/uslugy/">
+<link rel="alternate" hreflang="en" href="https://mosty.com.ua/en/services/">
+<link rel="alternate" hreflang="pl" href="https://mosty.com.ua/pl/uslugi/">
+<link rel="alternate" hreflang="x-default" href="https://mosty.com.ua/uslugy/">`],
+['table',['Правило','Помилка'],[['Код мови ISO 639-1: uk, en, pl, ru','ua — це код країни, мова української — uk'],['Мова-регіон, якщо треба: en-GB, pl-PL','en-UK (правильно en-GB)'],['Посилання на себе','Без self-reference Google може ігнорувати'],['Взаємність: A→B і B→A','No return links'],['Тільки на сторінки з 200 і canonical на себе','hreflang на 301 або noindex'],['x-default — для решти мов','необовʼязково, але бажано']]],
+['h','Де розміщувати'],['ul',[`У &lt;head&gt; кожної сторінки (найпоширеніше).`,`У sitemap.xml (для великих сайтів).`,`У HTTP-заголовку (для PDF).`]],
+['h','Як прибрати hreflang'],['p',`Якщо мовна версія видаляється: приберіть рядок з цією мовою з <b>усіх</b> інших версій, налаштуйте 301 з видаленої версії на найближчу, оновіть sitemap. Якщо прибираєте hreflang повністю — видаліть блок з усіх сторінок одночасно.`],
+['note','tip',`WordPress: WPML і Polylang ставлять hreflang автоматично. Перевіряйте їх краулером після налаштування.`]],
+steps:[[`Складіть таблицю відповідностей`,`Рядок — сторінка, колонки — URL кожної мови.`],[`Додайте блок у &lt;head&gt;`,`Однаковий на всіх версіях.`,'source'],[`Краул з Crawl Analysis`,`Вкладка Hreflang: Missing Return Links, Incorrect Language Codes, Missing Self Reference.`,'crawler','Hreflang'],[`Перевірте видачу з іншої країни`,`GS Location Changer → Польща → показується /pl/?`,'serp']],
+check:['Коди мов правильні (uk!)','Є self-reference','Усі посилання взаємні','Краулер без помилок hreflang'],
+quiz:['Правильний hreflang для української?',['uk','ua','ukr'],0,'Мова — uk. UA — код країни (можна uk-UA).']},
+
+{id:'b1-m7-l7',t:'Діагностика: чому сторінки немає в індексі',dur:'12 хв',tools:['Search Console'],ill:['why'],cap:'Почніть з Перевірки URL. Статус підкаже гілку.',yt:'page not indexed google search console fix',
+lead:`Головний алгоритм SEO-спеціаліста: сторінки немає в пошуку → знайти причину → усунути → попросити переіндексацію.`,
+body:[['h','Як перевірити індексацію'],['ul',[`<b>Search Console → Перевірка URL</b> — точна відповідь. «URL-адреса є в Google» або причина.`,`<b>Search Console → Сторінки</b> — масово по сайту, з прикладами URL.`,`<b>site:mosty.com.ua/uslugy/</b> у Google — швидка, але неточна перевірка.`]],
+['h','Статуси Search Console і дії'],['table',['Статус','Причина','Що робимо'],[['Виявлено, наразі не проіндексовано','Google знає URL, але ще не сканував','Внутрішні посилання, sitemap, перевірити швидкість сервера, чекати'],['Проскановано, наразі не проіндексовано','Google прочитав, але не вважає цінною','Покращити контент, унікальність, посилання на сторінку'],['Заблоковано файлом robots.txt','Disallow','Прибрати заборону, якщо сторінка потрібна'],['Виключено тегом noindex','noindex','Прибрати, якщо потрібна; якщо ні — все гаразд'],['Сторінка з переадресацією','301/302','Нормально; прибрати з sitemap і посилань'],['Не знайдено (404)','Немає сторінки','301 на аналог або залишити; виправити посилання'],['М’яка помилка 404 (Soft 404)','Порожня сторінка з кодом 200','Додати контент або віддавати 404'],['Дублікат без канонічної, вибраної користувачем','Немає canonical','Поставити canonical'],['Google вибрав іншу канонічну','Google вважає її дублем','Посилити оригінал або обʼєднати'],['Альтернативна сторінка з канонічним тегом','Ваш canonical працює','Нічого — це нормально']]],
+['note','tip',`Після виправлення: Перевірка URL → «Перевірити активну URL» → якщо все зелене → «Надіслати запит на індексування». Для масових причин у звіті «Сторінки» є кнопка «Перевірити виправлення».`]],
+steps:[[`Перевірка URL`,`Вставте адресу у верхній рядок GSC.`,'gsc','Перевірка URL'],[`Прочитайте статус`,`Розділи: Виявлення, Сканування, Індексування.`,'why'],[`Перевірте активну URL`,`Як бачить Google зараз: код, robots, canonical, скріншот.`,'gsc','Перевірка URL'],[`Виправте причину`,`За таблицею.`],[`Запит на індексування`,`Кнопка в Перевірці URL.`],[`Через 3–14 днів — перевірка`,`Звіт «Сторінки» оновлюється з затримкою.`,'gsc','Сторінки']],
+check:['Розумію 10 основних статусів','Вмію надіслати запит на індексування','Ведусь записом: дата виправлення і результат'],
+quiz:['«Проскановано, наразі не проіндексовано» найчастіше означає…',['Google не бачить цінності сторінки','Сторінка в robots.txt','Сервер упав'],0,'Покращіть контент і внутрішні посилання.']}]},
+
+{id:'m8',t:'Технічний SEO-аудит',les:[
+{id:'b1-m8-l1',t:'Сканування: чи нормально Google ходить сайтом',dur:'9 хв',tools:['Search Console','Screaming Frog'],ill:['gsc','Огляд'],cap:'Статистика сканування — в Налаштуваннях Search Console.',yt:'crawl stats report google search console',
+lead:`Перед аудитом сторінок переконайтеся, що Googlebot взагалі нормально ходить сайтом.`,
+body:[['h','Де дивитися'],['table',['Що','Де'],[['Скільки запитів на день робить Googlebot','GSC → Налаштування → Статистика сканування'],['Які коди отримує','Там же → «За відповіддю»: частка 200, 3xx, 4xx, 5xx'],['Час відповіді сервера','Там же → «Середній час відповіді» (добре — до ~500 мс)'],['Чи доступний robots.txt','Там же → «Стан хоста»'],['Як бачить сторінку Google','Перевірка URL → Перевірити активну URL → Переглянути проскановану сторінку (скріншот і HTML)']]],
+['h','Краулінговий бюджет'],['p',`Для сайту до кількох тисяч сторінок бюджет зазвичай не проблема. Важливо не створювати тисяч сміттєвих URL (фільтри, параметри, календарі), які забирають увагу робота.`],
+['h','Сайт на JavaScript'],['p',`Порівняйте: Ctrl+U (код від сервера) і «Переглянути проскановану сторінку» у GSC. Якщо текст і посилання є лише після JS — краще серверний рендеринг або пререндер.`]],
+steps:[[`Статистика сканування`,`Частка 5xx і 4xx має бути мала.`],[`Перевірте 3 типові сторінки`,`Головна, розділ, послуга — Перевірка URL → скріншот.`,'gsc','Перевірка URL'],[`Порівняйте з краулом`,`Screaming Frog у режимі JavaScript.`,'crawler','Internal']],
+check:['Немає сплесків 5xx','Google бачить контент на скріншоті','Сміттєві URL не генеруються'],
+quiz:['Де побачити, які коди отримує Googlebot?',['GSC → Налаштування → Статистика сканування','GA4','Keyword Planner'],0,'Звіт «Статистика сканування».']},
+
+{id:'b1-m8-l2',t:'Чек-лист технічного аудиту',dur:'15 хв',tools:['Screaming Frog','Search Console','PageSpeed Insights'],ill:['crawler','Response Codes'],cap:'Більшість пунктів чек-листа перевіряється одним краулом.',yt:'technical seo audit checklist',
+lead:`Повний технічний аудит — це прохід по списку. Збережіть його і використовуйте на кожному проєкті.`,
+body:[['table',['Пункт','Де перевірити','Норма'],[['Дзеркала http/https/www','Браузер, httpstatus.io','Усі → одна версія одним 301'],['robots.txt','site.com/robots.txt, GSC','200, немає Disallow: /, є Sitemap'],['sitemap.xml','GSC → Файли Sitemap, краулер','Успішно, тільки 200 + indexable'],['Коди відповіді','Screaming Frog → Response Codes','Немає 4xx/5xx у внутрішніх посиланнях'],['Редиректи','Screaming Frog → Reports → Redirect Chains','Без ланцюжків і циклів'],['Індексація','GSC → Сторінки','Важливі сторінки в індексі'],['noindex','Screaming Frog → Directives','Тільки на службових'],['canonical','Screaming Frog → Canonicals','Є скрізь, веде на 200'],['Дублі','Content, Page Titles, H1','Немає'],['URL-параметри','Internal → пошук «?»','Не індексуються без потреби'],['hreflang','Hreflang (Crawl Analysis)','Без помилок'],['Title / description / H1','відповідні вкладки','Унікальні, є, потрібної довжини'],['Внутрішні посилання','Inlinks, Crawl Depth','Глибина ≤3, немає сиріт'],['Зображення','Images','До ~100–200 КБ, є alt'],['Швидкість','PageSpeed Insights, GSC CWV','LCP ≤2,5 с, INP ≤200 мс, CLS ≤0,1'],['Мобільна версія','Перевірка URL, DevTools','Зручна на телефоні'],['HTTPS і mixed content','Браузер: замок; DevTools → Console','Немає http-ресурсів на https'],['Мікророзмітка','Rich Results Test','Без помилок'],['404-сторінка','site.com/nemaie-takoi','Код 404, корисна сторінка з меню']]],
+['note','tip',`Записуйте кожну знахідку в таблицю аудиту: URL, проблема, де знайдено, пріоритет, рішення, хто, дата, статус.`]],
+steps:[[`Повний краул`,`З sitemap і Crawl Analysis.`,'crawler','Internal'],[`Експорт GSC`,`Сторінки, Ефективність за 3 місяці.`,'gsc','Сторінки'],[`Пройдіть чек-лист`,`По кожному пункту — так/ні.`],[`Пріоритезуйте`,`Критичне → високе → середнє → низьке.`,'priority'],[`Передайте задачі`,`Розробнику — з прикладами URL і очікуваним результатом.`]],
+check:['Пройдено всі 19 пунктів','Є таблиця аудиту з пріоритетами'],
+quiz:['Ланцюжок http → https → https/ → нова адреса. Що не так?',['Зайві кроки: має бути один 301','Все гаразд','Треба 302'],0,'Кожен крок втрачає час і може втрачати вагу.']},
+
+{id:'b1-m8-l3',t:'Внутрішні посилання',dur:'9 хв',tools:['Screaming Frog','Search Console'],ill:['links'],cap:'Хаб розподіляє вагу на послуги; стаття підсилює послугу контекстним посиланням.',yt:'internal linking strategy seo',
+lead:`Внутрішні посилання показують Google, які сторінки важливі, і передають їм вагу.`,
+body:[['h','Як будувати правильно'],['ul',[`<b>Хаб і сателіти:</b> розділ /uslugy/ посилається на всі послуги, кожна послуга — назад на розділ і на 2–3 повʼязані.`,`<b>Зі статей на послуги:</b> у статті «Що таке апостиль» — посилання «замовити апостиль» на /uslugy/apostyl/.`,`<b>Анкор описовий:</b> «нотаріальний переклад», не «тут» чи «детальніше».`,`<b>Різні анкори</b> на одну сторінку — природніше.`,`<b>Посилання ведуть на фінальні URL</b> з кодом 200, не на редиректи.`,`<b>Немає сиріт:</b> кожна сторінка має хоча б одне вхідне посилання.`]],
+['h','Як перевірити'],['table',['Що','Де'],[['Скільки посилань веде на сторінку','Screaming Frog → Internal → колонка Inlinks / Unique Inlinks'],['Глибина','Колонка Crawl Depth'],['Сироти','Sitemaps → Orphan URLs (потрібен sitemap і Crawl Analysis)'],['Посилання на редиректи / 404','Bulk Export → Response Codes → Internal → Redirection (3xx) Inlinks'],['Як бачить Google','GSC → Посилання → Внутрішні посилання']]]],
+steps:[[`Сортуйте за Unique Inlinks`,`Важливі послуги мають бути вгорі.`,'crawler','Internal'],[`Знайдіть сиріт`,`Додайте посилання з розділу чи статей.`,'links'],[`Виправте посилання на 3xx/4xx`,`Замініть на фінальні адреси.`,'redirect'],[`Додайте контекстні посилання`,`З кожної статті — на 1–2 послуги.`]],
+check:['Немає сиріт','Немає посилань на 3xx/4xx','Важливі сторінки мають найбільше вхідних'],
+quiz:['Який анкор кращий?',['«нотаріальний переклад документів»','«тут»','«клікніть»'],0,'Описовий анкор пояснює Google, про що цільова сторінка.']}]},
+
+{id:'m9',t:'On-page оптимізація',les:[
+{id:'b1-m9-l1',t:'Title, description, H1–H6',dur:'10 хв',tools:['Detailed SEO','Screaming Frog'],ill:['serp'],cap:'Title і description — те, що людина бачить у видачі до кліку.',yt:'how to write title tag meta description',
+lead:`On-page — оптимізація самої сторінки. Починається з трьох елементів: title, description і заголовки.`,
+body:[['table',['Елемент','Правило','Приклад'],[['Title','Унікальний, ~50–60 символів, головний запит ближче до початку, бренд у кінці','Нотаріальний переклад у Києві — від 1 дня | Мости'],['Description','~140–160 символів, вигода + заклик. На позиції не впливає, на CTR — так','Переклад з нотаріальним засвідченням з 40 мов. Ціна від 350 грн. Замовте онлайн!'],['H1','Один, відповідає title за змістом, містить головний запит','Нотаріальний переклад документів'],['H2','Розділи сторінки, допоміжні запити','Ціни на нотаріальний переклад; Терміни; Які документи перекладаємо'],['H3–H6','Підрозділи всередині H2','Переклад паспорта; Переклад диплома']]],
+['h','Ієрархія заголовків'],['code','Правильна структура',`H1  Нотаріальний переклад документів
+  H2  Ціни на нотаріальний переклад
+  H2  Які документи перекладаємо
+    H3  Особисті документи
+    H3  Документи для бізнесу
+  H2  Як замовити
+  H2  Часті питання`],
+['note','warn',`Заголовки — для структури, не для дизайну. Логотип і «Наші контакти» у футері не мають бути H1/H2.`],
+['h','Як перевірити'],['ul',[`Розширення <b>Detailed SEO</b> або <b>SEO Meta in 1 Click</b> → вкладка Headings: дерево H1–H6 поточної сторінки.`,`Screaming Frog → Page Titles, Meta Description, H1, H2: масово по сайту.`,`Довжину title в пікселях — SERP Snippet у нижній панелі Screaming Frog.`]]],
+steps:[[`Відкрийте сторінку`,`Натисніть розширення Detailed SEO.`],[`Перевірте title і description`,`Довжина, ключ, унікальність.`,'serp'],[`Перевірте дерево заголовків`,`Один H1, логічні H2.`],[`Масова перевірка`,`Screaming Frog → Page Titles → Duplicate / Missing.`,'crawler','Page Titles']],
+check:['Унікальні title на всіх сторінках','Description з вигодою','Один H1, логічна ієрархія'],
+quiz:['Description впливає на…',['CTR (клікабельність у видачі)','Позиції напряму','Швидкість'],0,'Добрий description збільшує кліки.']},
+
+{id:'b1-m9-l2',t:'Контент, зображення, мікророзмітка',dur:'10 хв',tools:['Rich Results Test','Squoosh'],ill:['image'],cap:'Оптимізація зображення: розмір у пікселях + формат + стиснення.',yt:'on page seo content optimization',
+lead:`Контент має повністю відповідати на запит краще за конкурентів. Зображення і розмітка допомагають це показати.`,
+body:[['h','Контент посадкової'],['ul',[`Відповідь на запит у першому екрані: що, скільки, за який термін.`,`Ціни або діапазон цін, терміни, процес, гарантії.`,`FAQ з реальними питаннями (з «Люди також запитують»).`,`Відгуки, сертифікати, фото команди — сигнали довіри (E-E-A-T: досвід, експертиза, авторитетність, довіра).`,`Допоміжні запити природно в тексті і H2. Без переспаму.`]],
+['h','Зображення'],['table',['Що','Правило'],[['Назва файлу','notarialnyi-pereklad-pasporta.webp, не IMG_2034.jpg'],['alt','Опис для незрячих і Google: «Нотаріально засвідчений переклад паспорта»'],['Формат','WebP або AVIF'],['Розмір','Не більше, ніж показується на екрані'],['width і height','Вказувати, щоб не було стрибків макета (CLS)']]],
+['h','Мікророзмітка Schema.org'],['code','LocalBusiness у форматі JSON-LD',`<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Бюро перекладів Мости",
+  "url": "https://mosty.com.ua/",
+  "telephone": "+380 44 000 00 00",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Київ",
+    "addressCountry": "UA"
+  }
+}
+<\/script>`],['p',`Корисні типи: Organization / LocalBusiness, BreadcrumbList, Article, Service, Product, Review. Перевірка — <b>Google Rich Results Test</b> і Schema Markup Validator.`]],
+steps:[[`Порівняйте з топ-3`,`Що є в них і немає у вас.`],[`Оптимізуйте фото`,`Squoosh: WebP, якість 75, ширина під макет.`,'image'],[`Додайте alt`,`Описово, без переліку ключів.`],[`Додайте розмітку`,`JSON-LD у &lt;head&gt; або плагіном.`],[`Перевірте`,`Rich Results Test → без помилок.`]],
+check:['Контент відповідає на запит','Фото у WebP з alt','Розмітка без помилок'],
+quiz:['Для чого alt у зображення?',['Опис для незрячих користувачів і Google','Прискорення','Декор'],0,'Alt — текстова заміна зображення.']},
+
+{id:'b1-m9-l3',t:'Контент-аудит',dur:'9 хв',tools:['Search Console','GA4','Screaming Frog'],ill:['gsc','Ефективність'],cap:'Ефективність → вкладка «Сторінки» показує, які сторінки приносять покази й кліки.',yt:'content audit seo',
+lead:`Контент-аудит — інвентаризація всіх сторінок і рішення щодо кожної: залишити, оновити, обʼєднати чи видалити.`,
+body:[['table',['Ситуація','Рішення'],[['Трафік є, позиції 1–3','Залишити, оновлювати дату й факти'],['Покази є, позиції 5–20','Оновити: доповнити, покращити title, додати посилання'],['Дві слабкі сторінки на одну тему','Обʼєднати в одну, 301 з другої'],['Немає трафіку, немає посилань, немає користі','Видалити (404/410) або noindex'],['Застарілий контент з посиланнями','Оновити або 301 на актуальний аналог'],['Тонка сторінка (кілька речень)','Доповнити або прибрати з індексу']]],
+['h','Дані для аудиту'],['ul',[`Список URL — краул Screaming Frog (Word Count, Inlinks).`,`Покази, кліки, позиція за 6–12 місяців — GSC → Ефективність → Сторінки → Експорт.`,`Конверсії — GA4 → Звіти → Залучення → Сторінки.`,`Зовнішні посилання — Ahrefs / GSC → Посилання.`]]],
+steps:[[`Зведіть дані в таблицю`,`URL + слова + покази + кліки + конверсії + посилання.`],[`Позначте рішення`,`Залишити / оновити / обʼєднати / видалити.`],[`Почніть з «оновити»`,`Найшвидший приріст: позиції 5–20.`,'gsc','Ефективність']],
+check:['Таблиця контент-аудиту','Рішення по кожній сторінці'],
+quiz:['Сторінка на 11-й позиції з 3 000 показів. Що робити?',['Оновити і підсилити','Видалити','Закрити noindex'],0,'Сторінки на 5–20 позиціях — найшвидший потенціал.']}]},
+
+{id:'m10',t:'Off-page оптимізація',les:[
+{id:'b1-m10-l1',t:'Зовнішні посилання і локальне SEO',dur:'11 хв',tools:['Ahrefs / Serpstat','Search Console','Google Business Profile'],ill:['backlinks'],cap:'Зелені — корисні посилання, сірі — нейтральні, червоні — ризик.',yt:'link building for beginners',
+lead:`Off-page — усе, що відбувається поза сайтом: посилання з інших сайтів, згадки бренду, профіль у Google Картах.`,
+body:[['h','Типи посилань'],['table',['Атрибут','Значення'],[['без атрибута (dofollow)','Передає вагу'],['rel="nofollow"','Підказка не передавати вагу'],['rel="sponsored"','Рекламне, оплачене'],['rel="ugc"','Користувацький контент: коментарі, форуми']]],
+['h','Якісне посилання'],['ul',[`Тематичний сайт (переклади, освіта, міграція, бізнес).`,`Живий сайт з трафіком.`,`Посилання в тексті, а не в футері серед сотні інших.`,`Природний анкор: бренд, URL, «бюро перекладів Мости».`]],
+['h','Звідки брати на старті'],['ul',[`<b>Google Business Profile</b> — обовʼязково для локального бізнесу. Однакові назва, адреса, телефон (NAP) всюди.`,`Каталоги і карти: локальні довідники, профільні каталоги.`,`Партнери: нотаріуси, візові центри, освітні агенції.`,`PR: експертні коментарі в ЗМІ, статті-гайди.`,`Соцмережі і профілі (переважно nofollow, але дають згадки).`]],
+['note','bad',`Не купуйте масові посилання на біржах, PBN-сітки і «1000 посилань за 10$». Ризик ручних санкцій Google.`],
+['h','Як перевіряти'],['ul',[`GSC → Посилання → Зовнішні посилання.`,`Ahrefs / Serpstat → Backlinks: донори, анкори, нові і втрачені.`,`Disavow (відхилення) — тільки при ручних санкціях або явній атаці. Новачку — не чіпати.`]]],
+steps:[[`Створіть Google Business Profile`,`business.google.com → підтвердження.`],[`Однаковий NAP`,`Назва, адреса, телефон — всюди однаково.`],[`10 каталогів і партнерів`,`Профільні та локальні.`,'backlinks'],[`Відстежуйте`,`Щомісяця: нові та втрачені посилання.`]],
+check:['Є профіль у Google Business','NAP однаковий','Є план посилань на 3 місяці'],
+quiz:['Посилання з rel="sponsored" означає…',['Оплачене / рекламне','Найцінніше','Внутрішнє'],0,'Платні посилання позначаються sponsored.']}]}
+]};
+</script>
+<script>
+/* ===== БЛОК 2: Існуючий сайт ===== */
+const B2={id:'b2',no:'Блок 2',title:'Виправлення існуючого сайту',sub:'Аудит і лікування сайту, який уже працює, зокрема на WordPress.',mods:[
+{id:'m1',t:'Перший день на чужому сайті',les:[
+{id:'b2-m1-l1',t:'Доступи, бекап і журнал змін',dur:'8 хв',tools:['Google Sheets','Хостинг'],ill:['audit'],cap:'Порядок роботи: нічого не міняємо, доки немає доступів, бекапу і «знімка» стану.',yt:'seo audit existing website step by step',
+lead:`На чужому сайті головне правило — спочатку зафіксувати, як є, потім міняти. Інакше не доведете, що покращили, і не зможете відкотити помилку.`,
+body:[['h','Список доступів'],['table',['Доступ','Навіщо'],[['Search Console (власник або повний)','Індексація, запити, помилки'],['GA4 (редактор)','Трафік і конверсії'],['GTM (публікація)','Події, коди'],['Адмінка CMS (адміністратор)','Правки сайту'],['Хостинг / FTP / файловий менеджер','robots.txt, .htaccess, бекапи'],['DNS / реєстратор домену','HTTPS, дзеркала, підтвердження GSC'],['Google Business Profile','Локальне SEO'],['Історія: попередні звіти, підрядники','Що вже робили']]],
+['h','Знімок стану (baseline)'],['ul',[`Експорт GSC → Ефективність за 16 місяців (запити і сторінки).`,`Експорт GSC → Сторінки (проіндексовані й ні).`,`Повний краул Screaming Frog — зберегти файл проєкту.`,`PageSpeed Insights для 3–5 ключових сторінок — скріншоти.`,`Позиції ключових запитів (Rank Tracker, Serpstat).`]],
+['h','Журнал змін'],['code','Колонки таблиці',`Дата | URL | Проблема | Де знайдено | Пріоритет | Що зроблено | Хто | Статус | Результат (через 2–4 тижні)`],
+['note','bad',`Перед будь-якими змінами в WordPress — бекап (плагін UpdraftPlus або засобами хостингу). Особливо перед оновленням плагінів і правкою .htaccess.`]],
+steps:[[`Зберіть доступи`,`За списком. Без GSC аудит неповний.`],[`Зробіть бекап`,`Файли + база даних.`,'audit'],[`Зробіть знімок`,`Експорти GSC, краул, швидкість.`],[`Створіть журнал змін`,`Google Sheets за шаблоном.`]],
+check:['Усі доступи отримано','Бекап є','Baseline збережено','Журнал створено'],
+quiz:['Що зробити ПЕРЕД першою зміною на сайті?',['Бекап і знімок стану','Оновити всі плагіни','Змінити тему'],0,'Без бекапу немає відкату, без знімка — доказу результату.']},
+
+{id:'b2-m1-l2',t:'Як читати код сторінки',dur:'10 хв',tools:['Chrome DevTools','View Source'],ill:['source'],cap:'Шість речей, які SEO-спеціаліст шукає в коді кожної сторінки.',yt:'chrome devtools for seo beginners',
+lead:`Програмувати не потрібно. Потрібно вміти знайти в коді кілька тегів і перевірити, що вони правильні.`,
+body:[['table',['Інструмент','Як відкрити','Що показує'],[['Код сторінки','Ctrl+U (Cmd+Option+U на Mac)','HTML, який віддав сервер — те, що Google бачить першим'],['Інспектор','F12 → Elements','Код після JavaScript'],['Network','F12 → Network → оновити сторінку','Коди відповіді, редиректи, вага файлів'],['Console','F12 → Console','Помилки JS, mixed content'],['Lighthouse','F12 → Lighthouse','Швидкість, доступність, SEO-базові перевірки']]],
+['h','Що шукати через Ctrl+F у коді'],['table',['Шукати','Що перевірити'],[['&lt;title','Один, змістовний'],['name="description"','Є, унікальний'],['name="robots"','Немає noindex на важливих сторінках'],['rel="canonical"','Одна, абсолютна, правильна адреса'],['hreflang','Коди мов і взаємність'],['&lt;h1','Один'],['GTM- / G-','Аналітика стоїть один раз'],['application/ld+json','Мікророзмітка']]],
+['note','tip',`Заголовки відповіді (X-Robots-Tag, Location у редиректі): F12 → Network → клік по першому рядку → Headers → Response Headers.`]],
+steps:[[`Ctrl+U`,`Відкрийте код сторінки.`,'source'],[`Ctrl+F → robots`,`Чи немає noindex?`],[`Ctrl+F → canonical`,`Куди вказує?`],[`F12 → Network`,`Оновіть сторінку. Статус першого рядка — 200?`]],
+check:['Вмію знайти title, robots, canonical у коді','Вмію подивитися код відповіді в Network'],
+quiz:['Ctrl+U показує…',['HTML від сервера до виконання JS','Код після JS','Швидкість'],0,'Для коду після JS — F12 → Elements.']}]},
+
+{id:'m2',t:'WordPress для SEO-спеціаліста',les:[
+{id:'b2-m2-l1',t:'Анатомія WordPress',dur:'10 хв',tools:['WordPress'],ill:['wp','Налаштування'],cap:'Два налаштування, які перевіряють першими.',yt:'wordpress for beginners admin dashboard',
+lead:`WordPress — найпоширеніша CMS. Адмінка відкривається за адресою <code>site.com/wp-admin</code>.`,
+body:[['table',['Розділ меню','Що там для SEO'],[['Записи','Статті блогу. Мають рубрики (категорії) і мітки (теги)'],['Сторінки','Послуги, контакти, головна — без категорій'],['Медіафайли','Зображення: alt, назви, вага'],['Зовнішній вигляд','Тема, меню, віджети, редактор коду теми (обережно!)'],['Плагіни','SEO, кеш, редиректи, зображення'],['Налаштування → Загальні','Адреса WordPress і сайту (https!)'],['Налаштування → Читання','Галочка «Не дозволяти пошуковим системам індексувати сайт»'],['Налаштування → Постійні посилання','Формат URL: обрати «Назва запису»'],['Інструменти → Здоровʼя сайту','Версія PHP, проблеми']]],
+['note','bad',`Галочка «Не дозволяти пошуковим системам…» ставить noindex на весь сайт. Після запуску — перевірити першою!`],
+['note','warn',`Зміна формату постійних посилань на живому сайті змінює всі URL. Тільки з картою 301 редиректів.`],
+['h','Записи чи сторінки'],['p',`Послуги — сторінки (ієрархія: батьківська сторінка «Послуги» → дочірні). Статті — записи в рубриках.`]],
+steps:[[`Увійдіть у /wp-admin`,`Логін адміністратора.`,'wp','Консоль'],[`Налаштування → Читання`,`Галочка знята.`,'wp','Налаштування'],[`Налаштування → Постійні посилання`,`«Назва запису».`,'wp','Налаштування'],[`Налаштування → Загальні`,`Обидві адреси з https.`]],
+check:['Індексування не заборонено','URL у форматі /%postname%/','Адреси з https'],
+quiz:['Що робить галочка в Налаштування → Читання?',['Ставить noindex на весь сайт','Прискорює сайт','Вмикає sitemap'],0,'Тому її перевіряють першою.']},
+
+{id:'b2-m2-l2',t:'SEO-плагін: Rank Math або Yoast',dur:'12 хв',tools:['Rank Math','Yoast SEO'],ill:['wp','Rank Math SEO'],cap:'Головні розділи SEO-плагіна.',yt:'rank math setup tutorial',
+lead:`SEO-плагін керує title, description, canonical, noindex, sitemap, хлібними крихтами і розміткою. Ставимо <b>один</b>.`,
+body:[['table',['Налаштування','Rank Math','Yoast SEO','Що обрати'],[['Шаблони title','Заголовки й мета → Записи / Сторінки','Зовнішній вигляд у пошуку','%title% %sep% %sitename%'],['Мітки (теги)','Заголовки й мета → Таксономії → Мітки','Таксономії → Мітки','noindex (якщо теги не оптимізовані)'],['Архіви авторів','Заголовки й мета → Автори','Архіви → Автор','noindex або вимкнути (сайт з одним автором)'],['Архіви дат','Заголовки й мета → Інші сторінки','Архіви → Дата','вимкнути / noindex'],['Сторінки вкладень','Загальні → Посилання → перенаправлення вкладень','Медіа','перенаправляти на файл або батьківський запис'],['Sitemap','Файли Sitemap','Загальні → Функції','увімкнено, лише потрібні типи'],['robots.txt','Загальні → Редагувати robots.txt','Інструменти → Редактор файлів','за шаблоном з уроку'],['Хлібні крихти','Загальні → Хлібні крихти','Зовнішній вигляд у пошуку → Хлібні крихти','увімкнути'],['Редиректи','Перенаправлення (вбудовано)','Premium / плагін Redirection','301']]],
+['h','Налаштування окремої сторінки'],['p',`Унизу редактора сторінки (або в боковій панелі) — блок плагіна: SEO-заголовок, мета-опис, фокусне ключове слово, вкладка «Додатково»: robots (index/noindex), канонічна URL.`],
+['note','warn',`«Зелені смайлики» і бали плагіна — підказка, не мета. 100/100 у Rank Math не означає топ у Google.`]],
+steps:[[`Перевірте, що SEO-плагін один`,`Плагіни → Встановлені.`,'wp','Плагіни'],[`Налаштуйте шаблони title`,`Для сторінок, записів, рубрик.`,'wp','Rank Math SEO'],[`Закрийте сміттєві архіви`,`Теги, автори, дати, вкладення.`],[`Перевірте sitemap`,`site.com/sitemap_index.xml — тільки потрібні типи.`,'sitemap'],[`Надішліть sitemap у GSC`,`Файли Sitemap.`,'gsc','Файли Sitemap']],
+check:['Один SEO-плагін','Архіви й вкладення закриті','Sitemap чистий і надісланий'],
+quiz:['На сайті стоять Yoast і Rank Math. Що робити?',['Залишити один, налаштування перенести','Залишити обидва','Видалити обидва'],0,'Два SEO-плагіни дублюють мета-теги і конфліктують.']},
+
+{id:'b2-m2-l3',t:'Типові SEO-проблеми WordPress',dur:'12 хв',tools:['Screaming Frog','WordPress'],ill:['crawler','Internal'],cap:'Знайдіть у краулі шаблони URL, які генерує WordPress.',yt:'common wordpress seo issues',
+lead:`WordPress генерує багато сторінок автоматично. Більшість проблем — саме вони.`,
+body:[['table',['Проблема','Як виглядає в URL','Як виправити'],[['Сторінки вкладень','/attachment/foto-1/ або /?attachment_id=12','Rank Math / Yoast: перенаправлення на файл'],['Теги з 1–2 записами','/tag/pereklad/','noindex, у майбутньому не плодити теги'],['Архіви автора','/author/admin/','noindex або вимкнути; також ховає логін адміна'],['Архіви дат','/2024/05/','вимкнути'],['Коротке посилання','/?p=123','у &lt;head&gt; — rel="shortlink", не індексується, ігнорувати'],['Коментарі','?replytocom=45','canonical (плагін ставить), або вимкнути вкладені відповіді'],['Пагінація коментарів','/comment-page-2/','вимкнути розбиття коментарів'],['Staging у пошуку','staging.site.com','пароль + noindex, видалити з GSC через Вилучення'],['Mixed content після https','картинки з http://','Better Search Replace: http://site → https://site у базі'],['Пошук по сайту','/?s=слово','noindex + Disallow: /?s='],['Feed','/feed/','нормально, не чіпати'],['Дубль головної','/home/ або /index.php','301 на /']]],
+['note','tip',`Швидкий пошук таких URL: Screaming Frog → Internal → поле Search → вводьте <code>attachment</code>, <code>tag</code>, <code>author</code>, <code>?</code>.`]],
+steps:[[`Краул сайту`,`Повний, з sitemap.`,'crawler','Internal'],[`Пошук шаблонів`,`attachment, tag, author, ?replytocom, /20…/.`],[`Звірте з GSC`,`Чи є ці URL у проіндексованих.`,'gsc','Сторінки'],[`Виправте в плагіні`,`noindex / перенаправлення.`,'wp','Rank Math SEO'],[`Запишіть у журнал`,`Що змінено і коли.`]],
+check:['Вкладення перенаправлено','Теги, автори, дати закрито','Немає mixed content'],
+quiz:['Що робити зі сторінками вкладень /attachment/?',['Перенаправити на файл або запис','Додати в sitemap','Написати текст'],0,'Це тонкі сторінки з однією картинкою.']},
+
+{id:'b2-m2-l4',t:'Які плагіни ставити, а яких уникати',dur:'7 хв',tools:['WordPress'],ill:['wp','Плагіни'],cap:'Правило: одне завдання — один плагін.',yt:'best wordpress plugins seo speed',
+lead:`Кожен плагін додає код і може сповільнювати сайт. Встановлюйте тільки те, що вирішує конкретну задачу.`,
+body:[['table',['Задача','Рекомендовано','Примітка'],[['SEO','Rank Math або Yoast SEO','тільки один'],['Кеш і швидкість','LiteSpeed Cache (якщо сервер LiteSpeed), WP Rocket (платний), W3 Total Cache','тільки один кеш-плагін'],['Зображення','ShortPixel, Imagify, EWWW Image Optimizer','WebP/AVIF, стиснення'],['Редиректи','Rank Math (вбудовано) або Redirection','301 і журнал 404'],['Бекапи','UpdraftPlus або засоби хостингу','перед кожною зміною'],['Безпека','Wordfence / Solid Security','один'],['Мультимовність','WPML або Polylang','ставлять hreflang'],['Аналітика','Site Kit by Google або код GTM у темі','не дублювати GA4'],['Заміна в базі','Better Search Replace','http → https']]],
+['h','Чого уникати'],['ul',[`Двох SEO- або двох кеш-плагінів одночасно.`,`«Nulled» (зламаних платних) тем і плагінів — часто містять вірусні посилання.`,`Плагінів, які не оновлювалися понад рік.`,`Важких конструкторів сторінок, якщо сайт можна зробити темою (сильно впливають на швидкість).`,`Деактивованих, але не видалених плагінів — видаляйте.`]]],
+steps:[[`Плагіни → Встановлені`,`Випишіть усі в журнал.`,'wp','Плагіни'],[`Знайдіть дублі за функцією`,`Два SEO, два кеші, два слайдери.`],[`Видаліть зайве`,`Після бекапу і по одному, перевіряючи сайт.`]],
+check:['Немає дублів функцій','Немає неоновлюваних плагінів','Видалено деактивовані'],
+quiz:['Скільки кеш-плагінів має бути?',['Один','Два для надійності','Скільки завгодно'],0,'Кілька кешів конфліктують і ламають сайт.']}]},
+
+{id:'m3',t:'Технічні виправлення',les:[
+{id:'b2-m3-l1',t:'Редиректи і 404',dur:'10 хв',tools:['Screaming Frog','Rank Math / Redirection','Search Console'],ill:['redirect'],cap:'Кожен редирект — один крок. Внутрішні посилання — одразу на фінал.',yt:'fix redirect chains 404 errors wordpress',
+lead:`На старих сайтах накопичуються биті посилання і ланцюжки редиректів. Це втрати ваги, часу Googlebot і заявок.`,
+body:[['h','Карта редиректів'],['code','Таблиця для розробника або плагіна',`Стара адреса                       → Нова адреса                     Код
+/poslugi/notarialnyj-pereklad/      → /uslugy/notarialnyi-pereklad/    301
+/akciya-2023/                       → /uslugy/                         301
+/old-blog/kak-perevesti-diplom/     → /blog/pereklad-dyploma/          301`],
+['h','Які 404 лікувати'],['ul',[`Мають зовнішні посилання (Ahrefs → Best by links → 404) → 301 на найближчу сторінку.`,`Мали трафік (GSC, старі дані GA4) → 301.`,`На них посилаються внутрішні посилання → виправити посилання.`,`Без трафіку, посилань і аналогів → залишити 404 / 410.`]],
+['note','warn',`Не редиректьте всі 404 на головну — Google сприймає це як soft 404.`],
+['h','.htaccess (Apache) — якщо немає плагіна'],['code','Приклад 301 у .htaccess (тільки з бекапом!)',`Redirect 301 /poslugi/notarialnyj-pereklad/ https://mosty.com.ua/uslugy/notarialnyi-pereklad/`]],
+steps:[[`Знайдіть 4xx`,`Screaming Frog → Response Codes → Client Error.`,'crawler','Response Codes'],[`Знайдіть ланцюжки`,`Reports → Redirects → Redirect Chains.`,'redirect'],[`Складіть карту 301`,`Стара → нова.`],[`Внесіть у плагін`,`Rank Math → Перенаправлення → Додати.`],[`Виправте внутрішні посилання`,`Bulk Export → All Inlinks → змінити в контенті.`],[`Перекраул`,`Немає 4xx і ланцюжків.`]],
+check:['Немає внутрішніх посилань на 4xx','Немає ланцюжків','Карта 301 збережена'],
+quiz:['Чому не можна редиректити всі 404 на головну?',['Google вважає це soft 404','Це заборонено законом','Сповільнює сайт'],0,'Редирект має вести на сторінку зі схожим змістом.']},
+
+{id:'b2-m3-l2',t:'HTTPS, дзеркала, mixed content',dur:'8 хв',tools:['Браузер','DevTools','Better Search Replace'],ill:['url'],cap:'Усі варіанти домену мають вести на одну адресу.',yt:'fix mixed content wordpress https',
+lead:`Сайт може мати сертифікат, але все одно відкриватися по http або завантажувати картинки по http. Це mixed content — браузер показує «не захищено».`,
+body:[['table',['Перевірка','Як','Норма'],[['4 версії домену','Ввести в браузер http/https × www/без','Одна адреса, один 301'],['Сертифікат','Замок у рядку адреси','Дійсний, не прострочений'],['Mixed content','F12 → Console: «Mixed Content»','Немає'],['Canonical і sitemap','Код, sitemap','Усі адреси https'],['Внутрішні посилання','Screaming Frog → Insecure Content','Немає http://']]],
+['h','Як виправити mixed content у WordPress'],['ol',[`Бекап бази даних.`,`Налаштування → Загальні: обидві адреси з https.`,`Плагін Better Search Replace: шукати <code>http://mosty.com.ua</code>, замінити на <code>https://mosty.com.ua</code>, спочатку «Dry run» (пробний прогін).`,`Очистити кеш.`,`Перевірити Console.`]]],
+steps:[[`Перевірте 4 версії`,`У браузері або httpstatus.io.`,'url'],[`Console`,`F12 → Console → Mixed Content.`],[`Пробний прогін заміни`,`Better Search Replace → Dry run.`],[`Заміна + кеш`,`Потім очистити кеш.`]],
+check:['Одне дзеркало','Немає mixed content','Усі canonical з https'],
+quiz:['Де побачити mixed content?',['F12 → Console','robots.txt','GA4'],0,'Браузер пише попередження в консоль.']},
+
+{id:'b2-m3-l3',t:'Індексація існуючого сайту: розбір звіту',dur:'10 хв',tools:['Search Console','Screaming Frog'],ill:['gsc','Сторінки'],cap:'Ліва колонка — причини. Клік на причину — список прикладів URL.',yt:'google search console pages report explained',
+lead:`На існуючому сайті звіт «Сторінки» — список задач. Головне — розрізнити нормальні статуси й проблемні.`,
+body:[['table',['Статус','Норма чи проблема?'],[['Сторінка з переадресацією','Норма, якщо це старі адреси. Проблема, якщо в sitemap'],['Виключено тегом noindex','Норма для службових. Проблема, якщо там послуги'],['Альтернативна сторінка з канонічним тегом','Норма'],['Не знайдено (404)','Норма для видалених. Перевірити, чи немає важливих'],['Заблоковано robots.txt','Перевірити, чи немає важливих'],['Проскановано, не проіндексовано','Проблема якості — покращувати'],['Виявлено, не проіндексовано','Проблема виявлення / ресурсів — посилання, sitemap'],['Google вибрав іншу канонічну','Проблема дублів'],['Soft 404','Проблема — порожні сторінки'],['Помилка сервера (5xx)','Критично']]],
+['h','Звірка трьох списків'],['p',`Сторінки в sitemap ↔ сторінки в краулі ↔ проіндексовані в GSC. Розбіжності показують проблему: є в sitemap, але не в індексі; є в індексі, але немає на сайті; є на сайті, але немає в sitemap.`]],
+steps:[[`Відкрийте Сторінки`,`Прогорніть до «Чому сторінки не індексуються».`,'gsc','Сторінки'],[`Кожна причина → приклади`,`Експорт списку URL.`],[`Позначте норму і проблеми`,`За таблицею.`],[`Виправте і «Перевірити виправлення»`,`Кнопка всередині причини.`,'why']],
+check:['Кожна причина розібрана','Важливих сторінок немає серед виключених'],
+quiz:['«Альтернативна сторінка з канонічним тегом» — це…',['Нормально: canonical працює','Критична помилка','Вірус'],0,'Дубль вказує на оригінал, Google погодився.']}]},
+
+{id:'m4',t:'Швидкість сайту',les:[
+{id:'b2-m4-l1',t:'Core Web Vitals: що і де вимірювати',dur:'9 хв',tools:['PageSpeed Insights','Search Console','Lighthouse'],ill:['cwv'],cap:'Три метрики Google та їхні пороги.',yt:'core web vitals explained lcp inp cls',
+lead:`Google оцінює швидкість трьома метриками Core Web Vitals. Вони впливають на зручність і, частково, на позиції.`,
+body:[['table',['Метрика','Що вимірює','Добре','Часта причина проблем'],[['LCP','Коли зʼявився найбільший елемент (фото героя, заголовок)','≤ 2,5 с','Важке фото, повільний хостинг, lazy-load на першому фото'],['INP','Як швидко сторінка реагує на клік','≤ 200 мс','Багато JavaScript, важкі плагіни, віджети'],['CLS','Наскільки «стрибає» макет','≤ 0,1','Фото без width/height, банери, шрифти']]],
+['h','Де перевіряти'],['table',['Інструмент','Що дає'],[['PageSpeed Insights (pagespeed.web.dev)','Вгорі — реальні дані користувачів (якщо є), нижче — лабораторний тест і список порад'],['Search Console → Основні веб-показники','Групи URL з проблемами за реальними даними'],['Lighthouse (F12)','Локальний тест, зручно перевіряти правки'],['GTmetrix, WebPageTest','Діаграма завантаження: що вантажиться довго']]],
+['note','tip',`Дивіться мобільну версію — вона завжди повільніша і важливіша для Google.`]],
+steps:[[`PageSpeed Insights`,`Вставте URL ключової сторінки → «Аналізувати».`,'cwv'],[`Читайте «Мобільний»`,`Реальні дані вгорі, рекомендації внизу.`],[`GSC → Основні веб-показники`,`Які групи URL погані.`,'gsc','Основні веб-показники'],[`Запишіть у журнал`,`До змін — для порівняння.`]],
+check:['Знаю пороги LCP, INP, CLS','Є знімок швидкості до змін'],
+quiz:['Фото без width і height найчастіше погіршує…',['CLS','INP','title'],0,'Браузер не знає розміру заздалегідь, макет стрибає.']},
+
+{id:'b2-m4-l2',t:'Як прискорити WordPress',dur:'11 хв',tools:['LiteSpeed Cache / WP Rocket','Cloudflare','PageSpeed Insights'],ill:['cwv'],cap:'Виправлення впливають на конкретні метрики: зображення і кеш — на LCP, JS — на INP, розміри — на CLS.',yt:'speed up wordpress site tutorial',
+lead:`Швидкість WordPress залежить від хостингу, теми, плагінів і зображень. Рухаємося від простого до складного.`,
+body:[['table',['Крок','Як','Вплив'],[['1. Кеш сторінок','Один кеш-плагін: LiteSpeed Cache (на LiteSpeed-хостингу), WP Rocket, W3 Total Cache','LCP, TTFB'],['2. Зображення','WebP/AVIF, стиснення, правильні розміри (наступний урок)','LCP'],['3. Не lazy-load перше фото','Виключити фото героя з відкладеного завантаження','LCP'],['4. Відкласти JS','Defer / Delay JS у кеш-плагіні','INP, LCP'],['5. Мінімізація CSS/JS','Minify у кеш-плагіні (перевіряти, що нічого не зламалось)','LCP'],['6. Шрифти','Менше накреслень, font-display: swap, локально','CLS, LCP'],['7. Прибрати зайві плагіни','Слайдери, лічильники, віджети соцмереж','INP'],['8. PHP і хостинг','Інструменти → Здоровʼя сайту: PHP 8.x; повільний TTFB = хостинг','TTFB'],['9. CDN','Cloudflare (є безкоштовний план)','LCP для віддалених відвідувачів'],['10. Чистка бази','Ревізії, кошик, transient (WP-Optimize)','адмінка, TTFB']]],
+['note','warn',`Після кожного кроку — перевірка сайту (форми, меню, мобільна версія) і новий тест PageSpeed. Агресивні налаштування JS часто ламають сайт.`]],
+steps:[[`Бекап`,`Обовʼязково.`],[`Кеш-плагін`,`Встановити один, базові налаштування.`,'wp','Плагіни'],[`Зображення`,`Масове стиснення плагіном.`,'image'],[`JS: Defer`,`Увімкнути, перевірити сайт.`],[`Тест після змін`,`PageSpeed: порівняти з журналом.`,'cwv']],
+check:['Один кеш-плагін налаштовано','Перше фото не lazy','PHP 8.x','Швидкість покращилась у журналі'],
+quiz:['Чому не можна lazy-load для фото героя?',['Воно і є LCP — завантажиться пізніше','Воно зникне','Google його не бачить'],0,'Відкладене завантаження головного фото погіршує LCP.']},
+
+{id:'b2-m4-l3',t:'Зображення: менша вага без втрати якості',dur:'9 хв',tools:['Squoosh','TinyPNG','ShortPixel / Imagify'],ill:['image'],cap:'Те саме фото: 4,2 МБ → 160 КБ. Різниці на екрані не видно.',yt:'squoosh image compression webp tutorial',
+lead:`Зображення — найчастіша причина повільних сторінок. Мета — зменшити <b>вагу</b> файлу, а не видиму <b>якість</b>.`,
+body:[['h','Три кроки'],['ol',[`<b>Розміри.</b> Фото у блоці шириною 800 px не має бути 4000 px. Беремо ширину блоку × 2 для Retina (≈1600 px).`,`<b>Формат.</b> WebP (підтримують усі сучасні браузери) або AVIF (ще менше). PNG — тільки для графіки з прозорістю, SVG — для іконок і логотипів.`,`<b>Стиснення.</b> Якість 70–80 — на око різниці немає.`]],
+['table',['Інструмент','Коли'],[['Squoosh (squoosh.app)','Вручну, одне фото: порівняння «до/після» повзунком'],['TinyPNG / TinyJPG','Швидко кілька файлів у браузері'],['ShortPixel, Imagify, EWWW (плагіни WP)','Масово всю бібліотеку + автоматично нові'],['Можливості хостингу / Cloudflare Polish','На рівні сервера']]],
+['code','Правильний тег зображення',`<img src="/img/notarialnyi-pereklad.webp"
+     alt="Нотаріально засвідчений переклад паспорта"
+     width="800" height="533"
+     loading="lazy">   <!-- крім першого фото на екрані! -->`],
+['h','Як знайти важкі фото'],['ul',[`Screaming Frog → Images → Over 100 KB.`,`PageSpeed → «Правильно масштабуйте зображення», «Показуйте зображення в сучасних форматах».`,`F12 → Network → фільтр Img → сортувати за Size.`]]],
+steps:[[`Знайдіть важкі фото`,`Screaming Frog → Images → Over 100 KB.`,'crawler','Internal'],[`Squoosh: одне фото`,`Перетягніть файл, справа WebP, якість 75, Resize до потрібної ширини.`,'image'],[`Масово плагіном`,`ShortPixel / Imagify → Bulk Optimize.`],[`Перевірте`,`PageSpeed і візуально на телефоні.`]],
+check:['Немає фото > 200 КБ на ключових сторінках','Формат WebP/AVIF','Є width/height і alt'],
+quiz:['Фото показується у блоці 600 px. Оптимальна ширина файлу?',['≈1200 px','4000 px','300 px'],0,'Ширина блоку × 2 для чітких екранів.']}]},
+
+{id:'m5',t:'Внутрішня і зовнішня оптимізація',les:[
+{id:'b2-m5-l1',t:'On-page виправлення на всьому сайті',dur:'10 хв',tools:['Screaming Frog','Search Console'],ill:['crawler','Page Titles'],cap:'Експорт проблемних title — список задач для оптимізації.',yt:'fix duplicate title tags screaming frog',
+lead:`На існуючому сайті on-page виправляють масово, але в порядку важливості: спершу сторінки з показами і заявками.`,
+body:[['h','Порядок'],['ol',[`Експортуйте зі Screaming Frog: Page Titles (Missing, Duplicate), Meta Description, H1.`,`Експортуйте з GSC → Ефективність → Сторінки (покази, кліки, позиція).`,`Зʼєднайте таблиці за URL (ВПР/VLOOKUP у Google Sheets).`,`Сортуйте за показами. Починайте зверху.`]],
+['h','Канібалізація на існуючому сайті'],['p',`GSC → Ефективність → Запити → клік на запит → вкладка «Сторінки». Якщо за одним запитом показуються 2+ ваші сторінки і позиція скаче — канібалізація. Рішення: обʼєднати (301), розвести за інтентом, змінити title/H1 і посилання.`],
+['h','CTR'],['p',`Сторінки з великими показами і низьким CTR на позиціях 1–5 — переписати title і description.`]],
+steps:[[`Експорт краулу`,`Page Titles, H1, Description.`,'crawler','Page Titles'],[`Експорт GSC`,`Сторінки за 3 місяці.`,'gsc','Ефективність'],[`Зʼєднайте і сортуйте`,`За показами.`],[`Перевірте канібалізацію`,`Запит → Сторінки.`],[`Перепишіть топ-20 сторінок`,`Title, description, H1.`]],
+check:['Є зведена таблиця','Топ-20 сторінок оптимізовано','Канібалізацію перевірено'],
+quiz:['Як знайти канібалізацію в GSC?',['Ефективність → Запит → вкладка Сторінки','Файли Sitemap','Вилучення'],0,'Кілька сторінок за одним запитом — сигнал.']},
+
+{id:'b2-m5-l2',t:'Аудит зовнішніх посилань',dur:'9 хв',tools:['Ahrefs / Serpstat','Search Console'],ill:['backlinks'],cap:'Втрачені і биті зовнішні посилання — найшвидша здобич.',yt:'backlink audit broken backlinks',
+lead:`На існуючому сайті вже є посилання. Завдання: зберегти цінні, повернути втрачені, не панікувати через спам.`,
+body:[['table',['Що перевіряємо','Де','Що робимо'],[['Посилання на сторінки з 404','Ahrefs → Best by links → фільтр 404; GSC → Посилання','301 на актуальну сторінку — повертає вагу'],['Втрачені посилання','Ahrefs / Serpstat → Lost backlinks','Написати власнику сайту, відновити'],['Анкори','Anchors','Природні: бренд, URL, загальні фрази'],['Спамні донори','Referring domains, сортування за якістю','Зазвичай Google ігнорує сам. Disavow — тільки при ручних санкціях'],['Ручні санкції','GSC → Безпека та ручні дії','Має бути «Проблем не виявлено»'],['Локальні згадки','Google Business Profile, каталоги','Однаковий NAP, актуальні години, фото, відповіді на відгуки']]]],
+steps:[[`Експорт посилань`,`GSC → Посилання → Експорт; Ahrefs / Serpstat.`],[`404 з посиланнями`,`301 на відповідну сторінку.`,'redirect'],[`Ручні дії`,`Перевірити GSC.`],[`Google Business Profile`,`Актуалізувати.`,'backlinks']],
+check:['Немає 404 з зовнішніми посиланнями','Немає ручних санкцій','GBP актуальний'],
+quiz:['На сторінку-404 ведуть 15 зовнішніх посилань. Що робити?',['301 на відповідну живу сторінку','Нічого','Disavow'],0,'Вага посилань повернеться.']}]},
+
+{id:'m6',t:'План і контроль',les:[
+{id:'b2-m6-l1',t:'Пріоритети, план і звіт',dur:'9 хв',tools:['Google Sheets','Search Console','Looker Studio'],ill:['priority'],cap:'Чотири рівні пріоритету. Критичне — в той самий день.',yt:'seo audit report prioritization',
+lead:`Аудит без плану — просто список проблем. Пріоритезуйте за впливом і робіть контрольні перевірки.`,
+body:[['h','Як визначити пріоритет'],['p',`Пріоритет = вплив × кількість сторінок × важливість сторінок. Помилка на 3 сторінках послуг важливіша за 200 тегів блогу.`],
+['h','Ритм роботи'],['table',['Коли','Що'],[['Щодня (перший тиждень)','Критичні виправлення, перевірка GSC'],['Щотижня','GSC → Сторінки, Ефективність; нові 404'],['Щомісяця','Повний краул, швидкість, посилання, звіт'],['Після кожного релізу сайту','Швидкий краул: noindex, robots, canonical, коди']]],
+['h','Звіт клієнту чи керівнику'],['ul',[`Що знайдено (з пріоритетами).`,`Що виправлено (журнал змін).`,`Що змінилось: індексація, покази, кліки, позиції, швидкість — до і після.`,`План на наступний місяць.`,`Дашборд: Looker Studio з даними GSC і GA4.`]],
+['note','tip',`Ефект від технічних правок видно через 2–8 тижнів. Порівнюйте однакові періоди і враховуйте сезонність.`]],
+steps:[[`Розставте пріоритети`,`Критично / високий / середній / низький.`,'priority'],[`Складіть план на 4 тижні`,`З відповідальними.`],[`Виконайте і запишіть`,`Журнал змін.`,'audit'],[`Порівняйте з baseline`,`Через 4 тижні.`,'gsc','Ефективність']],
+check:['Пріоритети розставлено','План на місяць','Звіт до/після'],
+quiz:['Сайт повністю закритий noindex. Пріоритет?',['Критично — сьогодні','Середній','Низький'],0,'Весь сайт випадає з пошуку.']}]}
+]};
+</script>
+<script>
+(function(){
+const BLOCKS=[B1,B2];
+const ALL=[];BLOCKS.forEach(b=>b.mods.forEach((m,mi)=>m.les.forEach(l=>ALL.push({l,m,b,mi}))));
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let done=new Set(store.get('seo-done',[]));
+let checks=store.get('seo-checks',{});
+let timer=null;
+
+const side=document.getElementById('side'),view=document.getElementById('view'),scrim=document.getElementById('scrim');
+function closeMenu(){side.classList.remove('open');scrim.hidden=true}
+document.getElementById('menuBtn').onclick=()=>{side.classList.add('open');scrim.hidden=false};
+scrim.onclick=closeMenu;
+
+function renderSide(cur){
+  const pct=Math.round(done.size/ALL.length*100);
+  let h=`<a class="brand" href="#start"><span class="brand-mark">200</span><b>SEO з нуля</b></a>
+  <div class="prog">Пройдено ${done.size} з ${ALL.length} уроків · ${pct}%<div class="bar"><i style="width:${pct}%"></i></div></div>`;
+  BLOCKS.forEach(b=>{
+    h+=`<div class="blk"><div class="blk-h">${b.no}<span>${b.title}</span></div>`;
+    b.mods.forEach((m,mi)=>{
+      const ids=m.les.map(l=>l.id),d=ids.filter(i=>done.has(i)).length,open=ids.includes(cur);
+      h+=`<details class="mod"${open?' open':''}><summary><span class="n">${String(mi+1).padStart(2,'0')}</span>${m.t}<span class="c">${d}/${ids.length}</span></summary>`;
+      m.les.forEach(l=>{h+=`<a class="les${l.id===cur?' on':''}${done.has(l.id)?' done':''}" href="#${l.id}"><span class="dot"></span><span>${l.t}</span></a>`});
+      h+=`</details>`});
+    h+=`</div>`});
+  side.innerHTML=h;
+}
+
+function code(cap,txt){const lines=esc(txt).split('\n').map(l=>/^\s*(#|&lt;!--|\/\/)/.test(l)?`<span class="c">${l}</span>`:l.replace(/"([^"]*?)"/g,'<span class=s>"$1"</span>').replace(/(&lt;\/?[a-zA-Z!][^\s&]*)/g,'<span class=k>$1</span>'));return `${cap?`<div class="code-cap">${esc(cap)}</div>`:''}<pre class="code">${lines.join('\n')}</pre>`}
+function ill(key,a,b2){const f=ILL[key];return f?f(a,b2):''}
+function block(it){
+  const [t,a,b,c]=it;
+  if(t==='h')return `<h3>${a}</h3>`;
+  if(t==='p')return `<p>${a}</p>`;
+  if(t==='ul')return `<ul>${a.map(x=>`<li>${x}</li>`).join('')}</ul>`;
+  if(t==='ol')return `<ol>${a.map(x=>`<li>${x}</li>`).join('')}</ol>`;
+  if(t==='table')return `<div class="tbl"><table><thead><tr>${a.map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody>${b.map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  if(t==='code')return code(a,b);
+  if(t==='note'){const lab={tip:'Порада',warn:'Увага',bad:'Небезпечно'}[a];return `<div class="note ${a}"><span class="ic">${lab}</span><p>${b}</p></div>`}
+  if(t==='tools')return `<div class="tools">${a.map(x=>`<div class="tool"><span class="price">${x[1]}</span><b>${x[0]}</b><small>${x[2]}</small></div>`).join('')}</div>`;
+  if(t==='ill')return `<figure class="ill">${ill(a,b)}<figcaption>${c||''}</figcaption></figure>`;
+  return '';
+}
+
+function home(){
+  const first=ALL.find(x=>!done.has(x.l.id))||ALL[0];
+  let h=`<section class="hero"><div class="kicker">HTTP/1.1 200 OK · курс для новачків</div>
+  <h1>SEO з нуля: від першої сторінки до чистого індексу</h1>
+  <p class="lead">Два блоки практики. У першому ви запускаєте новий сайт і налаштовуєте все, що потрібно Google. У другому — приходите на готовий сайт на WordPress і виправляєте його помилки. Кожен урок: анімований розбір, схема, покрокова інструкція, чек-лист і тест.</p>
+  <p><a class="btn pri" href="#${first.l.id}">${done.size?'Продовжити':'Почати навчання'} →</a></p></section>
+  <div class="blocks">`;
+  BLOCKS.forEach(b=>{const n=b.mods.reduce((s,m)=>s+m.les.length,0);h+=`<div class="bcard"><div class="no">${b.no} · ${b.mods.length} модулів · ${n} уроків</div><h3>${b.title}</h3><p>${b.sub}</p><ol>${b.mods.map(m=>`<li>${m.t}</li>`).join('')}</ol><a class="btn" href="#${b.mods[0].les[0].id}">Відкрити блок</a></div>`});
+  h+=`</div><h2>Як вчитися за цією програмою</h2><div class="how">
+  <div><b>1 · Дивіться</b>Запустіть розбір уроку: сцени перемикаються самі, як у відео.</div>
+  <div><b>2 · Читайте</b>Схема і короткий конспект — тільки те, що знадобиться на практиці.</div>
+  <div><b>3 · Робіть</b>Повторіть кроки на своєму або тестовому сайті, відмічайте чек-лист.</div>
+  <div><b>4 · Перевіряйте</b>Тест наприкінці уроку. Позначте урок пройденим.</div></div>
+  <figure class="ill">${ILL.pipeline()}<figcaption>Головна схема курсу. Усі уроки пояснюють, як провести сторінку через ці пʼять етапів.</figcaption></figure>
+  <h2>Словник новачка</h2><div class="gloss">`;
+  [['Індекс','База сторінок Google. Немає в індексі — немає в пошуку.'],['Googlebot','Робот Google, що сканує сайти.'],['Краулер','Програма-сканер сайту: Screaming Frog, Netpeak Spider.'],['Семантичне ядро','Список запитів, під які оптимізується сайт.'],['Кластер','Група запитів для однієї сторінки.'],['Посадкова сторінка','Сторінка під конкретний запит з метою — заявка.'],['noindex','Тег «не показувати в пошуку».'],['canonical','Тег «головна версія сторінки — ось ця».'],['301','Постійний редирект на нову адресу.'],['hreflang','Звʼязок мовних версій сторінки.'],['Sitemap.xml','Файл-список URL для індексації.'],['robots.txt','Файл з правилами сканування.'],['Дубль','Дві URL з однаковим вмістом.'],['Сирота','Сторінка без жодного внутрішнього посилання.'],['CTR','Частка кліків від показів у видачі.'],['Core Web Vitals','Метрики швидкості: LCP, INP, CLS.']].forEach(g=>h+=`<div><b>${g[0]}</b> — ${g[1]}</div>`);
+  h+=`</div>`;
+  view.innerHTML=h;
+}
+
+function lesson(id){
+  const idx=ALL.findIndex(x=>x.l.id===id);if(idx<0)return home();
+  const {l,m,b,mi}=ALL[idx],prev=ALL[idx-1],next=ALL[idx+1];
+  const mainIll=ill(l.ill[0],l.ill[1],l.ill[2]);
+  let h=`<div class="crumbs"><b>${b.no}</b><span>›</span><span>Модуль ${mi+1}. ${m.t}</span></div>
+  <h1>${l.t}</h1><div class="meta"><span class="chip">⏱ ${l.dur}</span>${l.tools.map(t=>`<span class="chip t">${t}</span>`).join('')}</div>
+  <p class="lead">${l.lead}</p>
+  <div class="player" id="pl"><div class="pl-head"><span class="rec"></span>Відеорозбір уроку · ${l.steps.length} сцен</div>
+  <div class="pl-stage"><div class="pl-ill" id="plIll"></div><div class="pl-txt"><div class="pl-scene" id="plScene"></div><div class="pl-title" id="plTitle"></div><div class="pl-desc" id="plDesc"></div></div></div>
+  <div class="pl-ctrl"><button class="pl-btn" id="plBtn" aria-label="Відтворити"></button><div class="pl-track" id="plTrack">${l.steps.map((s,i)=>`<button aria-label="Сцена ${i+1}" data-i="${i}"><i></i></button>`).join('')}</div><span class="pl-time" id="plTime"></span></div></div>
+  <p class="pl-yt">Живі відеоінструкції з інтерфейсом програм: <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(l.yt)}" target="_blank" rel="noopener">знайти на YouTube ↗</a></p>
+  <figure class="ill">${mainIll}<figcaption>${l.cap}</figcaption></figure>
+  <div class="prose">${l.body.map(block).join('')}</div>
+  <h2>Покроково</h2><ol class="steps">${l.steps.map(s=>`<li><div><b>${s[0]}</b><p>${s[1]}</p></div></li>`).join('')}</ol>
+  <h2>Чек-лист уроку</h2><ul class="checklist">${l.check.map((c,i)=>{const k=l.id+':'+i;return `<li><label><input type="checkbox" id="ck-${l.id}-${i}" data-k="${k}"${checks[k]?' checked':''}><span>${c}</span></label></li>`}).join('')}</ul>
+  <h2>Перевір себе</h2><div class="quiz"><div class="q">${l.quiz[0]}</div><div class="opts">${l.quiz[1].map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('')}</div><div class="ex" id="qx" hidden></div></div>
+  <div class="foot">${prev?`<a class="btn" href="#${prev.l.id}">← ${prev.l.t}</a>`:'<span></span>'}
+  <button class="btn ${done.has(id)?'done':'pri'}" id="doneBtn">${done.has(id)?'✓ Урок пройдено':'Позначити пройденим'}</button>
+  ${next?`<a class="btn" href="#${next.l.id}">${next.l.t} →</a>`:'<a class="btn" href="#start">До початку курсу</a>'}</div>`;
+  view.innerHTML=h;
+
+  view.querySelectorAll('.checklist input').forEach(c=>c.onchange=()=>{checks[c.dataset.k]=c.checked;store.set('seo-checks',checks)});
+  view.querySelectorAll('.quiz .opt').forEach(btn=>btn.onclick=()=>{const i=+btn.dataset.i,ok=i===l.quiz[2];view.querySelectorAll('.quiz .opt').forEach((o,j)=>{o.classList.remove('ok','no');if(j===l.quiz[2])o.classList.add('ok')});if(!ok)btn.classList.add('no');const x=document.getElementById('qx');x.hidden=false;x.innerHTML=`<b>${ok?'Правильно.':'Не зовсім.'}</b> ${l.quiz[3]}`});
+  document.getElementById('doneBtn').onclick=()=>{if(done.has(id))done.delete(id);else done.add(id);store.set('seo-done',[...done]);renderSide(id);const b=document.getElementById('doneBtn');b.className='btn '+(done.has(id)?'done':'pri');b.textContent=done.has(id)?'✓ Урок пройдено':'Позначити пройденим'};
+
+  // плеєр
+  const scenes=l.steps.map(s=>s[2]?ill(s[2],s[3],s[4]):mainIll);
+  const DUR=7000;let cur=0,el=0,playing=false;
+  const $=i=>document.getElementById(i);
+  const icon=p=>p?'<svg viewBox="0 0 16 16"><rect x="3" y="2" width="3.5" height="12" fill="currentColor"/><rect x="9.5" y="2" width="3.5" height="12" fill="currentColor"/></svg>':'<svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6z" fill="currentColor"/></svg>';
+  const fmt=ms=>{const s=Math.floor(ms/1000);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+  function show(i){cur=i;el=0;$('plIll').innerHTML=scenes[i];$('plScene').textContent=`Сцена ${i+1} / ${l.steps.length}`;$('plTitle').textContent=l.steps[i][0];$('plDesc').innerHTML=l.steps[i][1];paint()}
+  function paint(){[...$('plTrack').children].forEach((b,j)=>b.firstChild.style.width=(j<cur?100:j===cur?el/DUR*100:0)+'%');$('plTime').textContent=fmt(cur*DUR+el)+' / '+fmt(l.steps.length*DUR)}
+  function setPlay(p){playing=p;$('plBtn').innerHTML=icon(p);$('plBtn').setAttribute('aria-label',p?'Пауза':'Відтворити');clearInterval(timer);if(p)timer=setInterval(()=>{el+=100;if(el>=DUR){if(cur<l.steps.length-1)show(cur+1);else{el=DUR;paint();setPlay(false);return}}paint()},100)}
+  $('plBtn').onclick=()=>{if(!playing&&cur===l.steps.length-1&&el>=DUR)show(0);setPlay(!playing)};
+  [...$('plTrack').children].forEach(b=>b.onclick=()=>{show(+b.dataset.i)});
+  show(0);setPlay(false);
+}
+
+function route(){
+  clearInterval(timer);closeMenu();
+  const id=location.hash.slice(1);
+  renderSide(id);
+  if(!id||id==='start')home();else lesson(id);
+  window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',route);
+route();
+})();
+</script>
+
+</body></html>
