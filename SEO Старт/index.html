@@ -6,7 +6,7 @@
 <style>
 /* Layout: ліва колонка з деревом уроків, праворуч урок із плеєром-схемою. Один вигляд для всіх: фон #335A5B скрізь, чорний текст, світло-бежеві кнопки */
 :root{
-  --page:#335A5B;
+  --page:#FFFFFF;
   --bg:#335A5B; --surface:#4A7473; --sunk:#5E8786; --ink:#000000; --muted:#121F1E; --line:#24484A;
   --accent:#F4EFE4; --accent-ink:#000000; --accent-soft:#6B9392;
   --ok:#0B3B22; --ok-soft:#78A88E; --warn:#3D2600; --warn-soft:#C9A866; --bad:#4F0C08; --bad-soft:#C98A80;
@@ -44,8 +44,15 @@ h1,h2,h3{text-wrap:balance;line-height:1.2}
 .menu{display:none}
 /* ---------- main ---------- */
 main{min-width:0;padding-block:28px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.wrap{max-width:940px;margin:0 auto;background:var(--bg);border-radius:18px;padding:28px 32px 36px}
+.wrap{max-width:940px;margin:0 auto;background:var(--page);border-radius:18px;padding:28px 32px 36px}
 @media (max-width:620px){.wrap{padding:18px 16px 28px;border-radius:14px}}
+.what{font-size:17px;max-width:70ch;margin:0}
+.ill-wrap{margin-top:18px}
+.errs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.errs li{background:var(--bad-soft);border:1px solid var(--bad);border-radius:10px;padding:10px 14px}
+.errs li::before{content:"✗ ";font-weight:700;color:var(--bad)}
+.parts a{display:block;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px}
+.parts a:hover{border-color:var(--accent)}
 .navhint{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-bottom:14px}
 .navhint b{display:block;font-family:var(--f-mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
 .navhint ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
@@ -61,7 +68,7 @@ main{min-width:0;padding-block:28px 80px;padding-left:max(16px,env(safe-area-ins
 .eyebrow{font-family:var(--f-mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
 h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,4vw,38px);margin:6px 0 10px;letter-spacing:-.015em}
 .lead{font-size:18px;color:var(--muted);max-width:68ch;margin:0}
-.toc{display:flex;flex-wrap:wrap;gap:6px;margin:20px 0 6px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:10px 0}
+.toc{display:flex;flex-wrap:wrap;gap:6px;margin:20px 0 6px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--page);padding:10px 0}
 .toc a{font-size:13px;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:var(--surface);padding:5px 11px;border-radius:999px}
 .toc a:hover{border-color:var(--accent)}
 section.part{margin-top:34px;scroll-margin-top:64px}
@@ -246,80 +253,21 @@ pre code{background:none;padding:0;font-size:inherit;color:inherit;word-break:no
   </main>
 </div>
 
-<script src="b1a.js" charset="utf-8"></script>
-<script src="b1b.js" charset="utf-8"></script>
-<script src="b1c.js" charset="utf-8"></script>
-<script src="b2a.js" charset="utf-8"></script>
-<script src="b2b.js" charset="utf-8"></script>
-<script src="b1x.js" charset="utf-8"></script>
-<script src="b3a.js" charset="utf-8"></script>
-<script src="b3b.js" charset="utf-8"></script>
-<script src="tests.js" charset="utf-8"></script>
+<script src="c1.js" charset="utf-8"></script>
+<script src="c2.js" charset="utf-8"></script>
+<script src="c3.js" charset="utf-8"></script>
+<script src="c4.js" charset="utf-8"></script>
 <script src="ill.js" charset="utf-8"></script>
 <script>
+/* уроки з полем after вставляються після вказаного уроку */
 const L = (window.L || []).filter(l => !l.after);
 (window.L || []).filter(l => l.after).forEach(l => L.splice(L.findIndex(x => x.id === l.after) + 1, 0, l));
-/* схеми з файлу «SEO з нуля.html»: [ключ, аргумент1, аргумент2, підпис] */
-const SVG = {
-  'b1-00':[['tools',0,0,'Чотири групи інструментів, з якими ви працюватимете щодня.']],
-  'b1-01':[['pipeline',0,0,'Пʼять етапів, які проходить кожна URL-адреса.']],
-  'b1-02':[['url',0,0,'Частини URL на прикладі сайту бюро перекладів «Мости».'],['status',0,0,'Чотири групи кодів, які бачить Googlebot.']],
-  'b1-tools':[['tools',0,0,'Набір інструментів SEO-спеціаліста.']],
-  'b1-03':[['gsc','Сторінки',0,'Головні розділи Search Console. Звіт «Сторінки» показує, що в індексі і чому решти там немає.'],['gtm',0,0,'Сайт містить лише код GTM. Усі інші теги живуть усередині GTM.']],
-  'b1-04':[['crawler','Internal','Screaming Frog SEO Spider','Головне вікно: вкладки зверху, таблиця URL.'],['crawler','Response Codes','Netpeak Spider','Зелене гаразд, жовте перевірити, червоне виправити.']],
-  'b1-05':[['competitors',0,0,'Процес: видача → краулінг конкурента → порівняльна таблиця → висновки.'],['serp',0,0,'Сніпет у видачі Google.']],
-  'b1-06':[['intent',0,0,'Чотири типи наміру і тип сторінки під кожен.'],['cluster',0,0,'Запити групуються, якщо Google показує за ними ті самі сторінки.']],
-  'b1-07':[['tree',0,0,'Дерево структури: кожна важлива сторінка не глибше 3 кліків.']],
-  'b1-08':[['github',0,0,'Чотири кроки від репозиторію до живого сайту.']],
-  'b1-head':[['source',0,0,'Що шукати в коді кожної сторінки.']],
-  'b1-09':[['directives',0,0,'Різниця між robots.txt, noindex, canonical і 301.']],
-  'b1-10':[['gsc','Перевірка URL',0,'Перевірка URL показує, чи дозволено індексування.'],['gsc','Вилучення',0,'Вилучення ховає URL тимчасово і не замінює noindex.']],
-  'b1-11':[['canonical',0,0,'Дублі вказують на оригінал. Оригінал вказує сам на себе.']],
-  'b1-12':[['crawler','Canonicals',0,'Вкладка Canonicals у краулері.']],
-  'b1-13':[['sitemap',0,0,'Як виглядає sitemap.xml і що в ньому має бути.'],['gsc','Файли Sitemap',0,'Надсилання sitemap у Search Console.']],
-  'b1-14':[['hreflang',0,0,'Кожна мовна версія посилається на всі інші та на себе.'],['crawler','Hreflang',0,'Помилки hreflang у краулері.']],
-  'b1-15':[['why',0,0,'Почніть з Перевірки URL. Статус підкаже гілку.']],
-  'b1-16':[['crawler','Response Codes',0,'Більшість пунктів аудиту перевіряється одним краулом.'],['priority',0,0,'Чотири рівні пріоритету виправлень.']],
-  'b1-17':[['links',0,0,'Хаб розподіляє вагу на послуги, стаття підсилює послугу контекстним посиланням.']],
-  'b1-18':[['serp',0,0,'Title і description: те, що людина бачить до кліку.'],['crawler','Page Titles',0,'Дублі й пропуски title у краулері.']],
-  'b1-19':[['backlinks',0,0,'Зелені посилання корисні, сірі нейтральні, червоні ризиковані.']],
-  'b1-20':[['wp','Плагіни',0,'Правило: одне завдання, один плагін.']],
-  'b2-00':[['audit',0,0,'Нічого не міняємо, доки немає доступів, бекапу і знімка стану.']],
-  'b2-01':[['source',0,0,'Шість речей, які SEO-спеціаліст шукає в коді кожної сторінки.']],
-  'b2-02':[['wp','Налаштування',0,'Два налаштування WordPress, які перевіряють першими.']],
-  'b2-03':[['wp','Rank Math SEO',0,'Головні розділи SEO-плагіна.']],
-  'b2-04':[['wp','Плагіни',0,'Ревізія плагінів: що залишити, що видалити.'],['crawler','Internal',0,'Шаблони URL, які генерує WordPress, видно в краулі.']],
-  'b2-05':[['redirect',0,0,'Кожен редирект один крок. Внутрішні посилання одразу на фінальну адресу.']],
-  'b2-06':[['url',0,0,'Усі варіанти домену мають вести на одну адресу.']],
-  'b2-07':[['gsc','Сторінки',0,'Ліва колонка причини. Клік на причину відкриває приклади URL.'],['why',0,0,'Дерево діагностики.']],
-  'b2-08':[['cwv',0,0,'Три метрики Google та їхні пороги.'],['gsc','Основні веб-показники',0,'Звіт Core Web Vitals у Search Console.']],
-  'b2-09':[['cwv',0,0,'Зображення і кеш впливають на LCP, JavaScript на INP, розміри на CLS.']],
-  'b2-10':[['image',0,0,'Те саме фото: 4,2 МБ → 160 КБ. Різниці на екрані не видно.']],
-  'b2-11':[['gsc','Ефективність',0,'Ефективність → вкладка «Сторінки»: які сторінки дають покази й кліки.'],['intent',0,0,'Тип сторінки має збігатися з наміром запиту.']],
-  'b2-12':[['crawler','Page Titles',0,'Експорт проблемних title стає списком задач.']],
-  'b2-13':[['backlinks',0,0,'Втрачені і биті зовнішні посилання найшвидше повертають вагу.'],['crawler','Response Codes',0,'Биті внутрішні посилання.']],
-  'b2-14':[['priority',0,0,'Критичне виправляємо в той самий день.']],
-  'b3-00':[['tools',0,0,'Чотири групи інструментів, з якими ви працюватимете щодня.']],
-  'b3-01':[['source',0,0,'Файли сайту, які ви редагуєте у VS Code.']],
-  'b3-02':[['github',0,0,'Від репозиторію до живого сайту.']],
-  'b3-03':[['redirect',0,0,'На Vercel редиректи задаються у vercel.json і мають бути в один крок.']],
-  'b3-04':[['cluster',0,0,'Кластеризація: запити групуються за спільною видачею.'],['competitors',0,0,'Аналіз конкурентів: видача → краулінг → таблиця → висновки.']],
-  'b3-05':[['backlinks',0,0,'Які посилання корисні, а які ризиковані.']],
-  'b3-06':[['intent',0,0,'Тип запиту визначає тип сторінки.']],
-  'b3-07':[['source',0,0,'Що шукати в коді сторінки.'],['crawler','Directives',0,'Директиви robots, які ви перевіряєте і в DevTools.']],
-  'b3-08':[['cwv',0,0,'Пороги Core Web Vitals.'],['image',0,0,'Найчастіша причина повільного LCP: важке зображення.']],
-  'b3-09':[['gtm',0,0,'Як звʼязані Tag Manager і Analytics.']],
-  'b3-10':[['gsc','Ефективність',0,'Звіт Ефективність: кліки, покази, CTR, позиція.']],
-  'b3-11':[['serp',0,0,'Позиція у видачі і сніпет.']],
-  'b3-12':[['gsc','Ефективність',0,'Головне джерело цифр для звіту.'],['priority',0,0,'Ризики і пріоритети для керівника.']],
-  'b3-13':[['why',0,0,'Дерево діагностики сторінки.'],['gsc','Сторінки',0,'Звіт «Сторінки» показує нові помилки після релізу.']]
-};
-if (window.TX) L.forEach(l => { if (TX[l.id]) l.tests = (l.tests || []).concat(TX[l.id]); });
-if (window.ILL) L.forEach(l => (SVG[l.id] || []).slice().reverse().forEach(([key, a, b, cap]) => l.ill.unshift({type:'svg', key, a: a || undefined, b: b || undefined, cap})));
+/* схеми з ill.js: у кожному уроці поле svg = [[ключ, аргумент1, аргумент2, підпис]] */
+L.forEach(l => { l.ill = window.ILL ? (l.svg || []).map(([key, a, b, cap]) => ({type:'svg', key, a: a || undefined, b: b || undefined, cap})) : []; });
 const BLOCKS = [
-  {id:'b1', t:'Блок 1. Новий сайт з нуля', d:'Від першої ідеї до сайту, який Google знаходить, сканує й індексує: структура, семантика, технічні файли, публікація на GitHub Pages, аудит і просування.'},
-  {id:'b2', t:'Блок 2. Виправлення існуючого сайту', d:'Ви прийшли на готовий сайт (часто WordPress). Доступи, бекап, читання коду, плагіни, редиректи, індексація, швидкість, масові правки, посилання і звіт для клієнта.'},
-  {id:'b3', t:'Блок 3. Програми, публікація і звіти', d:'Усі програми SEO-спеціаліста: де що натискати. Збереження проєкту на компʼютері, GitHub і Vercel, Serpstat, Ahrefs, Google Trends, DevTools, PageSpeed, GA4, позиції, звіт для керівника і пошук помилок.'}
+  {id:'c1', t:'Блок 1. Новий сайт: GitHub + Vercel', d:'Семантика в Keyword Planner, Trends і Serpstat, структура і тексти, сайт на GitHub і Vercel, SEO-теги, мікророзмітка, hreflang, robots.txt, sitemap, Search Console, GA4 і GTM, індексація, Google Business Profile.'},
+  {id:'c2', t:'Блок 2. Аудит і виправлення: WordPress', d:'Код сторінки, Screaming Frog і Netpeak Spider, чек-лист аудиту, редиректи, HTTPS, дублікати і canonical, noindex, WordPress і Rank Math, звіт «Сторінки», швидкість, on-page, посилання, правила Google.'},
+  {id:'c3', t:'Блок 3. Аналітика і звіти', d:'Search Console, GA4, позиції в Serpstat, звіт керівнику і пошук причини падіння трафіку.'}
 ];
 const $ = (s, r=document) => r.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -355,7 +303,7 @@ function buildNav(){
   $('#nav').innerHTML = BLOCKS.map(b => {
     const ls = L.filter(l => l.id.startsWith(b.id));
     return `<div class="blk">${esc(b.t)}</div><ul class="ls">` + ls.map((l, i) =>
-      `<li><a href="#${l.id}" data-id="${l.id}"><span class="n">${String(i).padStart(2,'0')}</span><span>${esc(l.title)}</span><span class="st"></span></a></li>`).join('') + '</ul>';
+      `<li><a href="#${l.id}" data-id="${l.id}"><span class="n">${String(i+1).padStart(2,'0')}</span><span>${esc(l.title)}</span><span class="st"></span></a></li>`).join('') + '</ul>';
   }).join('');
 }
 
@@ -482,11 +430,10 @@ function lessonView(l){
   const links = (l.links||[]).map(([t,u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`).join(' · ');
   $('#view').innerHTML = `
   <nav class="back" aria-label="Повернення"><a href="#home">← Назад до меню курсу</a></nav>
-  <div class="eyebrow">${esc(blk.t)} · урок ${sib.indexOf(l)} з ${sib.length-1} · ≈ ${esc(l.dur)}</div>
+  <div class="eyebrow">${esc(blk.t)} · урок ${sib.indexOf(l)+1} з ${sib.length} · ≈ ${esc(l.dur)}</div>
   <h1>${esc(l.title)}</h1>
-  <p class="lead">${fmt(l.lead)}</p>
   <nav class="toc" aria-label="Частини уроку">
-    <a href="#p-video" data-j>Відеорозбір</a><a href="#p-ill" data-j>Ілюстрація</a><a href="#p-notes" data-j>Конспект</a><a href="#p-steps" data-j>Покроково</a><a href="#p-check" data-j>Чек-лист</a><a href="#p-quiz" data-j>Тест</a>
+    <a href="#p-video" data-j>Відеорозбір</a><a href="#p-what" data-j>Що це</a><a href="#p-steps" data-j>Куди натискати</a>${l.example ? '<a href="#p-ex" data-j>Приклад</a>' : ''}<a href="#p-err" data-j>Помилки</a><a href="#p-check" data-j>Чек-лист</a><a href="#p-quiz" data-j>Тест</a>
   </nav>
   <section class="part" id="p-video"><div class="ph"><span class="k">1</span><h2>Відеорозбір</h2></div>
     <div class="player">
@@ -505,17 +452,19 @@ function lessonView(l){
         <ol>${l.scenes.map(s => `<li><b>${fmt(s.t)}.</b> ${fmt(s.say)}</li>`).join('')}</ol></div>
       <div class="yt"><span>Справжні записи екрана з цієї теми:</span><a href="${yt}" target="_blank" rel="noopener">YouTube: «${esc(l.yt)}» ↗</a>${links ? `<span style="color:var(--muted)">Інструменти:</span> ${links}` : ''}</div>
     </div></section>
-  <section class="part" id="p-ill"><div class="ph"><span class="k">2</span><h2>Ілюстрація</h2></div>
-    <div class="panel">${l.ill.map(illHTML).join('')}</div></section>
-  <section class="part" id="p-notes"><div class="ph"><span class="k">3</span><h2>Конспект</h2></div>
-    ${l.nav ? `<div class="navhint"><b>Куди натискати</b><ul>${l.nav.map(p => `<li>${p.split(' → ').map(s => `<span>${fmt(s)}</span>`).join('<i aria-hidden="true">›</i>')}</li>`).join('')}</ul></div>` : ''}
-    <div class="panel notes">${notesHTML(l.notes)}</div></section>
-  <section class="part" id="p-steps"><div class="ph"><span class="k">4</span><h2>Покрокова інструкція</h2></div>
+  <section class="part" id="p-what"><div class="ph"><span class="k">2</span><h2>Що це і навіщо</h2></div>
+    <div class="panel notes"><p class="what">${fmt(l.what)}</p>${l.ill.length ? `<div class="ill-wrap">${l.ill.map(illHTML).join('')}</div>` : ''}</div></section>
+  <section class="part" id="p-steps"><div class="ph"><span class="k">3</span><h2>Куди натискати</h2></div>
+    ${l.nav ? `<div class="navhint"><b>Шлях у програмі</b><ul>${l.nav.map(p => `<li>${p.split(' → ').map(s => `<span>${fmt(s)}</span>`).join('<i aria-hidden="true">›</i>')}</li>`).join('')}</ul></div>` : ''}
     <ol class="steps">${l.steps.map(s => `<li><div>${fmt(s)}</div></li>`).join('')}</ol></section>
-  <section class="part" id="p-check"><div class="ph"><span class="k">5</span><h2>Чек-лист</h2></div>
+  ${l.example ? `<section class="part" id="p-ex"><div class="ph"><span class="k">4</span><h2>Приклад</h2></div>
+    <div class="panel notes">${notesHTML(l.example)}</div></section>` : ''}
+  <section class="part" id="p-err"><div class="ph"><span class="k">${l.example ? 5 : 4}</span><h2>Типові помилки</h2></div>
+    <ul class="errs">${l.mistakes.map(m => `<li>${fmt(m)}</li>`).join('')}</ul></section>
+  <section class="part" id="p-check"><div class="ph"><span class="k">${l.example ? 6 : 5}</span><h2>Чек-лист</h2></div>
     <div class="panel"><div class="chk-sum"><span id="csum"></span><button class="btn" id="creset" type="button">Зняти всі відмітки</button></div>
     <div class="chk">${l.check.map((x, i) => `<label><input type="checkbox" id="ck-${l.id}-${i}" data-i="${i}" ${c[i]?'checked':''}><span>${fmt(x)}</span></label>`).join('')}</div></div></section>
-  <section class="part" id="p-quiz"><div class="ph"><span class="k">6</span><h2>Тест</h2></div>
+  <section class="part" id="p-quiz"><div class="ph"><span class="k">${l.example ? 7 : 6}</span><h2>Тест</h2></div>
     ${QS(l).map((q, n) => `<div class="panel qz" data-n="${n}"><p class="q">${QS(l).length > 1 ? `<span class="qn">${n+1}/${QS(l).length}</span> ` : ''}${fmt(q.q)}</p><div class="opts">${q.a.map((x, i) => `<button type="button" data-i="${i}">${fmt(x)}</button>`).join('')}</div><div class="why"></div></div>`).join('')}</section>
   <div class="pager">${prev ? `<a href="#${prev.id}"><small>← Попередній</small>${esc(prev.title)}</a>` : '<span></span>'}${next ? `<a class="nx" href="#${next.id}"><small>Наступний →</small>${esc(next.title)}</a>` : `<a class="nx" href="#home"><small>Кінець курсу</small>На головну</a>`}</div>`;
 
@@ -547,51 +496,41 @@ function lessonView(l){
 function homeView(){
   P.l = null; try { speechSynthesis.cancel(); } catch(e) {}
   const tools = [
-    ['Google Search Console','https://search.google.com/search-console','Індексація, запити, помилки, sitemap, перевірка URL'],
-    ['Google Analytics 4','https://analytics.google.com','Відвідувачі, джерела трафіку, конверсії'],
-    ['Google Tag Manager','https://tagmanager.google.com','Встановлення лічильників і подій без правок коду'],
-    ['Google Ads: Планувальник ключових слів','https://ads.google.com/home/tools/keyword-planner/','Частотність запитів для семантичного ядра'],
-    ['Screaming Frog SEO Spider','https://www.screamingfrog.co.uk/seo-spider/','Краулер: статус-коди, title, дублікати, canonical (безкоштовно до 500 URL)'],
-    ['Netpeak Spider','https://netpeaksoftware.com/spider','Краулер з українським інтерфейсом і звітом помилок'],
-    ['GS Location Changer','https://chromewebstore.google.com/search/GS%20Location%20Changer','Розширення Chrome: видача Google з іншого міста чи країни'],
-    ['PageSpeed Insights','https://pagespeed.web.dev','Core Web Vitals і поради зі швидкості'],
-    ['Squoosh','https://squoosh.app','Стиснення та конвертація зображень у WebP/AVIF'],
-    ['Rich Results Test','https://search.google.com/test/rich-results','Перевірка мікророзмітки schema.org'],
-    ['Ahrefs Webmaster Tools','https://ahrefs.com/webmaster-tools','Безкоштовний аудит і зворотні посилання свого сайту'],
-    ['Serpstat','https://serpstat.com','Ключі, конкуренти, кластеризація, позиції, аудит (урок у Блоці 3)'],
-    ['Ahrefs','https://ahrefs.com','Посилання, ключі конкурентів, Content gap (урок у Блоці 3)'],
+    ['Google Search Console','https://search.google.com/search-console','Індексація, запити, кліки, помилки, sitemap'],
+    ['Google Analytics 4','https://analytics.google.com','Трафік з пошуку і заявки'],
+    ['Google Tag Manager','https://tagmanager.google.com','Встановлення GA4 і подій без правок коду'],
+    ['Google Ads: Планувальник ключових слів','https://ads.google.com/home/tools/keyword-planner/','Частотність запитів'],
     ['Google Trends','https://trends.google.com/trends/?geo=UA','Сезонність і порівняння запитів'],
-    ['Chrome DevTools','https://developer.chrome.com/docs/devtools','F12: код, статус-коди, заголовки, мобільний вигляд'],
-    ['VS Code','https://code.visualstudio.com','Редактор коду для файлів сайту'],
-    ['GitHub і GitHub Desktop','https://desktop.github.com','Зберігання версій сайту і публікація змін'],
-    ['Vercel','https://vercel.com','Публікація сайту з GitHub, 301 і заголовки у vercel.json'],
-    ['Looker Studio','https://lookerstudio.google.com','Дашборд і звіт для керівника'],
-    ['SE Ranking / SEO PowerSuite','https://seranking.com','Відстеження позицій і аудит'],
-    ['Bing Webmaster Tools','https://www.bing.com/webmasters','Search Console для Bing']
+    ['Serpstat','https://serpstat.com','Ключі, кластеризація, конкуренти, позиції'],
+    ['Ahrefs','https://ahrefs.com','Посилання, ключі конкурентів, аудит свого сайту (Webmaster Tools)'],
+    ['Screaming Frog','https://www.screamingfrog.co.uk/seo-spider/','Сканування сайту: коди, title, дублікати, canonical'],
+    ['Netpeak Spider','https://netpeaksoftware.com/spider','Сканування сайту з помилками за важливістю'],
+    ['WordPress + Rank Math / Yoast','https://rankmath.com/kb/','SEO-налаштування сайтів на WordPress'],
+    ['GitHub + GitHub Desktop','https://desktop.github.com','Зберігання файлів сайту і їх оновлення'],
+    ['Vercel','https://vercel.com','Публікація сайту з GitHub, домен, редиректи'],
+    ['PageSpeed Insights','https://pagespeed.web.dev','Швидкість сторінки'],
+    ['Chrome DevTools (F12)','https://developer.chrome.com/docs/devtools','Код сторінки і статус-коди'],
+    ['GS Location Changer','https://chromewebstore.google.com/search/GS%20Location%20Changer','Видача Google з потрібного міста']
   ];
+  const first = L[0].id;
+  const parts = [['p-video','1. Відеорозбір','Сцени зі схемою програми і курсором, озвучка, сценарій.'],['p-what','2. Що це','2–3 речення і схема.'],['p-steps','3. Куди натискати','Шлях у програмі і кроки по порядку.'],['p-ex','4. Приклад','Готовий код або таблиця на прикладі сайту «Мости».'],['p-err','5. Типові помилки','Що найчастіше роблять неправильно.'],['p-check','6. Чек-лист','Відмітки зберігаються.'],['p-quiz','7. Тест','Три питання з поясненням.']];
   $('#view').innerHTML = `
-  <div class="hero"><div class="eyebrow">Курс для тих, хто починає з нуля · ${L.length} уроків · ${BLOCKS.length} блоки</div>
+  <div class="hero"><div class="eyebrow">${L.length} уроків · ${BLOCKS.length} блоки · приклад: сайт бюро перекладів «Мости»</div>
   <h1>SEO Старт</h1>
-  <p class="lead">Практичний курс базового SEO: як Google знаходить і індексує сторінки, як побудувати сайт з нуля і як виправити технічні помилки на готовому сайті. Кожен урок має однакову будову, тож ви швидко звикнете до ритму.</p>
+  <p class="lead">Короткі практичні інструкції: що це, куди натискати, приклад, помилки, тест. Тільки програми, з якими ви працюєте.</p>
   <div class="codes"><span class="c2">200 OK</span><span class="c3">301 Moved</span><span class="c4">404 Not Found</span><span class="c5">500 Server Error</span><span class="c2">index, follow</span><span class="c4">noindex</span><span class="c3">rel=canonical</span></div></div>
-  <div class="cards">${BLOCKS.map(b => { const ls = L.filter(l => l.id.startsWith(b.id)); return `<div class="card"><h3>${esc(b.t)}</h3><p>${esc(b.d)}</p><ol start="0">${ls.map(l => `<li><a href="#${l.id}">${esc(l.title)}</a></li>`).join('')}</ol><a class="btn pri" href="#${ls[0].id}">Почати блок</a></div>`; }).join('')}</div>
+  <div class="cards">${BLOCKS.map(b => { const ls = L.filter(l => l.id.startsWith(b.id)); return `<div class="card"><h3>${esc(b.t)}</h3><p>${esc(b.d)}</p><ol>${ls.map(l => `<li><a href="#${l.id}">${esc(l.title)}</a></li>`).join('')}</ol><a class="btn pri" href="#${ls[0].id}">Почати блок</a></div>`; }).join('')}</div>
   <section class="part"><div class="ph"><span class="k">i</span><h2>Як влаштований кожен урок</h2></div>
-  <div class="parts">
-    <div><b>1. Відеорозбір</b><small>Сцени перемикаються самі. На кожній схема інтерфейсу програми, курсор показує, куди натискати. Можна ввімкнути озвучку голосом браузера.</small></div>
-    <div><b>2. Ілюстрація</b><small>Схема процесу, дерево рішень або порівняння «правильно / неправильно».</small></div>
-    <div><b>3. Конспект</b><small>Коротко й по суті: таблиці, приклади коду з кнопкою «копіювати».</small></div>
-    <div><b>4. Покроково</b><small>Що натискати і в якому порядку, щоб повторити на своєму сайті.</small></div>
-    <div><b>5. Чек-лист</b><small>Відмітки зберігаються в цьому браузері, прогрес видно в меню.</small></div>
-    <div><b>6. Тест</b><small>Три питання на розуміння уроку з поясненням правильної відповіді.</small></div>
-  </div>
-  <p class="ill-cap">Навчальних сайтів два: інтернет-магазин велосипедів (приклади в тексті) і бюро перекладів «Мости», mosty.com.ua (схеми з файлу «SEO з нуля»). Так видно, як ті самі правила працюють і для магазину, і для сайту послуг.</p>
-  <p class="ill-cap">Під кожним відеорозбором є посилання на пошук YouTube з реальними записами екрана саме з цієї теми та кнопка «Сценарій»: текст озвучки, за яким можна записати власний відеоурок.</p></section>
-  <section class="part"><div class="ph"><span class="k">⚒</span><h2>Інструменти курсу</h2></div>
-  <div class="tw" style="background:var(--surface)"><table><thead><tr><th>Програма</th><th>Для чого</th></tr></thead><tbody>${tools.map(([n,u,d]) => `<tr><td><a href="${u}" target="_blank" rel="noopener">${esc(n)}</a></td><td>${esc(d)}</td></tr>`).join('')}</tbody></table></div></section>
-  <section class="part"><div class="ph"><span class="k">→</span><h2>Рекомендований порядок</h2></div>
-  <div class="panel notes"><p>Новачкам: пройдіть Блок 1 повністю, навіть якщо зараз працюєте з готовим сайтом. Блок 2 спирається на поняття з першого (індексація, canonical, коди відповіді). Тема в день: подивіться розбір, прочитайте конспект, повторіть кроки на своєму тестовому сайті з GitHub Pages, відмітьте чек-лист і пройдіть тест.</p>
-  <p>Джерела, на які спирається курс: документація {{Google Search Central|https://developers.google.com/search/docs}}, довідка {{Search Console|https://support.google.com/webmasters}}, {{web.dev|https://web.dev/explore/learn-core-web-vitals}}, посібники Screaming Frog і Netpeak, документація WordPress, Yoast і Rank Math.</p></div></section>`;
+  <p class="ill-cap" style="margin:0 0 10px">Натисніть на частину, щоб відкрити її в першому уроці.</p>
+  <div class="parts">${parts.map(([id, t, d]) => `<a href="#${first}" data-part="${id}"><b>${t}</b><small>${d}</small></a>`).join('')}</div></section>
+  <section class="part"><div class="ph"><span class="k">⚒</span><h2>Програми курсу</h2></div>
+  <div class="tw" style="background:var(--surface)"><table><thead><tr><th>Програма</th><th>Для чого</th></tr></thead><tbody>${tools.map(([n,u,d]) => `<tr><td><a href="${u}" target="_blank" rel="noopener">${esc(n)}</a></td><td>${esc(d)}</td></tr>`).join('')}</tbody></table></div></section>`;
+  document.querySelectorAll('.parts a[data-part]').forEach(a => a.onclick = e => {
+    e.preventDefault(); goPart = a.dataset.part; location.hash = first;
+  });
 }
+/* частина уроку, до якої прокрутити після переходу з головної */
+let goPart = null;
 function bindCopy(){
   document.querySelectorAll('.cb .cp').forEach(b => b.onclick = () => {
     const t = b.parentElement.querySelector('code').textContent;
@@ -607,7 +546,8 @@ function route(){
   if (l) lessonView(l); else if (!/^p-/.test(id)) homeView();
   document.querySelectorAll('.ls a').forEach(a => a.classList.toggle('on', a.dataset.id === id));
   $('#side').classList.remove('open');
-  if (!/^p-/.test(id)) window.scrollTo(0, 0);
+  const part = goPart && document.getElementById(goPart); goPart = null;
+  if (part) part.scrollIntoView(); else if (!/^p-/.test(id)) window.scrollTo(0, 0);
   updateProgress();
 }
 document.addEventListener('click', e => {

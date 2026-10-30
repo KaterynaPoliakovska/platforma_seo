@@ -112,10 +112,10 @@ cwv(){let s='';const g=[['LCP','Завантаження головного ел
  g.forEach((q,i)=>{const y=14+i*82;s+=T(10,y+20,q[0],{size:20,w:700,mono:1});s+=T(10,y+40,q[1],{size:11.5,c:'--muted'});['a','w','b'].forEach((k,j)=>{s+=R(250+j*126,y+4,120,44,k,6);s+=T(310+j*126,y+31,q[2+j],{size:12.5,w:600,a:'middle'})})});
  ['Добре','Покращити','Погано'].forEach((t,j)=>s+=T(310+j*126,262,t,{size:11.5,c:'--muted',a:'middle'}));
  return svg(640,272,s,'Пороги Core Web Vitals')},
-github(){let s='';const st=[['1. Репозиторій','New → site','n'],['2. Файли','index.html, robots.txt, sitemap.xml','n'],['3. Settings → Pages','Branch: main / root','i'],['4. Сайт живий','user.github.io/site','d']];
+github(){let s='';const st=[['1. Папка на ПК','D:/Projects/mosty','n'],['2. GitHub Desktop','Commit → Push','n'],['3. Vercel','Import → Deploy','i'],['4. Сайт живий','mosty.vercel.app','d']];
  st.forEach((q,i)=>{const x=10+i*158;s+=B(x,40,146,74,q[0],q[1],q[3],13);if(i<3)s+=A(x+146,77,x+158,77)});
- s+=R(10,146,620,84,'s',8);s+=T(24,170,'Власний домен:',{size:12.5,w:700});s+=T(24,192,'Pages → Custom domain → mosty.com.ua · у DNS: CNAME www → user.github.io',{size:12,mono:1});s+=T(24,214,'Потім увімкнути «Enforce HTTPS».',{size:12});
- return svg(640,240,s,'Публікація сайту через GitHub Pages')},
+ s+=R(10,146,620,84,'s',8);s+=T(24,170,'Власний домен:',{size:12.5,w:700});s+=T(24,192,'Vercel → Settings → Domains → mosty.com.ua · DNS: A @ 76.76.21.21, CNAME www',{size:12,mono:1});s+=T(24,214,'Далі кожен Push на GitHub оновлює сайт автоматично.',{size:12});
+ return svg(640,240,s,'Публікація сайту через GitHub і Vercel')},
 source(){let s='';s+=`<rect x="10" y="10" width="620" height="270" rx="10" style="fill:var(--code-bg)"/>`;const l=[['<head>',0],['  <title>Нотаріальний переклад у Києві | Мости</title>','t'],['  <meta name="description" content="…">','t'],['  <meta name="robots" content="index, follow">','r'],['  <link rel="canonical" href="https://mosty.com.ua/uslugy/">','c'],['  <link rel="alternate" hreflang="en" href="…/en/uslugy/">','h'],['  <script>…googletagmanager.com/gtm.js…<\/script>','g'],['</head>',0],['<body> <h1>Нотаріальний переклад</h1> …','t']];
  const lab={t:'зміст',r:'індексація',c:'дублі',h:'мови',g:'аналітика'};
  l.forEach((q,i)=>{const y=40+i*27;s+=T(24,y,q[0].replace(/</g,'&lt;').replace(/>/g,'&gt;'),{size:11.5,mono:1,c:'--code-fg'});if(q[1])s+=T(616,y,lab[q[1]],{size:11,a:'end',w:700,c:'--code-fg'})});
@@ -139,7 +139,7 @@ competitors(){let s='';s+=B(10,30,150,64,'1. Видача','топ-10 за за�
 priority(){let s='';const c=[['Критично — сьогодні','noindex/robots на всьому сайті · 5xx · сайт без HTTPS · вірус','b'],['Високий — цей тиждень','важливі сторінки не в індексі · 404 у меню · дублі title/H1 на послугах','w'],['Середній — цей місяць','ланцюжки редиректів · повільний LCP · вага фото · alt','i'],['Низький — у плані','довгі description · дрібні попередження краулера','s']];
  c.forEach((q,i)=>{const y=10+i*66;s+=R(10,y,620,56,q[2],8);s+=T(24,y+24,q[0],{size:13.5,w:700,c:K[q[2]][1]==='--line'?'--ink':K[q[2]][1]});s+=T(24,y+44,q[1],{size:12})});
  return svg(640,276,s,'Пріоритети виправлень')},
-tools(){let s='';const g=[['Google',['Search Console','Analytics 4','Tag Manager','Ads → Keyword Planner','PageSpeed Insights'],'a'],['Краулери',['Screaming Frog','Netpeak Spider','Sitebulb (опц.)'],'i'],['Семантика й конкуренти',['Ahrefs / Semrush','Serpstat','SEO PowerSuite','Google Trends'],'w'],['У браузері',['GS Location Changer','Detailed SEO / SEO Meta in 1 Click','DevTools (F12)'],'s']];
+tools(){let s='';const g=[['Google',['Search Console','Analytics 4','Tag Manager','Keyword Planner','Trends'],'a'],['Аудит',['Screaming Frog','Netpeak Spider','PageSpeed Insights','DevTools (F12)'],'i'],['Семантика',['Serpstat','Ahrefs','GS Location Changer'],'w'],['Сайт',['WordPress','Rank Math / Yoast','GitHub','Vercel'],'s']];
  g.forEach((q,i)=>{const x=10+i*157;s+=R(x,10,147,250,q[2],10);s+=T(x+12,36,q[0],{size:13,w:700});q[1].forEach((t,j)=>{s+=R(x+10,52+j*40,127,32,'n',6);s+=T(x+18,72+j*40,t,{size:11})})});
  return svg(640,270,s,'Набір інструментів SEO-спеціаліста')},
 gtm(){let s='';const st=[['GTM-контейнер','код у &lt;head&gt; і &lt;body&gt;','n'],['Тег Google','ID: G-XXXXXXX','i'],['Тригер','All Pages / клік / форма','n'],['Опублікувати','Preview → Submit','d']];
