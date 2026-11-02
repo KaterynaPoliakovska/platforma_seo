@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 96" role="img" aria-label="SEO Старт">
+  <rect x="8" y="12" width="72" height="72" rx="20" fill="#335A5B"/>
+  <path d="M26 49 L39 62 L63 35" fill="none" stroke="#F4EFE4" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="98" y="52" font-family="Unbounded, Manrope, Arial, sans-serif" font-weight="700" font-size="32" fill="#0F0F0D">SEO Старт</text>
+  <rect x="99" y="62" width="74" height="22" rx="11" fill="#E3EDE7"/>
+  <text x="136" y="78" text-anchor="middle" font-family="JetBrains Mono, Consolas, monospace" font-weight="600" font-size="13" fill="#335A5B">200 OK</text>
+</svg>

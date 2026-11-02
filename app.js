@@ -29,7 +29,8 @@ const UI = {
     parts:[['p-video','1. Відеорозбір','5–9 сцен зі схемою програми і курсором, озвучка, сценарій.'],['p-what','2. Що це','2–3 речення простими словами.'],['p-ill','3. Схеми та ілюстрації','Схеми процесів, дерева рішень, порівняння.'],['p-steps','4. Куди натискати','Шлях у програмі і кроки по порядку.'],['p-ex','5. Приклад','Готовий код або таблиця на прикладі сайту «Мости».'],['p-notes','6. Конспект','Детальні таблиці, код і поради.'],['p-err','7. Типові помилки','Що найчастіше роблять неправильно.'],['p-check','8. Чек-лист','Відмітки зберігаються.'],['p-quiz','9. Тест','5 питань і поле «Чому я так вважаю» поруч з поясненням курсу.']],
     toolsTitle:'Програми курсу', toolCol:'Програма', forCol:'Для чого',
     toolsList:['Індексація, запити, кліки, помилки, sitemap','Трафік з пошуку і заявки','Встановлення GA4 і подій без правок коду','Частотність запитів','Сезонність і порівняння запитів','Ключі, кластеризація, конкуренти, позиції','Посилання, ключі конкурентів, аудит свого сайту (Webmaster Tools)','Сканування сайту: коди, title, дублікати, canonical','Сканування сайту з помилками за важливістю','SEO-налаштування сайтів на WordPress','Зберігання файлів сайту і їх оновлення','Публікація сайту з GitHub, домен, редиректи','Швидкість сторінки','Код сторінки і статус-коди','Видача Google з потрібного міста'],
-    planner:'Google Ads: Планувальник ключових слів', speech:'uk-UA', langName:'Мова', brand:'SEO Старт'
+    planner:'Google Ads: Планувальник ключових слів', speech:'uk-UA', langName:'Мова', brand:'SEO Start',
+    welcome:{tag:'Курс базового SEO з нуля', text:'Навчитеся будувати сайт, який Google знаходить і показує, знаходити й виправляти технічні помилки на готовому сайті та звітувати про результат. Короткі уроки з відеорозбором, кроками «куди натискати», прикладами, чек-листами і тестами.', facts:[['41','урок'],['3','блоки'],['3','мови']], start:'Почати навчання →', cont:'Продовжити з місця, де зупинились'}
   },
   en: {
     blocks: [
@@ -56,7 +57,8 @@ const UI = {
     parts:[['p-video','1. Video walkthrough','Scenes with a diagram of the tool and a cursor, voice-over and a script.'],['p-what','2. What it is','2–3 sentences in plain words.'],['p-ill','3. Diagrams and illustrations','Process diagrams, decision trees, comparisons.'],['p-steps','4. Where to click','The path in the tool and the steps in order.'],['p-ex','5. Example','Ready-made code or a table based on the Mosty website.'],['p-notes','6. Notes','Detailed tables, code and tips.'],['p-err','7. Common mistakes','What people most often get wrong.'],['p-check','8. Checklist','Your ticks are saved.'],['p-quiz','9. Quiz','5 questions and a “Why I think so” field next to the course explanation.']],
     toolsTitle:'Tools in this course', toolCol:'Tool', forCol:'What it is for',
     toolsList:['Indexing, queries, clicks, errors, sitemaps','Search traffic and leads','Installing GA4 and events without editing code','Search volume','Seasonality and comparing queries','Keywords, clustering, competitors, rankings','Backlinks, competitor keywords, auditing your own site (Webmaster Tools)','Crawling a site: status codes, titles, duplicates, canonical','Crawling a site with issues grouped by severity','SEO settings for WordPress sites','Storing and updating the site files','Publishing a site from GitHub, domain, redirects','Page speed','Page source and status codes','Google results from a chosen city'],
-    planner:'Google Ads: Keyword Planner', speech:'en-GB', langName:'Language', brand:'SEO Start'
+    planner:'Google Ads: Keyword Planner', speech:'en-GB', langName:'Language', brand:'SEO Start',
+    welcome:{tag:'A basic SEO course from scratch', text:'Learn to build a website that Google finds and shows, to find and fix technical issues on an existing site and to report the results. Short lessons with a video walkthrough, “where to click” steps, examples, checklists and quizzes.', facts:[['41','lessons'],['3','blocks'],['3','languages']], start:'Start learning →', cont:'Continue where you left off'}
   },
   pl: {
     blocks: [
@@ -83,7 +85,8 @@ const UI = {
     parts:[['p-video','1. Omówienie wideo','Sceny ze schematem programu i kursorem, lektor i scenariusz.'],['p-what','2. Co to jest','2–3 zdania prostym językiem.'],['p-ill','3. Schematy i ilustracje','Schematy procesów, drzewa decyzji, porównania.'],['p-steps','4. Gdzie kliknąć','Ścieżka w programie i kroki po kolei.'],['p-ex','5. Przykład','Gotowy kod lub tabela na przykładzie strony „Mosty”.'],['p-notes','6. Notatki','Szczegółowe tabele, kod i wskazówki.'],['p-err','7. Typowe błędy','Co najczęściej robi się źle.'],['p-check','8. Lista kontrolna','Zaznaczenia są zapisywane.'],['p-quiz','9. Test','5 pytań i pole „Dlaczego tak uważam” obok wyjaśnienia kursu.']],
     toolsTitle:'Narzędzia kursu', toolCol:'Narzędzie', forCol:'Do czego służy',
     toolsList:['Indeksowanie, zapytania, kliknięcia, błędy, mapy witryn','Ruch z wyszukiwarki i zapytania ofertowe','Instalacja GA4 i zdarzeń bez zmian w kodzie','Liczba wyszukiwań','Sezonowość i porównywanie zapytań','Słowa kluczowe, klasteryzacja, konkurencja, pozycje','Linki, słowa kluczowe konkurencji, audyt własnej strony (Webmaster Tools)','Skanowanie strony: kody, title, duplikaty, canonical','Skanowanie strony z błędami według ważności','Ustawienia SEO stron na WordPressie','Przechowywanie i aktualizacja plików strony','Publikacja strony z GitHub, domena, przekierowania','Szybkość strony','Kod strony i kody odpowiedzi','Wyniki Google z wybranego miasta'],
-    planner:'Google Ads: Planer słów kluczowych', speech:'pl-PL', langName:'Język', brand:'SEO Start'
+    planner:'Google Ads: Planer słów kluczowych', speech:'pl-PL', langName:'Język', brand:'SEO Start',
+    welcome:{tag:'Kurs podstaw SEO od zera', text:'Nauczysz się budować stronę, którą Google znajduje i pokazuje, znajdować i naprawiać błędy techniczne na istniejącej stronie oraz raportować wyniki. Krótkie lekcje z omówieniem wideo, krokami „gdzie kliknąć”, przykładami, listami kontrolnymi i testami.', facts:[['41','lekcji'],['3','bloki'],['3','języki']], start:'Zacznij naukę →', cont:'Kontynuuj od miejsca, w którym skończyłeś'}
   }
 };
 const I = UI[LANG] || UI.uk;
@@ -149,10 +152,13 @@ function updateProgress(){
     a.querySelector('.st').className = 'st' + (p >= 1 ? ' full' : p > 0 ? ' half' : '');
   });
 }
+const LOGO = '<svg class="CLS" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 96" role="img" aria-label="SEO Start"><polyline points="14,82 36,64 26,44 52,34 76,14" fill="none" stroke="#335A5B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14" cy="82" r="7" fill="#F4EFE4" stroke="#335A5B" stroke-width="4"/><circle cx="36" cy="64" r="7" fill="#F4EFE4" stroke="#335A5B" stroke-width="4"/><circle cx="26" cy="44" r="7" fill="#F4EFE4" stroke="#335A5B" stroke-width="4"/><circle cx="52" cy="34" r="7" fill="#F4EFE4" stroke="#335A5B" stroke-width="4"/><circle cx="76" cy="14" r="10" fill="#0F0F0D"/><text x="76" y="18.5" text-anchor="middle" font-family="Unbounded, Manrope, Arial, sans-serif" font-weight="700" font-size="12" fill="#F4EFE4">1</text><text x="102" y="50" font-family="Unbounded, Manrope, Arial, sans-serif" font-weight="700" font-size="30" fill="#0F0F0D">SEO</text><text x="102" y="82" font-family="Unbounded, Manrope, Arial, sans-serif" font-weight="500" font-size="22" letter-spacing="3" fill="#335A5B">START</text></svg>';
+const logo = cls => LOGO.replace('CLS', cls);
+
 function buildNav(){
   $('#nav').setAttribute('aria-label', I.navLabel);
   $('#menu').textContent = I.menu;
-  $('.brand b').textContent = I.brand;
+  $('.brand').innerHTML = logo('logo');
   const langs = [['uk','УК',''],['en','EN','en/'],['pl','PL','pl/']];
   $('#langs').innerHTML = `<span>${I.langName}:</span>` + langs.map(([c, t, p]) =>
     c === LANG ? `<b aria-current="true">${t}</b>` : `<a href="${ROOT}${p}" hreflang="${c}" lang="${c}" data-lang>${t}</a>`).join('');
@@ -393,10 +399,28 @@ function bindCopy(){
 }
 function selectCode(b){ const r = document.createRange(); r.selectNodeContents(b.parentElement.querySelector('code')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = I.selected; }
 
+/* стартова привітальна сторінка: показується, коли в адресі немає #розділу */
+function welcomeView(){
+  P.l = null; try { speechSynthesis.cancel(); } catch(e) {}
+  const W = I.welcome;
+  const started = L.some(l => lessonPct(l) > 0);
+  const nextL = L.find(l => lessonPct(l) < 1) || L[0];
+  const langs = [['uk','Українська',''],['en','English','en/'],['pl','Polski','pl/']];
+  $('#view').innerHTML = `
+  <section class="welcome-screen">
+    ${logo('welcome-logo')}
+    <p class="welcome-tag">${W.tag}</p>
+    <p class="welcome-text">${W.text}</p>
+    <ul class="welcome-facts">${W.facts.map(([n, t]) => `<li><b>${n}</b><span>${t}</span></li>`).join('')}</ul>
+    <div class="welcome-btns"><a class="btn pri" href="#home">${W.start}</a>${started ? `<a class="btn" href="#${nextL.id}">${W.cont}</a>` : ''}</div>
+    <nav class="welcome-langs" aria-label="${I.langName}">${langs.map(([c, t, p]) => c === LANG ? `<b>${t}</b>` : `<a href="${ROOT}${p}" hreflang="${c}" lang="${c}">${t}</a>`).join('')}</nav>
+  </section>`;
+}
 function route(){
   const id = location.hash.slice(1);
   const l = L.find(x => x.id === id);
-  if (l) lessonView(l); else if (!/^p-/.test(id)) homeView();
+  document.body.classList.toggle('welcome', !id);
+  if (!id) welcomeView(); else if (l) lessonView(l); else if (!/^p-/.test(id)) homeView();
   document.querySelectorAll('.ls a').forEach(a => a.classList.toggle('on', a.dataset.id === id));
   $('#side').classList.remove('open');
   const part = goPart && document.getElementById(goPart); goPart = null;
