@@ -1,11 +1,11 @@
-/* Layout: ліва колонка з деревом уроків, праворуч урок із плеєром-схемою. Один вигляд для всіх: палітра «Гірська затишність»: темно-зелений #395232, світле дерево #BF9B7B, теплий білий крем #FAF8F5 */
+/* Layout: ліва колонка з деревом уроків, праворуч урок із плеєром-схемою. Один вигляд для всіх: палітра «Міська динаміка»: глибокий синій #013A3C, яскравий помаранчевий #FF7C1A, чистий білий #FAFEFE */
 :root{
-  --page:#FAF8F5;
-  --bg:#FFFFFF; --surface:#F1E9DF; --sunk:#E5D6C5; --ink:#22261F; --muted:#5E5A50; --line:#D6C2AB;
-  --accent:#395232; --accent-ink:#FFFFFF; --accent-soft:#DCE4D3; --link:#395232; --wood:#BF9B7B;
-  --ok:#2F5A2A; --ok-soft:#D6E6CF; --warn:#7A4E12; --warn-soft:#F3E2C4; --bad:#8E2F25; --bad-soft:#F2D8D1;
-  --info:#2B5462; --info-soft:#DAE7EC;
-  --code-bg:#2C3A28; --code-fg:#FAF8F5; color-scheme:light;
+  --page:#FAFEFE;
+  --bg:#FFFFFF; --surface:#E6F0F0; --sunk:#CFE1E1; --ink:#0B2526; --muted:#46605F; --line:#B9D2D2;
+  --accent:#FF7C1A; --accent-ink:#0B2526; --accent-soft:#FFE1CB; --link:#015A5D; --wood:#FF7C1A;
+  --ok:#1F6B45; --ok-soft:#D3EBDC; --warn:#8A4B00; --warn-soft:#FFE6CC; --bad:#A3301F; --bad-soft:#F7D9D3;
+  --info:#015A5D; --info-soft:#D6EAEA;
+  --code-bg:#013A3C; --code-fg:#FAFEFE; color-scheme:light;
   --f-display:"Unbounded","Manrope",system-ui,sans-serif;
   --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
@@ -273,12 +273,12 @@ body.welcome .wrap{max-width:760px}
 .vid figcaption a{font-weight:600;margin-left:6px;white-space:nowrap}
 .sub-h{font-family:var(--f-display);font-weight:500;font-size:18px;margin:0 0 4px}
 .sub-n{margin:0 0 12px;color:var(--muted);font-size:14.5px}
-/* ---------- бокове меню і картки блоків: темно-зелений #395232 зі світлим текстом ---------- */
-.side,.card{--surface:#395232;--bg:#4A6542;--sunk:#4A6542;--ink:#FAF8F5;--muted:#D8D2C2;--line:#5E7856;
-  --accent:#BF9B7B;--accent-ink:#22261F;--accent-soft:#5E7856;--link:#F1E2CF;--ok:#B5DCA5;--warn:#E8C27E;color:var(--ink)}
-.card{border-color:#395232}
-.side .logo circle,.side .logo line{stroke:#FAF8F5}
-.side .logo rect{fill:#FAF8F5}
-.side .logo rect:last-of-type{fill:#BF9B7B}
-.side .logo text{fill:#FAF8F5}
-.side .logo text:last-of-type{fill:#BF9B7B}
+/* ---------- бокове меню, картки блоків і плашки вітальної сторінки: глибокий синій #013A3C зі світлим текстом ---------- */
+.side,.card,.welcome-facts li{--surface:#013A3C;--bg:#0B4D50;--sunk:#0B4D50;--ink:#FAFEFE;--muted:#BCD3D3;--line:#1E5F62;
+  --accent:#FF7C1A;--accent-ink:#0B2526;--accent-soft:#1E5F62;--link:#FFB27A;--ok:#8FD6AE;--warn:#FFC58A;color:var(--ink)}
+.card,.welcome-facts li{border-color:#013A3C}
+.side .logo circle,.side .logo line{stroke:#FAFEFE}
+.side .logo rect{fill:#FAFEFE}
+.side .logo rect:last-of-type{fill:#FF7C1A}
+.side .logo text{fill:#FAFEFE}
+.side .logo text:last-of-type{fill:#FF7C1A}

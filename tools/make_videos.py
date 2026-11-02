@@ -105,7 +105,7 @@ CURSOR_JS = r"""
   const t = st.querySelector('.wmain>.hl') || st.querySelector('.wside .sel'); if (!t) return;
   const a = st.getBoundingClientRect(), b = t.getBoundingClientRect();
   const c = document.createElement('div'); c.className = 'cur';
-  c.innerHTML = '<svg viewBox="0 0 24 24" width="30" height="30"><path d="M4 2l16 10-7 1.5L9.5 21z" fill="#22261F" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg>';
+  c.innerHTML = '<svg viewBox="0 0 24 24" width="30" height="30"><path d="M4 2l16 10-7 1.5L9.5 21z" fill="#0B2526" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg>';
   c.style.left = Math.min(b.left - a.left + Math.min(b.width * .6, 260), a.width - 34) + 'px';
   c.style.top = (b.top - a.top + b.height * .55) + 'px';
   st.appendChild(c);
