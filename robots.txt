@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://platformaseo.vercel.app/sitemap.xml
