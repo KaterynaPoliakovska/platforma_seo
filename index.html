@@ -60,6 +60,13 @@ main{min-width:0;padding-block:28px 80px;padding-left:max(16px,env(safe-area-ins
 .navhint li span{background:var(--accent);color:var(--accent-ink);padding:2px 9px;border-radius:6px}
 .navhint li i{font-style:normal;font-weight:700}
 .qz+.qz{margin-top:12px}
+.expl{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:14px}
+.expl>div{min-width:0}
+.expl label,.expl .lbl{display:block;font-family:var(--f-mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.expl textarea{width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--sunk);border:1px solid var(--line);border-radius:10px;padding:10px 12px;resize:vertical}
+.expl textarea::placeholder{color:var(--muted)}
+.expl .why{margin:0;background:var(--sunk);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-height:76px}
+.expl .wait{color:var(--muted)}
 .qn{font-family:var(--f-mono);font-size:12px;background:var(--accent);color:var(--accent-ink);padding:2px 7px;border-radius:4px;vertical-align:2px}
 .back{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
 .back a{font-size:14px;font-weight:600;text-decoration:none;color:var(--accent-ink);background:var(--accent);padding:6px 14px;border-radius:999px}
@@ -257,6 +264,7 @@ pre code{background:none;padding:0;font-size:inherit;color:inherit;word-break:no
 <script src="c2.js" charset="utf-8"></script>
 <script src="c3.js" charset="utf-8"></script>
 <script src="c4.js" charset="utf-8"></script>
+<script src="old.js" charset="utf-8"></script>
 <script src="ill.js" charset="utf-8"></script>
 <script>
 /* уроки з полем after вставляються після вказаного уроку */
@@ -264,6 +272,31 @@ const L = (window.L || []).filter(l => !l.after);
 (window.L || []).filter(l => l.after).forEach(l => L.splice(L.findIndex(x => x.id === l.after) + 1, 0, l));
 /* схеми з ill.js: у кожному уроці поле svg = [[ключ, аргумент1, аргумент2, підпис]] */
 L.forEach(l => { l.ill = window.ILL ? (l.svg || []).map(([key, a, b, cap]) => ({type:'svg', key, a: a || undefined, b: b || undefined, cap})) : []; });
+/* матеріали попередньої версії (old.js): новий урок ← старі уроки на ту саму тему.
+   З першого беремо довший відеорозбір, з усіх схеми, конспект і 2 додаткові питання тесту */
+const FROM = {
+  'c1-01':['b1-01'], 'c1-02':['b1-02'], 'c1-03':['b1-06','b3-06'], 'c1-04':['b3-04','b1-06'], 'c1-05':['b1-05'],
+  'c1-06':['b1-07'], 'c1-content':['b1-18'], 'c1-07':['b3-02','b3-01'], 'c1-08':['b3-03','b1-08'], 'c1-09':['b1-head'],
+  'c1-schema':['b1-18'], 'c1-hreflang':['b1-14'], 'c1-10':['b1-09'], 'c1-11':['b1-13'], 'c1-12':['b1-03'],
+  'c1-13':['b3-09','b1-03'], 'c1-14':['b1-15'], 'c1-gbp':['b1-19'],
+  'c2-01':['b2-00'], 'c2-code':['b2-01','b3-07'], 'c2-02':['b1-04'], 'c2-03':['b1-04'], 'c2-audit':['b1-16'],
+  'c2-04':['b2-05'], 'c2-https':['b2-06'], 'c2-05':['b1-12','b1-11'], 'c2-06':['b1-10'], 'c2-07':['b2-02'],
+  'c2-08':['b2-03'], 'c2-09':['b2-04','b1-20'], 'c2-10':['b2-07'], 'c2-11':['b2-08','b2-09','b2-10','b3-08'],
+  'c2-12':['b2-12'], 'c2-13':['b1-17'], 'c2-14':['b2-13','b3-05'], 'c2-rules':['b1-19'],
+  'c3-01':['b3-10'], 'c3-02':['b3-09'], 'c3-03':['b3-11'], 'c3-04':['b3-12','b2-14'], 'c3-05':['b3-13']
+};
+const OLDBY = {}; (window.OLD || []).forEach(o => OLDBY[o.id] = o);
+L.forEach(l => {
+  const src = (FROM[l.id] || []).map(id => OLDBY[id]).filter(Boolean);
+  if (!src.length) return;
+  l.scenes = l.scenes.concat(src[0].scenes);
+  src.forEach(o => (o.ill || []).forEach(il => l.ill.push(il)));
+  l.notes = src.flatMap(o => [{h: o.title}, ...o.notes]);
+  const seen = new Set([l.quiz, ...(l.tests || [])].map(q => q.q));
+  const pool = src.flatMap(o => [o.quiz, ...(o.tests || []), ...((window.OLDTX || {})[o.id] || [])]);
+  const extra = pool.filter(q => q && !seen.has(q.q) && seen.add(q.q)).slice(0, 2);
+  l.tests = (l.tests || []).concat(extra);
+});
 const BLOCKS = [
   {id:'c1', t:'Блок 1. Новий сайт: GitHub + Vercel', d:'Семантика в Keyword Planner, Trends і Serpstat, структура і тексти, сайт на GitHub і Vercel, SEO-теги, мікророзмітка, hreflang, robots.txt, sitemap, Search Console, GA4 і GTM, індексація, Google Business Profile.'},
   {id:'c2', t:'Блок 2. Аудит і виправлення: WordPress', d:'Код сторінки, Screaming Frog і Netpeak Spider, чек-лист аудиту, редиректи, HTTPS, дублікати і canonical, noindex, WordPress і Rank Math, звіт «Сторінки», швидкість, on-page, посилання, правила Google.'},
@@ -428,14 +461,16 @@ function lessonView(l){
   const yt = 'https://www.youtube.com/results?search_query=' + encodeURIComponent(l.yt);
   const c = S.c[l.id] || [];
   const links = (l.links||[]).map(([t,u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`).join(' · ');
+  let k = 0; const K = () => ++k;
+  S.r = S.r || {};
   $('#view').innerHTML = `
   <nav class="back" aria-label="Повернення"><a href="#home">← Назад до меню курсу</a></nav>
   <div class="eyebrow">${esc(blk.t)} · урок ${sib.indexOf(l)+1} з ${sib.length} · ≈ ${esc(l.dur)}</div>
   <h1>${esc(l.title)}</h1>
   <nav class="toc" aria-label="Частини уроку">
-    <a href="#p-video" data-j>Відеорозбір</a><a href="#p-what" data-j>Що це</a><a href="#p-steps" data-j>Куди натискати</a>${l.example ? '<a href="#p-ex" data-j>Приклад</a>' : ''}<a href="#p-err" data-j>Помилки</a><a href="#p-check" data-j>Чек-лист</a><a href="#p-quiz" data-j>Тест</a>
+    <a href="#p-video" data-j>Відеорозбір</a><a href="#p-what" data-j>Що це</a><a href="#p-steps" data-j>Куди натискати</a>${l.example ? '<a href="#p-ex" data-j>Приклад</a>' : ''}${l.notes ? '<a href="#p-notes" data-j>Конспект</a>' : ''}<a href="#p-err" data-j>Помилки</a><a href="#p-check" data-j>Чек-лист</a><a href="#p-quiz" data-j>Тест</a>
   </nav>
-  <section class="part" id="p-video"><div class="ph"><span class="k">1</span><h2>Відеорозбір</h2></div>
+  <section class="part" id="p-video"><div class="ph"><span class="k">${K()}</span><h2>Відеорозбір · ${l.scenes.length} сцен</h2></div>
     <div class="player">
       <div class="stage" id="stage"><span class="scap" id="scap"></span><div class="slot"></div>
         <svg class="cursor" id="cursor" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2l7 19 2.6-8.1L21 10z" fill="var(--ink)" stroke="var(--surface)" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
@@ -452,20 +487,26 @@ function lessonView(l){
         <ol>${l.scenes.map(s => `<li><b>${fmt(s.t)}.</b> ${fmt(s.say)}</li>`).join('')}</ol></div>
       <div class="yt"><span>Справжні записи екрана з цієї теми:</span><a href="${yt}" target="_blank" rel="noopener">YouTube: «${esc(l.yt)}» ↗</a>${links ? `<span style="color:var(--muted)">Інструменти:</span> ${links}` : ''}</div>
     </div></section>
-  <section class="part" id="p-what"><div class="ph"><span class="k">2</span><h2>Що це і навіщо</h2></div>
-    <div class="panel notes"><p class="what">${fmt(l.what)}</p>${l.ill.length ? `<div class="ill-wrap">${l.ill.map(illHTML).join('')}</div>` : ''}</div></section>
-  <section class="part" id="p-steps"><div class="ph"><span class="k">3</span><h2>Куди натискати</h2></div>
+  <section class="part" id="p-what"><div class="ph"><span class="k">${K()}</span><h2>Що це і навіщо</h2></div>
+    <div class="panel notes"><p class="what">${fmt(l.what)}</p></div></section>
+  ${l.ill.length ? `<section class="part" id="p-ill"><div class="ph"><span class="k">${K()}</span><h2>Схеми та ілюстрації</h2></div>
+    <div class="panel">${l.ill.map(illHTML).join('')}</div></section>` : ''}
+  <section class="part" id="p-steps"><div class="ph"><span class="k">${K()}</span><h2>Куди натискати</h2></div>
     ${l.nav ? `<div class="navhint"><b>Шлях у програмі</b><ul>${l.nav.map(p => `<li>${p.split(' → ').map(s => `<span>${fmt(s)}</span>`).join('<i aria-hidden="true">›</i>')}</li>`).join('')}</ul></div>` : ''}
     <ol class="steps">${l.steps.map(s => `<li><div>${fmt(s)}</div></li>`).join('')}</ol></section>
-  ${l.example ? `<section class="part" id="p-ex"><div class="ph"><span class="k">4</span><h2>Приклад</h2></div>
+  ${l.example ? `<section class="part" id="p-ex"><div class="ph"><span class="k">${K()}</span><h2>Приклад</h2></div>
     <div class="panel notes">${notesHTML(l.example)}</div></section>` : ''}
-  <section class="part" id="p-err"><div class="ph"><span class="k">${l.example ? 5 : 4}</span><h2>Типові помилки</h2></div>
+  ${l.notes ? `<section class="part" id="p-notes"><div class="ph"><span class="k">${K()}</span><h2>Конспект</h2></div>
+    <div class="panel notes">${notesHTML(l.notes)}</div></section>` : ''}
+  <section class="part" id="p-err"><div class="ph"><span class="k">${K()}</span><h2>Типові помилки</h2></div>
     <ul class="errs">${l.mistakes.map(m => `<li>${fmt(m)}</li>`).join('')}</ul></section>
-  <section class="part" id="p-check"><div class="ph"><span class="k">${l.example ? 6 : 5}</span><h2>Чек-лист</h2></div>
+  <section class="part" id="p-check"><div class="ph"><span class="k">${K()}</span><h2>Чек-лист</h2></div>
     <div class="panel"><div class="chk-sum"><span id="csum"></span><button class="btn" id="creset" type="button">Зняти всі відмітки</button></div>
     <div class="chk">${l.check.map((x, i) => `<label><input type="checkbox" id="ck-${l.id}-${i}" data-i="${i}" ${c[i]?'checked':''}><span>${fmt(x)}</span></label>`).join('')}</div></div></section>
-  <section class="part" id="p-quiz"><div class="ph"><span class="k">${l.example ? 7 : 6}</span><h2>Тест</h2></div>
-    ${QS(l).map((q, n) => `<div class="panel qz" data-n="${n}"><p class="q">${QS(l).length > 1 ? `<span class="qn">${n+1}/${QS(l).length}</span> ` : ''}${fmt(q.q)}</p><div class="opts">${q.a.map((x, i) => `<button type="button" data-i="${i}">${fmt(x)}</button>`).join('')}</div><div class="why"></div></div>`).join('')}</section>
+  <section class="part" id="p-quiz"><div class="ph"><span class="k">${K()}</span><h2>Тест · ${QS(l).length} питань</h2></div>
+    ${QS(l).map((q, n) => `<div class="panel qz" data-n="${n}"><p class="q">${QS(l).length > 1 ? `<span class="qn">${n+1}/${QS(l).length}</span> ` : ''}${fmt(q.q)}</p><div class="opts">${q.a.map((x, i) => `<button type="button" data-i="${i}">${fmt(x)}</button>`).join('')}</div>
+      <div class="expl"><div><label for="r-${l.id}-${n}">Чому я так вважаю</label><textarea id="r-${l.id}-${n}" rows="3" placeholder="Напишіть своє пояснення, потім порівняйте з поясненням курсу">${esc(S.r[qKey(l, n)] || '')}</textarea></div>
+      <div><span class="lbl">Пояснення курсу</span><div class="why"><span class="wait">Зʼявиться після вашої відповіді</span></div></div></div></div>`).join('')}</section>
   <div class="pager">${prev ? `<a href="#${prev.id}"><small>← Попередній</small>${esc(prev.title)}</a>` : '<span></span>'}${next ? `<a class="nx" href="#${next.id}"><small>Наступний →</small>${esc(next.title)}</a>` : `<a class="nx" href="#home"><small>Кінець курсу</small>На головну</a>`}</div>`;
 
   P.l = l; P.playing = false; P.pausedAt = 0; P.voice = false;
@@ -489,6 +530,7 @@ function lessonView(l){
       box.querySelector('.why').innerHTML = (i === q.c ? '<b style="color:var(--ok)">Правильно.</b> ' : '<b style="color:var(--bad)">Не зовсім.</b> ') + fmt(q.why);
     };
     box.querySelectorAll('.opts button').forEach(b => b.onclick = () => { const i = +b.dataset.i; if (i === q.c) { S.q[qKey(l, n)] = true; save(); updateProgress(); } answer(i); });
+    box.querySelector('textarea').oninput = e => { S.r[qKey(l, n)] = e.target.value; save(); };
     if (S.q[qKey(l, n)]) answer(q.c);
   });
   bindCopy();
@@ -513,7 +555,7 @@ function homeView(){
     ['GS Location Changer','https://chromewebstore.google.com/search/GS%20Location%20Changer','Видача Google з потрібного міста']
   ];
   const first = L[0].id;
-  const parts = [['p-video','1. Відеорозбір','Сцени зі схемою програми і курсором, озвучка, сценарій.'],['p-what','2. Що це','2–3 речення і схема.'],['p-steps','3. Куди натискати','Шлях у програмі і кроки по порядку.'],['p-ex','4. Приклад','Готовий код або таблиця на прикладі сайту «Мости».'],['p-err','5. Типові помилки','Що найчастіше роблять неправильно.'],['p-check','6. Чек-лист','Відмітки зберігаються.'],['p-quiz','7. Тест','Три питання з поясненням.']];
+  const parts = [['p-video','1. Відеорозбір','5–9 сцен зі схемою програми і курсором, озвучка, сценарій.'],['p-what','2. Що це','2–3 речення простими словами.'],['p-ill','3. Схеми та ілюстрації','Схеми процесів, дерева рішень, порівняння.'],['p-steps','4. Куди натискати','Шлях у програмі і кроки по порядку.'],['p-ex','5. Приклад','Готовий код або таблиця на прикладі сайту «Мости».'],['p-notes','6. Конспект','Детальні таблиці, код і поради.'],['p-err','7. Типові помилки','Що найчастіше роблять неправильно.'],['p-check','8. Чек-лист','Відмітки зберігаються.'],['p-quiz','9. Тест','5 питань і поле «Чому я так вважаю» поруч з поясненням курсу.']];
   $('#view').innerHTML = `
   <div class="hero"><div class="eyebrow">${L.length} уроків · ${BLOCKS.length} блоки · приклад: сайт бюро перекладів «Мости»</div>
   <h1>SEO Старт</h1>
