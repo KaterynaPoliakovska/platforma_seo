@@ -273,3 +273,12 @@ body.welcome .wrap{max-width:760px}
 .vid figcaption a{font-weight:600;margin-left:6px;white-space:nowrap}
 .sub-h{font-family:var(--f-display);font-weight:500;font-size:18px;margin:0 0 4px}
 .sub-n{margin:0 0 12px;color:var(--muted);font-size:14.5px}
+/* ---------- бокове меню і картки блоків: темно-зелений #395232 зі світлим текстом ---------- */
+.side,.card{--surface:#395232;--bg:#4A6542;--sunk:#4A6542;--ink:#FAF8F5;--muted:#D8D2C2;--line:#5E7856;
+  --accent:#BF9B7B;--accent-ink:#22261F;--accent-soft:#5E7856;--link:#F1E2CF;--ok:#B5DCA5;--warn:#E8C27E;color:var(--ink)}
+.card{border-color:#395232}
+.side .logo circle,.side .logo line{stroke:#FAF8F5}
+.side .logo rect{fill:#FAF8F5}
+.side .logo rect:last-of-type{fill:#BF9B7B}
+.side .logo text{fill:#FAF8F5}
+.side .logo text:last-of-type{fill:#BF9B7B}
