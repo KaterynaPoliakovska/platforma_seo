@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 96" role="img" aria-label="SEO Start">
-  <circle cx="44" cy="42" r="26" fill="none" stroke="#335A5B" stroke-width="8"/>
-  <line x1="63" y1="61" x2="82" y2="80" stroke="#335A5B" stroke-width="11" stroke-linecap="round"/>
-  <rect x="31" y="44" width="7" height="12" rx="2" fill="#335A5B"/>
-  <rect x="41" y="36" width="7" height="20" rx="2" fill="#335A5B"/>
-  <rect x="51" y="27" width="7" height="29" rx="2" fill="#C9A15B"/>
+  <circle cx="44" cy="42" r="26" fill="none" stroke="#395232" stroke-width="8"/>
+  <line x1="63" y1="61" x2="82" y2="80" stroke="#395232" stroke-width="11" stroke-linecap="round"/>
+  <rect x="31" y="44" width="7" height="12" rx="2" fill="#395232"/>
+  <rect x="41" y="36" width="7" height="20" rx="2" fill="#395232"/>
+  <rect x="51" y="27" width="7" height="29" rx="2" fill="#BF9B7B"/>
   <text x="102" y="50" font-family="Unbounded, Manrope, Arial, sans-serif" font-weight="700" font-size="30" fill="#0F0F0D">SEO</text>
-  <text x="102" y="82" font-family="Unbounded, Manrope, Arial, sans-serif" font-weight="500" font-size="22" letter-spacing="3" fill="#335A5B">START</text>
+  <text x="102" y="82" font-family="Unbounded, Manrope, Arial, sans-serif" font-weight="500" font-size="22" letter-spacing="3" fill="#395232">START</text>
 </svg>

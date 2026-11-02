@@ -11,8 +11,8 @@ const UI = {
       {id:'c3', t:'Блок 3. Аналітика і звіти', d:'Search Console, GA4, позиції в Serpstat, звіт керівнику і пошук причини падіння трафіку.'}],
     progress:'Прогрес курсу', lessons:'Уроки', navLabel:'Уроки курсу', menu:'☰ Уроки',
     back:'← Назад до меню курсу', lessonOf:(n,m)=>`урок ${n} з ${m}`, partsLabel:'Частини уроку', backLabel:'Повернення',
-    toc:{video:'Відеорозбір', what:'Що це', steps:'Куди натискати', ex:'Приклад', notes:'Конспект', err:'Помилки', check:'Чек-лист', quiz:'Тест'},
-    video:n=>`Відеорозбір · ${n} сцен`, scene:(i,n)=>`Сцена ${i} / ${n}`, sceneBtn:i=>`Сцена ${i}`,
+    toc:{video:'Відеоурок', what:'Що це', steps:'Куди натискати', ex:'Приклад', notes:'Конспект', err:'Помилки', check:'Чек-лист', quiz:'Тест'},
+    video:'Відеоурок', vidNote:'Покрокова інструкція з озвучкою: кожен крок на схемі програми, типові помилки і чек-лист.', dl:'Завантажити MP4', scheme:n=>`Інтерактивна схема · ${n} сцен`, schemeNote:'Ті самі екрани програми, які можна гортати самостійно.', scene:(i,n)=>`Сцена ${i} / ${n}`, sceneBtn:i=>`Сцена ${i}`,
     play:'▶ Відтворити', pause:'❚❚ Пауза', prev:'Попередня сцена', next:'Наступна сцена',
     voice:'🔊 Озвучка', voiceTitle:'Читати текст сцени голосом браузера', script:'Сценарій',
     scriptNote:'Текст озвучки для запису власного відеоуроку. Читайте по сценах, показуючи на екрані те, що на схемі.',
@@ -26,7 +26,7 @@ const UI = {
     heroEyebrow:(n,b)=>`${n} уроків · ${b} блоки · приклад: сайт бюро перекладів «Мости»`,
     lead:'Короткі практичні інструкції: що це, куди натискати, приклад, помилки, тест. Тільки програми, з якими ви працюєте.',
     startBlock:'Почати блок', howTitle:'Як влаштований кожен урок', howNote:'Натисніть на частину, щоб відкрити її в першому уроці.',
-    parts:[['p-video','1. Відеорозбір','5–9 сцен зі схемою програми і курсором, озвучка, сценарій.'],['p-what','2. Що це','2–3 речення простими словами.'],['p-ill','3. Схеми та ілюстрації','Схеми процесів, дерева рішень, порівняння.'],['p-steps','4. Куди натискати','Шлях у програмі і кроки по порядку.'],['p-ex','5. Приклад','Готовий код або таблиця на прикладі сайту «Мости».'],['p-notes','6. Конспект','Детальні таблиці, код і поради.'],['p-err','7. Типові помилки','Що найчастіше роблять неправильно.'],['p-check','8. Чек-лист','Відмітки зберігаються.'],['p-quiz','9. Тест','5 питань і поле «Чому я так вважаю» поруч з поясненням курсу.']],
+    parts:[['p-video','1. Відеоурок','Відео з озвучкою: кожен крок інструкції на схемі програми. Під ним інтерактивна схема зі сценами.'],['p-what','2. Що це','2–3 речення простими словами.'],['p-ill','3. Схеми та ілюстрації','Схеми процесів, дерева рішень, порівняння.'],['p-steps','4. Куди натискати','Шлях у програмі і кроки по порядку.'],['p-ex','5. Приклад','Готовий код або таблиця на прикладі сайту «Мости».'],['p-notes','6. Конспект','Детальні таблиці, код і поради.'],['p-err','7. Типові помилки','Що найчастіше роблять неправильно.'],['p-check','8. Чек-лист','Відмітки зберігаються.'],['p-quiz','9. Тест','5 питань і поле «Чому я так вважаю» поруч з поясненням курсу.']],
     toolsTitle:'Програми курсу', toolCol:'Програма', forCol:'Для чого',
     toolsList:['Індексація, запити, кліки, помилки, sitemap','Трафік з пошуку і заявки','Встановлення GA4 і подій без правок коду','Частотність запитів','Сезонність і порівняння запитів','Ключі, кластеризація, конкуренти, позиції','Посилання, ключі конкурентів, аудит свого сайту (Webmaster Tools)','Сканування сайту: коди, title, дублікати, canonical','Сканування сайту з помилками за важливістю','SEO-налаштування сайтів на WordPress','Зберігання файлів сайту і їх оновлення','Публікація сайту з GitHub, домен, редиректи','Швидкість сторінки','Код сторінки і статус-коди','Видача Google з потрібного міста'],
     planner:'Google Ads: Планувальник ключових слів', speech:'uk-UA', langName:'Мова', brand:'SEO Start',
@@ -39,8 +39,8 @@ const UI = {
       {id:'c3', t:'Block 3. Analytics and reporting', d:'Search Console, GA4, rankings in Serpstat, a report for your manager and finding the cause of a traffic drop.'}],
     progress:'Course progress', lessons:'Lessons', navLabel:'Course lessons', menu:'☰ Lessons',
     back:'← Back to course menu', lessonOf:(n,m)=>`lesson ${n} of ${m}`, partsLabel:'Lesson sections', backLabel:'Back',
-    toc:{video:'Video walkthrough', what:'What it is', steps:'Where to click', ex:'Example', notes:'Notes', err:'Mistakes', check:'Checklist', quiz:'Quiz'},
-    video:n=>`Video walkthrough · ${n} scenes`, scene:(i,n)=>`Scene ${i} / ${n}`, sceneBtn:i=>`Scene ${i}`,
+    toc:{video:'Video lesson', what:'What it is', steps:'Where to click', ex:'Example', notes:'Notes', err:'Mistakes', check:'Checklist', quiz:'Quiz'},
+    video:'Video lesson', vidNote:'A step-by-step guide with voice-over: every step on a diagram of the tool, common mistakes and a checklist.', dl:'Download MP4', scheme:n=>`Interactive diagram · ${n} scenes`, schemeNote:'The same tool screens, to click through at your own pace.', scene:(i,n)=>`Scene ${i} / ${n}`, sceneBtn:i=>`Scene ${i}`,
     play:'▶ Play', pause:'❚❚ Pause', prev:'Previous scene', next:'Next scene',
     voice:'🔊 Voice-over', voiceTitle:'Read the scene text aloud with the browser voice', script:'Script',
     scriptNote:'Voice-over text for recording your own video lesson. Read scene by scene while showing what is on the diagram.',
@@ -54,7 +54,7 @@ const UI = {
     heroEyebrow:(n,b)=>`${n} lessons · ${b} blocks · example: the Mosty translation agency website`,
     lead:'Short practical guides: what it is, where to click, an example, mistakes and a quiz. Only the tools you actually use.',
     startBlock:'Start block', howTitle:'How every lesson is built', howNote:'Click a section to open it in the first lesson.',
-    parts:[['p-video','1. Video walkthrough','Scenes with a diagram of the tool and a cursor, voice-over and a script.'],['p-what','2. What it is','2–3 sentences in plain words.'],['p-ill','3. Diagrams and illustrations','Process diagrams, decision trees, comparisons.'],['p-steps','4. Where to click','The path in the tool and the steps in order.'],['p-ex','5. Example','Ready-made code or a table based on the Mosty website.'],['p-notes','6. Notes','Detailed tables, code and tips.'],['p-err','7. Common mistakes','What people most often get wrong.'],['p-check','8. Checklist','Your ticks are saved.'],['p-quiz','9. Quiz','5 questions and a “Why I think so” field next to the course explanation.']],
+    parts:[['p-video','1. Video lesson','A video with voice-over: every step of the guide on a diagram of the tool. Below it, an interactive diagram with scenes.'],['p-what','2. What it is','2–3 sentences in plain words.'],['p-ill','3. Diagrams and illustrations','Process diagrams, decision trees, comparisons.'],['p-steps','4. Where to click','The path in the tool and the steps in order.'],['p-ex','5. Example','Ready-made code or a table based on the Mosty website.'],['p-notes','6. Notes','Detailed tables, code and tips.'],['p-err','7. Common mistakes','What people most often get wrong.'],['p-check','8. Checklist','Your ticks are saved.'],['p-quiz','9. Quiz','5 questions and a “Why I think so” field next to the course explanation.']],
     toolsTitle:'Tools in this course', toolCol:'Tool', forCol:'What it is for',
     toolsList:['Indexing, queries, clicks, errors, sitemaps','Search traffic and leads','Installing GA4 and events without editing code','Search volume','Seasonality and comparing queries','Keywords, clustering, competitors, rankings','Backlinks, competitor keywords, auditing your own site (Webmaster Tools)','Crawling a site: status codes, titles, duplicates, canonical','Crawling a site with issues grouped by severity','SEO settings for WordPress sites','Storing and updating the site files','Publishing a site from GitHub, domain, redirects','Page speed','Page source and status codes','Google results from a chosen city'],
     planner:'Google Ads: Keyword Planner', speech:'en-GB', langName:'Language', brand:'SEO Start',
@@ -67,8 +67,8 @@ const UI = {
       {id:'c3', t:'Blok 3. Analityka i raporty', d:'Search Console, GA4, pozycje w Serpstat, raport dla przełożonego i szukanie przyczyny spadku ruchu.'}],
     progress:'Postęp kursu', lessons:'Lekcje', navLabel:'Lekcje kursu', menu:'☰ Lekcje',
     back:'← Wróć do menu kursu', lessonOf:(n,m)=>`lekcja ${n} z ${m}`, partsLabel:'Części lekcji', backLabel:'Powrót',
-    toc:{video:'Wideo', what:'Co to jest', steps:'Gdzie kliknąć', ex:'Przykład', notes:'Notatki', err:'Błędy', check:'Lista kontrolna', quiz:'Test'},
-    video:n=>`Omówienie wideo · scen: ${n}`, scene:(i,n)=>`Scena ${i} / ${n}`, sceneBtn:i=>`Scena ${i}`,
+    toc:{video:'Lekcja wideo', what:'Co to jest', steps:'Gdzie kliknąć', ex:'Przykład', notes:'Notatki', err:'Błędy', check:'Lista kontrolna', quiz:'Test'},
+    video:'Lekcja wideo', vidNote:'Instrukcja krok po kroku z lektorem: każdy krok na schemacie programu, typowe błędy i lista kontrolna.', dl:'Pobierz MP4', scheme:n=>`Interaktywny schemat · scen: ${n}`, schemeNote:'Te same ekrany programu do samodzielnego przeglądania.', scene:(i,n)=>`Scena ${i} / ${n}`, sceneBtn:i=>`Scena ${i}`,
     play:'▶ Odtwórz', pause:'❚❚ Pauza', prev:'Poprzednia scena', next:'Następna scena',
     voice:'🔊 Lektor', voiceTitle:'Czytaj tekst sceny głosem przeglądarki', script:'Scenariusz',
     scriptNote:'Tekst lektora do nagrania własnej lekcji wideo. Czytaj scena po scenie, pokazując na ekranie to, co jest na schemacie.',
@@ -82,7 +82,7 @@ const UI = {
     heroEyebrow:(n,b)=>`Lekcje: ${n} · bloki: ${b} · przykład: strona biura tłumaczeń „Mosty”`,
     lead:'Krótkie praktyczne instrukcje: co to jest, gdzie kliknąć, przykład, błędy i test. Tylko narzędzia, z których faktycznie korzystasz.',
     startBlock:'Zacznij blok', howTitle:'Jak zbudowana jest każda lekcja', howNote:'Kliknij część, aby otworzyć ją w pierwszej lekcji.',
-    parts:[['p-video','1. Omówienie wideo','Sceny ze schematem programu i kursorem, lektor i scenariusz.'],['p-what','2. Co to jest','2–3 zdania prostym językiem.'],['p-ill','3. Schematy i ilustracje','Schematy procesów, drzewa decyzji, porównania.'],['p-steps','4. Gdzie kliknąć','Ścieżka w programie i kroki po kolei.'],['p-ex','5. Przykład','Gotowy kod lub tabela na przykładzie strony „Mosty”.'],['p-notes','6. Notatki','Szczegółowe tabele, kod i wskazówki.'],['p-err','7. Typowe błędy','Co najczęściej robi się źle.'],['p-check','8. Lista kontrolna','Zaznaczenia są zapisywane.'],['p-quiz','9. Test','5 pytań i pole „Dlaczego tak uważam” obok wyjaśnienia kursu.']],
+    parts:[['p-video','1. Lekcja wideo','Wideo z lektorem: każdy krok instrukcji na schemacie programu. Pod nim interaktywny schemat ze scenami.'],['p-what','2. Co to jest','2–3 zdania prostym językiem.'],['p-ill','3. Schematy i ilustracje','Schematy procesów, drzewa decyzji, porównania.'],['p-steps','4. Gdzie kliknąć','Ścieżka w programie i kroki po kolei.'],['p-ex','5. Przykład','Gotowy kod lub tabela na przykładzie strony „Mosty”.'],['p-notes','6. Notatki','Szczegółowe tabele, kod i wskazówki.'],['p-err','7. Typowe błędy','Co najczęściej robi się źle.'],['p-check','8. Lista kontrolna','Zaznaczenia są zapisywane.'],['p-quiz','9. Test','5 pytań i pole „Dlaczego tak uważam” obok wyjaśnienia kursu.']],
     toolsTitle:'Narzędzia kursu', toolCol:'Narzędzie', forCol:'Do czego służy',
     toolsList:['Indeksowanie, zapytania, kliknięcia, błędy, mapy witryn','Ruch z wyszukiwarki i zapytania ofertowe','Instalacja GA4 i zdarzeń bez zmian w kodzie','Liczba wyszukiwań','Sezonowość i porównywanie zapytań','Słowa kluczowe, klasteryzacja, konkurencja, pozycje','Linki, słowa kluczowe konkurencji, audyt własnej strony (Webmaster Tools)','Skanowanie strony: kody, title, duplikaty, canonical','Skanowanie strony z błędami według ważności','Ustawienia SEO stron na WordPressie','Przechowywanie i aktualizacja plików strony','Publikacja strony z GitHub, domena, przekierowania','Szybkość strony','Kod strony i kody odpowiedzi','Wyniki Google z wybranego miasta'],
     planner:'Google Ads: Planer słów kluczowych', speech:'pl-PL', langName:'Język', brand:'SEO Start',
@@ -152,7 +152,7 @@ function updateProgress(){
     a.querySelector('.st').className = 'st' + (p >= 1 ? ' full' : p > 0 ? ' half' : '');
   });
 }
-const LOGO = '<svg class="CLS" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 96" role="img" aria-label="SEO Start"><circle cx="44" cy="42" r="26" fill="none" stroke="#335A5B" stroke-width="8"/><line x1="63" y1="61" x2="82" y2="80" stroke="#335A5B" stroke-width="11" stroke-linecap="round"/><rect x="31" y="44" width="7" height="12" rx="2" fill="#335A5B"/><rect x="41" y="36" width="7" height="20" rx="2" fill="#335A5B"/><rect x="51" y="27" width="7" height="29" rx="2" fill="#C9A15B"/><text x="102" y="50" font-family="Unbounded, Manrope, Arial, sans-serif" font-weight="700" font-size="30" fill="#0F0F0D">SEO</text><text x="102" y="82" font-family="Unbounded, Manrope, Arial, sans-serif" font-weight="500" font-size="22" letter-spacing="3" fill="#335A5B">START</text></svg>';
+const LOGO = '<svg class="CLS" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 96" role="img" aria-label="SEO Start"><circle cx="44" cy="42" r="26" fill="none" stroke="#395232" stroke-width="8"/><line x1="63" y1="61" x2="82" y2="80" stroke="#395232" stroke-width="11" stroke-linecap="round"/><rect x="31" y="44" width="7" height="12" rx="2" fill="#395232"/><rect x="41" y="36" width="7" height="20" rx="2" fill="#395232"/><rect x="51" y="27" width="7" height="29" rx="2" fill="#BF9B7B"/><text x="102" y="50" font-family="Unbounded, Manrope, Arial, sans-serif" font-weight="700" font-size="30" fill="#0F0F0D">SEO</text><text x="102" y="82" font-family="Unbounded, Manrope, Arial, sans-serif" font-weight="500" font-size="22" letter-spacing="3" fill="#395232">START</text></svg>';
 const logo = cls => LOGO.replace('CLS', cls);
 
 function buildNav(){
@@ -304,7 +304,10 @@ function lessonView(l){
   <nav class="toc" aria-label="${I.partsLabel}">
     <a href="#p-video" data-j>${T.video}</a><a href="#p-what" data-j>${T.what}</a><a href="#p-steps" data-j>${T.steps}</a>${l.example ? `<a href="#p-ex" data-j>${T.ex}</a>` : ''}${l.notes ? `<a href="#p-notes" data-j>${T.notes}</a>` : ''}<a href="#p-err" data-j>${T.err}</a><a href="#p-check" data-j>${T.check}</a><a href="#p-quiz" data-j>${T.quiz}</a>
   </nav>
-  <section class="part" id="p-video"><div class="ph"><span class="k">${K()}</span><h2>${I.video(l.scenes.length)}</h2></div>
+  <section class="part" id="p-video"><div class="ph"><span class="k">${K()}</span><h2>${I.video}</h2></div>
+    <figure class="vid"><video controls preload="metadata" playsinline src="${ROOT}video/${LANG}/${l.id}.mp4"></video>
+      <figcaption>${I.vidNote} <a href="${ROOT}video/${LANG}/${l.id}.mp4" download>${I.dl}</a></figcaption></figure>
+    <h3 class="sub-h">${I.scheme(l.scenes.length)}</h3><p class="sub-n">${I.schemeNote}</p>
     <div class="player">
       <div class="stage" id="stage"><span class="scap" id="scap"></span><div class="slot"></div>
         <svg class="cursor" id="cursor" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2l7 19 2.6-8.1L21 10z" fill="var(--ink)" stroke="var(--surface)" stroke-width="1.5" stroke-linejoin="round"/></svg></div>

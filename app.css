@@ -1,11 +1,11 @@
-/* Layout: ліва колонка з деревом уроків, праворуч урок із плеєром-схемою. Один вигляд для всіх: пастельна палітра: блакитний #D1E8E4, пудровий рожевий #F4DADA, кремовий #FAF8F5 */
+/* Layout: ліва колонка з деревом уроків, праворуч урок із плеєром-схемою. Один вигляд для всіх: палітра «Гірська затишність»: темно-зелений #395232, світле дерево #BF9B7B, теплий білий крем #FAF8F5 */
 :root{
   --page:#FAF8F5;
-  --bg:#FAF8F5; --surface:#D1E8E4; --sunk:#BFDCD7; --ink:#1F2A2A; --muted:#566765; --line:#B3D2CC;
-  --accent:#F4DADA; --accent-ink:#1F2A2A; --accent-soft:#F4DADA; --link:#3B7770;
-  --ok:#2F6B4F; --ok-soft:#CFE8D9; --warn:#8A5A12; --warn-soft:#F6E5C6; --bad:#9B3B33; --bad-soft:#F4DADA;
-  --info:#2B5C6B; --info-soft:#D6E8EE;
-  --code-bg:#2E3E3D; --code-fg:#FAF8F5; color-scheme:light;
+  --bg:#FFFFFF; --surface:#F1E9DF; --sunk:#E5D6C5; --ink:#22261F; --muted:#5E5A50; --line:#D6C2AB;
+  --accent:#395232; --accent-ink:#FFFFFF; --accent-soft:#DCE4D3; --link:#395232; --wood:#BF9B7B;
+  --ok:#2F5A2A; --ok-soft:#D6E6CF; --warn:#7A4E12; --warn-soft:#F3E2C4; --bad:#8E2F25; --bad-soft:#F2D8D1;
+  --info:#2B5462; --info-soft:#DAE7EC;
+  --code-bg:#2C3A28; --code-fg:#FAF8F5; color-scheme:light;
   --f-display:"Unbounded","Manrope",system-ui,sans-serif;
   --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
@@ -80,7 +80,7 @@ section.part{margin-top:34px;scroll-margin-top:64px}
 /* ---------- player ---------- */
 .player{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
 .stage{position:relative;background:var(--sunk);padding:18px;min-height:360px}
-.win{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 10px 30px -18px rgba(10,20,40,.45);animation:fin .45s ease}
+.win{background:var(--page);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 10px 30px -18px rgba(10,20,40,.45);animation:fin .45s ease}
 @keyframes fin{from{opacity:.25;transform:translateY(6px)}to{opacity:1;transform:none}}
 .wbar{display:flex;align-items:center;gap:10px;padding:8px 12px;border-bottom:1px solid var(--line);background:var(--bg)}
 .dots{display:flex;gap:5px}.dots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
@@ -121,7 +121,7 @@ section.part{margin-top:34px;scroll-margin-top:64px}
 .btn[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--link)}
 .seg{display:flex;gap:4px;flex:1;min-width:140px}
 .seg button{flex:1;height:8px;border:0;border-radius:4px;background:var(--line);cursor:pointer;padding:0;position:relative;overflow:hidden}
-.seg button i{position:absolute;inset:0;width:0;background:var(--accent)}
+.seg button i{position:absolute;inset:0;width:0;background:var(--wood)}
 .seg button.past i{width:100%}
 .yt{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;padding:12px 16px;border-top:1px solid var(--line);font-size:14px}
 .yt a{font-weight:600}
@@ -265,3 +265,11 @@ body.welcome .wrap{max-width:760px}
 .welcome-langs{display:flex;gap:14px;font-size:14px}
 .welcome-langs a{color:var(--ink)}
 .welcome-langs b{color:var(--accent-ink);background:var(--accent);padding:0 8px;border-radius:6px}
+
+/* ---------- відеоурок MP4 ---------- */
+.vid{margin:0 0 26px;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.vid video{display:block;width:100%;aspect-ratio:16/9;background:var(--sunk)}
+.vid figcaption{padding:12px 18px;font-size:14.5px;color:var(--muted)}
+.vid figcaption a{font-weight:600;margin-left:6px;white-space:nowrap}
+.sub-h{font-family:var(--f-display);font-weight:500;font-size:18px;margin:0 0 4px}
+.sub-n{margin:0 0 12px;color:var(--muted);font-size:14.5px}
